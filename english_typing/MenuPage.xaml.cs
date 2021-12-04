@@ -18,22 +18,15 @@ namespace english_typing
     /// <summary>
     /// Page1.xaml の相互作用ロジック
     /// </summary>
-    public partial class HomePage : Page
+    public partial class MenuPage : Page
     {
-        public HomePage()
+        public MenuPage()
         {
             InitializeComponent();
         }
-
-        private void Go_title(object sender, RoutedEventArgs e)
-        {
-            var tpage = new TitlePage();
-            NavigationService.Navigate(tpage);
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var tpage = new MenuPage();
+            var tpage = new TitlePage();
             NavigationService.Navigate(tpage);
         }
     }

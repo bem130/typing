@@ -45,7 +45,7 @@ namespace english_typing
             };
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Go_title(object sender, RoutedEventArgs e)
         {
             cpage = true;
             var tpage = new HomePage();
