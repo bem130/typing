@@ -16,17 +16,23 @@ using System.Windows.Shapes;
 namespace english_typing
 {
     /// <summary>
-    /// Page1.xaml の相互作用ロジック
+    /// SettingPage.xaml の相互作用ロジック
     /// </summary>
-    public partial class MenuPage : Page
+    public partial class SettingPage : Page
     {
-        public MenuPage()
+        public SettingPage()
         {
             InitializeComponent();
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var tpage = new TitlePage();
+
+        }
+
+        private void Go_home(object sender, RoutedEventArgs e)
+        {
+            var tpage = new HomePage();
             NavigationService.Navigate(tpage);
         }
     }

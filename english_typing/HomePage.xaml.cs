@@ -31,9 +31,9 @@ namespace english_typing
             NavigationService.Navigate(tpage);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Go_setting(object sender, RoutedEventArgs e)
         {
-            var tpage = new MenuPage();
+            var tpage = new SettingPage();
             NavigationService.Navigate(tpage);
         }
     }

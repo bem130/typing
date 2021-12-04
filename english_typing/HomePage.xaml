@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <TextBlock Text="English Typing - Home" Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="#E5E7D8D8" FontFamily="Noto Sans Light,Noto Sans JP"/>
         <Button Click="Go_title" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3">タイトル</Button>
-        <Button Click="Go_title" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">設定</Button>
+        <Button Click="Go_setting" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">設定</Button>
         <Grid Grid.Row="1" Margin="76,20,76,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -29,9 +29,9 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="0">単語</Button>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1">短文</Button>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">文章</Button>
+            <Button FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="0">a</Button>
+            <Button FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1">b</Button>
+            <Button FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">c</Button>
         </Grid>
     </Grid>
 </Page>
