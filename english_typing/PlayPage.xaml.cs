@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Diagnostics;
+
 namespace english_typing
 {
     /// <summary>
@@ -23,6 +25,33 @@ namespace english_typing
         public PlayPage()
         {
             InitializeComponent();
+        }
+        private void keyarea_load(object sender, RoutedEventArgs e)
+        {
+            keyarea.Focus();
+        }
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            Debug.Print("keydown");
+            Key key = e.Key;
+            Key systemKey = e.SystemKey;
+            KeyStates keyStates = e.KeyStates;
+            bool isRepeat = e.IsRepeat;
+            string s = "";
+            s += string.Format("  Key={0}\n  KeyStates={1}\n  IsRepeat={2}\n",
+                    key, keyStates, isRepeat);
+            ModifierKeys modifierKeys = Keyboard.Modifiers;
+            if ((modifierKeys & ModifierKeys.Alt) != ModifierKeys.None)
+                s += "  Alt ";
+            if ((modifierKeys & ModifierKeys.Control) != ModifierKeys.None)
+                s += "  Control ";
+            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
+                s += "  Shift ";
+            if ((modifierKeys & ModifierKeys.Windows) != ModifierKeys.None)
+                s += "  Windows";
+            if (key == Key.System)
+                s += systemKey;
+            Debug.Print(s);
         }
     }
 }

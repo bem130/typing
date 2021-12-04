@@ -10,5 +10,14 @@
       Title="Play">
 
     <Grid>
+        <Button x:Name="keyarea" KeyDown="OnKeyDownHandler" Loaded="keyarea_load" Width="0" Height="0" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="129*"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="266*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" FontSize="30"  TextWrapping="Wrap" Text="Text" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Page>

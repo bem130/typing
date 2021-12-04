@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:english_typing"
         mc:Ignorable="d"
-        Title="English Typing" Height="450" Width="800" Background="White" MinWidth="550" MinHeight="400">
+        Title="English Typing"
+        Height="450" Width="800" Background="White" MinWidth="550" MinHeight="400">
     <Grid>
         <Image Name="image"/>
         <Frame Name="frame" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating"/>

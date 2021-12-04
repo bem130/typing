@@ -29,9 +29,9 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="0">a</Button>
-            <Button FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1">b</Button>
-            <Button FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">c</Button>
+            <Button Name="a" Click="Go_play" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="0">a</Button>
+            <Button Name="b" Click="Go_play" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1">b</Button>
+            <Button Name="c" Click="Go_play" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">c</Button>
         </Grid>
     </Grid>
 </Page>

@@ -29,9 +29,12 @@ namespace english_typing
         {
             InitializeComponent();
             ProgressBar.IsIndeterminate = true;
-
+            System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
+            String Version = asm.GetName().Version.ToString();
             {
                 Debug.Print("\n\n");
+                Debug.Print("Version:"+Version);
+                versiondata.Text = "version "+Version;
                 Debug.Print("CommandLineArgs:");
                 //コマンドライン引数を表示する
                 Debug.Print(System.Environment.CommandLine);

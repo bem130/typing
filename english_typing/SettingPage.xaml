@@ -27,10 +27,10 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="0">a</Button>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1">b</Button>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">c</Button>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3">d</Button>
+            <Button Name="a" Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="0">a</Button>
+            <Button Name="b" Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1">b</Button>
+            <Button Name="c" Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">c</Button>
+            <Button Name="d" Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3">d</Button>
         </Grid>
     </Grid>
 </Page>

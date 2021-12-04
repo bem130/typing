@@ -36,5 +36,11 @@ namespace english_typing
             var tpage = new SettingPage();
             NavigationService.Navigate(tpage);
         }
+
+        private void Go_play(object sender, RoutedEventArgs e)
+        {
+            var tpage = new PlayPage();
+            NavigationService.Navigate(tpage);
+        }
     }
 }
