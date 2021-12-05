@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:english_typing"
       xmlns:properties="clr-namespace:english_typing.Properties"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
        Background="#FFD5DFDB"
       Title="Home">
 

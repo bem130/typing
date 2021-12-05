@@ -53,5 +53,11 @@ namespace english_typing
                 s += systemKey;
             Debug.Print(s);
         }
+
+
+        private void Keyboardkey_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.Print("buttonc");
+        }
     }
 }

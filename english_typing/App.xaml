@@ -4,6 +4,38 @@
              xmlns:local="clr-namespace:english_typing"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- スタイルだけ抜粋 -->
+        <Style x:Key="KeyBoardKey" TargetType="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <!-- デフォルトのテーマを無効化 -->
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="#FFDCD1D1" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36">
+                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13">
+                                <ContentPresenter/>
+                            </TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="13"/>
+            <!-- マウスオーバーした時に色を変える -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="#FFD62D2D" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36">
+                                    <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13">
+                                <ContentPresenter/>
+                                    </TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>
