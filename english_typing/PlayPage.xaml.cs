@@ -28,7 +28,7 @@ namespace english_typing
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
         {
-            keyarea.Focus();
+            kspace.Focus();
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
