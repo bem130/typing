@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Diagnostics;
 
 namespace typing
 {
@@ -28,6 +29,34 @@ namespace typing
 
             Uri uri = new Uri("TitlePage.xaml", UriKind.Relative);
             frame.Source = uri;
+
+            System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
+
+            string name = "AssemblyName.Name : " + asm.GetName().Name + "\r\n";
+            string version = "AssemblyName.Version : " + asm.GetName().Version.ToString() + "\r\n";
+            string fullname = "AssemblyName.FullName : " + asm.GetName().FullName + "\r\n";
+            string processor = "AssemblyName.ProcessorArchitecture : " + asm.GetName().ProcessorArchitecture + "\r\n";
+            string runtime = "Assembly.ImageRuntimeVersion : " + asm.ImageRuntimeVersion + "\r\n";
+
+            {
+                Debug.Print("\n\n");
+                Debug.Print(name + version + fullname + processor + runtime);
+                
+                Debug.Print("CommandLineArgs:");
+                //コマンドライン引数を表示する
+                Debug.Print(System.Environment.CommandLine);
+
+                //コマンドライン引数を配列で取得する
+                string[] cmds = System.Environment.GetCommandLineArgs();
+                //コマンドライン引数を列挙する
+                foreach (string cmd in cmds)
+                {
+                    Debug.Print(cmd);
+                }
+                Debug.Print("\n\n");
+                this.Title = asm.GetName().Name;
+                this.Title += " v" + asm.GetName().Version.ToString();
+            }
         }
 
 

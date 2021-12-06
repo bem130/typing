@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-using System.Diagnostics;
 
 namespace typing
 {
@@ -29,25 +28,7 @@ namespace typing
         {
             InitializeComponent();
             ProgressBar.IsIndeterminate = true;
-            System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
-            String Version = asm.GetName().Version.ToString();
-            {
-                Debug.Print("\n\n");
-                Debug.Print("Version:"+Version);
-                versiondata.Text = "version "+Version;
-                Debug.Print("CommandLineArgs:");
-                //コマンドライン引数を表示する
-                Debug.Print(System.Environment.CommandLine);
-
-                //コマンドライン引数を配列で取得する
-                string[] cmds = System.Environment.GetCommandLineArgs();
-                //コマンドライン引数を列挙する
-                foreach (string cmd in cmds)
-                {
-                    Debug.Print(cmd);
-                }
-                Debug.Print("\n\n");
-            }
+            versiondata.Text = "version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
             timer.Start();
