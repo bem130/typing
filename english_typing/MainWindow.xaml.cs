@@ -28,6 +28,7 @@ namespace english_typing
 
             Uri uri = new Uri("TitlePage.xaml", UriKind.Relative);
             frame.Source = uri;
+            // this.MouseLeftButtonDown += (sender, e) => { this.DragMove(); };
         }
 
 
@@ -86,5 +87,6 @@ namespace english_typing
 
             _allowDirectNavigation = false;
         }
+
     }
 }

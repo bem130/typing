@@ -29,6 +29,7 @@ namespace english_typing
         private void keyarea_load(object sender, RoutedEventArgs e)
         {
             kspace.Focus();
+            kl_b.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {

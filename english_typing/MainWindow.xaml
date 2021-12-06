@@ -6,9 +6,12 @@
         xmlns:local="clr-namespace:english_typing"
         mc:Ignorable="d"
         Title="English Typing"
-        Height="600" Width="1000" Background="White" MinWidth="820" MinHeight="620">
+        Height="600" Width="1000" MinWidth="820" MinHeight="620">
     <Grid>
-        <Image Name="image"/>
-        <Frame Name="frame" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Name="image" Grid.Row="0"/>
+        <Frame Name="frame" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating" Grid.Row="0"/>
     </Grid>
 </Window>
