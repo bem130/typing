@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:english_typing"
       xmlns:properties="clr-namespace:english_typing.Properties"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
        Background="#FFD5DFDB"
-      Title="Page1">
+      Title="Home">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -18,9 +18,9 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="English Typing - Menu" Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="#E5E7D8D8" FontFamily="Noto Sans Light,Noto Sans JP"/>
-        <Button Click="Button_Click" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3">タイトル</Button>
-        <Button Click="Button_Click" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">設定</Button>
+        <TextBlock Text="English Typing - Home" Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="#E5E7D8D8" FontFamily="Noto Sans Light,Noto Sans JP"/>
+        <Button Click="Go_title" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3">タイトル</Button>
+        <Button Click="Go_setting" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">設定</Button>
         <Grid Grid.Row="1" Margin="76,20,76,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -29,9 +29,9 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="0">単語</Button>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1">短文</Button>
-            <Button Click="Button_Click" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">文章</Button>
+            <Button Name="a" Click="Go_play" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="0">a</Button>
+            <Button Name="b" Click="Go_play" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1">b</Button>
+            <Button Name="c" Click="Go_play" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">c</Button>
         </Grid>
     </Grid>
 </Page>

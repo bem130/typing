@@ -86,5 +86,6 @@ namespace english_typing
 
             _allowDirectNavigation = false;
         }
+
     }
 }

@@ -4,10 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:english_typing"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="English Typing" Height="450" Width="800" Background="White" MinWidth="550" MinHeight="400">
+        Title="English Typing"
+        Height="600" Width="1000" MinWidth="820" MinHeight="620">
     <Grid>
-        <Image Name="image"/>
-        <Frame Name="frame" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Name="image" Grid.Row="1"/>
+        <Frame Name="frame" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating" Grid.Row="1"/>
     </Grid>
 </Window>
