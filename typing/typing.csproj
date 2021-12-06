@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Janken.ico</ApplicationIcon>
+    <ApplicationIcon>Typing.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -158,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Janken.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Typing.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
