@@ -16,7 +16,7 @@ using System.Windows.Threading;
 
 using System.Diagnostics;
 
-namespace english_typing
+namespace typing
 {
     /// <summary>
     /// Page2.xaml の相互作用ロジック

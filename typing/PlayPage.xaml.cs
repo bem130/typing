@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 using System.Diagnostics;
 
-namespace english_typing
+namespace typing
 {
     /// <summary>
     /// PlayPage.xaml の相互作用ロジック

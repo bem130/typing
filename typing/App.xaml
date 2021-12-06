@@ -1,7 +1,7 @@
-﻿<Application x:Class="english_typing.App"
+﻿<Application x:Class="typing.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:english_typing"
+             xmlns:local="clr-namespace:typing"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!-- スタイルだけ抜粋 -->

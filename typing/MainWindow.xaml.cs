@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace english_typing
+namespace typing
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック

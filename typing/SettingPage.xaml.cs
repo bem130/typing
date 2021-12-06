@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace english_typing
+namespace typing
 {
     /// <summary>
     /// SettingPage.xaml の相互作用ロジック
