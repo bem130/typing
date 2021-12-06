@@ -12,19 +12,47 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="55"/>
-                <RowDefinition Height="55"/>
-                <RowDefinition Height="50*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="250"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="260"/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" FontSize="35"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Run Text="日本語の"/><Run Text="問題"/>
-            </TextBlock>
-            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" FontSize="35"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Run Text="An" Foreground="#FFFF1700"/><Run Text="swer with " Foreground="#FF0017FF"/><Run Text="Eng" Foreground="#FFFF1700"/><Run Text="l" Foreground="#7F000000" TextDecorations="Underline"/><Run Text="ish" Foreground="#33000000"/>
-            </TextBlock>
-            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="220" Padding="10,10,10,10" Margin="10,10,10,10" Grid.Row="4" VerticalAlignment="Center" Width="630" Grid.RowSpan="3" CornerRadius="10" Background="#FFB0ABA4">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="1" Text="00:00:00" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
+                <ProgressBar Grid.Row="2" Width="500" Height="20"></ProgressBar>
+                <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="4" FontSize="35"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Run Text="リンゴ"/>
+                </TextBlock>
+                <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="5" FontSize="35"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Run Text="Ap" Foreground="#FF0017FF"/><Run Text="p" Foreground="#FFFF1700"/><Run Text="l" Foreground="#7F000000" TextDecorations="Underline"/><Run Text="e" Foreground="#33000000"/>
+                </TextBlock>
+            </Grid>
+
+            <StatusBar Grid.Row="4">
+                <TextBlock Text="問"/>
+                <TextBlock Text="1/30"/>
+                <ProgressBar Height="10" Width="100"/>
+                <Separator/>
+                <TextBlock Text="タイプ"/>
+                <TextBlock Text="0"/>
+                <TextBlock Text="/s"/>
+                <Separator/>
+                <TextBlock Text="ミスタイプ"/>
+                <TextBlock Text="0/0"/>
+            </StatusBar>
+
+
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="220" Padding="10,10,10,10" Grid.Row="3" VerticalAlignment="Center" Width="630" CornerRadius="10" Background="#FFB0ABA4">
                 <Grid  Height="200" Width="600" Loaded="keyarea_load">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0"/>
@@ -314,7 +342,7 @@
                     </Grid>
                 </Grid>
             </Border>
-            <Rectangle Fill="#00000000" Grid.Row="4"/>
+            <Rectangle Fill="#00000000" Grid.Row="2"/>
         </Grid>
     </Grid>
 </Page>
