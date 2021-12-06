@@ -27,13 +27,14 @@
             <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="220" Padding="10,10,10,10" Margin="10,10,10,10" Grid.Row="4" VerticalAlignment="Center" Width="630" Grid.RowSpan="3" CornerRadius="10" Background="#FFB0ABA4">
                 <Grid  Height="200" Width="600" Loaded="keyarea_load">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Height="40">
+                    <Grid Grid.Row="1" Height="40">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="40"/>
@@ -129,7 +130,7 @@
                             </TextBlock>
                         </Border>
                     </Grid>
-                    <Grid Grid.Row="1" Height="40" HorizontalAlignment="Left" Width="600">
+                    <Grid Grid.Row="2" Height="40" HorizontalAlignment="Left" Width="600">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="62"/>
@@ -174,7 +175,7 @@
                         <Button Grid.Row="0" Grid.Column="12" Click="Keyboardkey_Click" KeyDown="OnKeyDownHandler" Style="{StaticResource KeyBoardKey}" Content="`&#10;@" x:Name="kat"/>
                         <Button Grid.Row="0" Grid.Column="13" Click="Keyboardkey_Click" KeyDown="OnKeyDownHandler" Style="{StaticResource KeyBoardKey}" Content="{}&#10;[" x:Name="ksbs"/>
                     </Grid>
-                    <Grid Grid.Row="2" Height="40">
+                    <Grid Grid.Row="3" Height="40">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0"/>
                             <ColumnDefinition Width="75"/>
@@ -213,7 +214,7 @@
                         <Button Grid.Row="0" Grid.Column="14" Click="Keyboardkey_Click" KeyDown="OnKeyDownHandler" Style="{StaticResource KeyBoardKey_Enter1}" Content="Enter" x:Name="kenter1" Margin="4,-40,4,0" VerticalAlignment="Center" Height="80" Grid.ColumnSpan="2"/>
                         <Button Grid.Row="0" Grid.Column="14" Click="Keyboardkey_Click" KeyDown="OnKeyDownHandler" Style="{StaticResource KeyBoardKey_Enter2}" Content="" x:Name="kenter2" Margin="-46,-50,4,0" VerticalAlignment="Top" Height="60" Grid.ColumnSpan="2"/>
                     </Grid>
-                    <Grid Grid.Row="3" Height="40">
+                    <Grid Grid.Row="4" Height="40">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
@@ -245,7 +246,7 @@
                         <Button Grid.Row="0" Grid.Column="12" Click="Keyboardkey_Click" KeyDown="OnKeyDownHandler" Style="{StaticResource KeyBoardKey}" Content="*&#10;:" x:Name="kby" Margin="2"/>
                         <Button Grid.Row="0" Grid.Column="13" Click="Keyboardkey_Click" KeyDown="OnKeyDownHandler" Style="{StaticResource KeyBoardKey_RShift}" Content="Shift" x:Name="ksrhift" Margin="2"/>
                     </Grid>
-                    <Grid Grid.Row="4" Height="40">
+                    <Grid Grid.Row="5" Height="40">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="60"/>
@@ -313,6 +314,7 @@
                     </Grid>
                 </Grid>
             </Border>
+            <Rectangle Fill="#00000000" Grid.Row="4"/>
         </Grid>
     </Grid>
 </Page>
