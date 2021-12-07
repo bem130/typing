@@ -59,8 +59,6 @@ namespace typing
                 Debug.Print(cmds.Length.ToString());
                 if (cmds.Length > 1)
                 {
-                    Application.Current.Properties["files"] = cmds.Skip(1).ToArray();
-
                     uri = new Uri("PlayPage.xaml", UriKind.Relative);
                     frame.Source = uri;
                 }

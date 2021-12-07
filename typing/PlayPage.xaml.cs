@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 
 using System.Diagnostics;
@@ -26,7 +27,28 @@ namespace typing
         public PlayPage()
         {
             InitializeComponent();
+            read_file();
 
+        }
+        private void read_file()
+        {
+            // CSVファイルの読み込み
+            //foreach (string filepath in filepaths) {
+            //     streamreaderクラスをインスタンス化
+            //    streamreader reader = new streamreader(filepath, encoding.getencoding("utf-8"));
+            //     最後まで読み込む
+            //    while (reader.peek() >= 0)
+            //    {
+            //         読み込んだ文字列をカンマ区切りで配列に格納
+            //        string[] cols = reader.readline().split('◊');
+            //        for (int n = 0; n < cols.length; n++)
+            //        {
+            //             表示
+            //            debug.print(cols[n] + ",");
+            //        }
+            //    }
+            //    reader.close();
+            //}
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
         {

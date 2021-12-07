@@ -24,7 +24,7 @@ namespace typing
     {
         bool cpage = false;
 
-        public TitlePage()
+        public TitlePage(string[] a)
         {
             InitializeComponent();
             ProgressBar.IsIndeterminate = true;
