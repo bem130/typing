@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 using System.Diagnostics;
 
 namespace typing
@@ -25,6 +26,7 @@ namespace typing
         public PlayPage()
         {
             InitializeComponent();
+
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
         {

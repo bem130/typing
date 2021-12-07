@@ -27,10 +27,10 @@ namespace typing
         {
             InitializeComponent();
 
-            Uri uri = new Uri("TitlePage.xaml", UriKind.Relative);
-            frame.Source = uri;
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
+            this.Title = asm.GetName().Name;
+            this.Title += " v" + asm.GetName().Version.ToString();
 
             string name = "AssemblyName.Name : " + asm.GetName().Name + "\r\n";
             string version = "AssemblyName.Version : " + asm.GetName().Version.ToString() + "\r\n";
@@ -54,8 +54,21 @@ namespace typing
                     Debug.Print(cmd);
                 }
                 Debug.Print("\n\n");
-                this.Title = asm.GetName().Name;
-                this.Title += " v" + asm.GetName().Version.ToString();
+
+                Uri uri;
+                Debug.Print(cmds.Length.ToString());
+                if (cmds.Length > 1)
+                {
+                    Application.Current.Properties["files"] = cmds.Skip(1).ToArray();
+
+                    uri = new Uri("PlayPage.xaml", UriKind.Relative);
+                    frame.Source = uri;
+                }
+                else
+                {
+                    uri = new Uri("TitlePage.xaml", UriKind.Relative);
+                    frame.Source = uri;
+                }
             }
         }
 
