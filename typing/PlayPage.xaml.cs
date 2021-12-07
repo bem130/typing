@@ -32,6 +32,7 @@ namespace typing
         }
         private void read_file()
         {
+
             // CSVファイルの読み込み
             //foreach (string filepath in filepaths) {
             //     streamreaderクラスをインスタンス化
@@ -49,6 +50,7 @@ namespace typing
             //    }
             //    reader.close();
             //}
+
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
         {
