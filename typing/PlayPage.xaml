@@ -31,7 +31,7 @@
                 <TextBlock Grid.Row="1" Text="00:00:00" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
                 <ProgressBar Grid.Row="2" Width="500" Height="20"></ProgressBar>
                 <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="4" FontSize="35"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Run Text="グーグル"/>
+                <Run Text="リンゴ"/>
                 </TextBlock>
                 <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="5" FontSize="35"  TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Run Text="Ap" Foreground="#FF0017FF"/><Run Text="p" Foreground="#FFFF1700"/><Run Text="l" Foreground="#7F000000" TextDecorations="Underline"/><Run Text="e" Foreground="#33000000"/>
