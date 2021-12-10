@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using System.Diagnostics;
 
 namespace typing
@@ -26,6 +25,7 @@ namespace typing
         public MainWindow()
         {
             InitializeComponent();
+
 
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
@@ -47,7 +47,9 @@ namespace typing
                 Debug.Print(System.Environment.CommandLine);
 
                 //コマンドライン引数を配列で取得する
-                string[] cmds = System.Environment.GetCommandLineArgs();
+                List<string> cmds = new List<string>(); ;
+                cmds.AddRange(System.Environment.GetCommandLineArgs());
+                cmds.RemoveAt(0);
                 //コマンドライン引数を列挙する
                 foreach (string cmd in cmds)
                 {
@@ -56,9 +58,11 @@ namespace typing
                 Debug.Print("\n\n");
 
                 Uri uri;
-                Debug.Print(cmds.Length.ToString());
-                if (cmds.Length > 1)
+                Debug.Print(cmds.Count.ToString());
+                if (cmds.Count > 0)
                 {
+                    Application.Current.Properties["FilePaths"] = string.Join("|", cmds);
+                    Debug.Print("filepaths "+ Application.Current.Properties["FilePaths"]);
                     uri = new Uri("PlayPage.xaml", UriKind.Relative);
                     frame.Source = uri;
                 }

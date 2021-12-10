@@ -32,24 +32,38 @@ namespace typing
         }
         private void read_file()
         {
+            string[] filepaths = ((string)Application.Current.Properties["FilePaths"]).Split('|');
 
-            // CSVファイルの読み込み
-            //foreach (string filepath in filepaths) {
-            //     streamreaderクラスをインスタンス化
-            //    streamreader reader = new streamreader(filepath, encoding.getencoding("utf-8"));
-            //     最後まで読み込む
-            //    while (reader.peek() >= 0)
-            //    {
-            //         読み込んだ文字列をカンマ区切りで配列に格納
-            //        string[] cols = reader.readline().split('◊');
-            //        for (int n = 0; n < cols.length; n++)
-            //        {
-            //             表示
-            //            debug.print(cols[n] + ",");
-            //        }
-            //    }
-            //    reader.close();
-            //}
+            var QAd = new Dictionary<string, string>();
+
+            foreach (string filePath in filepaths)
+            {
+                StreamReader reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
+                var fprop = new Dictionary<string, string>();
+                string[] fprops = reader.ReadLine().Split(';');
+                foreach (string prop in fprops)
+                {
+                    if (prop.Contains(":"))
+                    {
+                        string[] spprop = prop.Split(':');
+                        fprop[spprop[0]] = spprop[1];
+                    }
+                }
+
+                char split_l = '◊';
+                if (fprop.ContainsKey("split"))
+                {
+                    split_l = fprop["split"][0];
+                }
+
+                while (reader.Peek() >= 0)
+                {
+                    string[] qaline = reader.ReadLine().Split(split_l);
+                    QAd[qaline[0]] = qaline[1];
+                }
+                reader.Close();
+            }
+
 
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
