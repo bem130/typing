@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
-
+using System.Xml.Linq;
 
 using System.Diagnostics;
 
@@ -28,6 +28,7 @@ namespace typing
         {
             InitializeComponent();
             read_file();
+            keyc("space");
 
         }
         private void read_file()
@@ -69,7 +70,10 @@ namespace typing
         private void keyarea_load(object sender, RoutedEventArgs e)
         {
             kspace.Focus();
-            kl_b.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+        }
+        private void keyc(string keyname_)
+        {
+            ((Border)FindName(keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
@@ -99,6 +103,40 @@ namespace typing
         private void Keyboardkey_Click(object sender, RoutedEventArgs e)
         {
             Debug.Print("buttonc");
+        }
+
+        public Dictionary<string,string> keyname()
+        {
+            return new Dictionary<string, string>()
+            {
+                {"space","kspace_b"},
+                {"a","ka_b"},
+                {"b","kb_b"},
+                {"c","kc_b"},
+                {"d","kd_b"},
+                {"e","ke_b"},
+                {"f","kf_b"},
+                {"g","kg_b"},
+                {"h","kh_b"},
+                {"i","ki_b"},
+                {"j","kj_b"},
+                {"k","kk_b"},
+                {"l","kl_b"},
+                {"m","km_b"},
+                {"n","kn_b"},
+                {"o","ko_b"},
+                {"p","kp_b"},
+                {"q","kq_b"},
+                {"r","kr_b"},
+                {"s","ks_b"},
+                {"t","kt_b"},
+                {"u","ku_b"},
+                {"v","kv_b"},
+                {"w","kw_b"},
+                {"x","kx_b"},
+                {"y","ky_b"},
+                {"z","kz_b"},
+            };
         }
     }
 }
