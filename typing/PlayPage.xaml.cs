@@ -24,63 +24,35 @@ namespace typing
     /// </summary>
     public partial class PlayPage : Page
     {
+        string type;
+        Dictionary<string, List<string>> QAd;
+
+        string bfa;
+        int bflen;
+        int allcnt;
+        int nowcnt;
+        int iqacnt;
+        int hitcnt;
+        int misscnt;
+        int typecnt;
         public PlayPage()
         {
             InitializeComponent();
             read_file();
-            keyc("space");
+            start();
 
-            keyc("a");
-            keyc("b");
-            keyc("c");
-            keyc("d");
-            keyc("e");
-            keyc("f");
-            keyc("g");
-            keyc("h");
-            keyc("i");
-            keyc("j");
-            keyc("k");
-            keyc("l");
-            keyc("m");
-            keyc("n");
-            keyc("o");
-            keyc("p");
-            keyc("q");
-            keyc("r");
-            keyc("s");
-            keyc("t");
-            keyc("u");
-            keyc("v");
-            keyc("w");
-            keyc("x");
-            keyc("y");
-            keyc("z");
-            keyc("1");
-            keyc("2");
-            keyc("3");
-            keyc("4");
-            keyc("5");
-            keyc("6");
-            keyc("7");
-            keyc("8");
-            keyc("9");
-            keyc("0");
-            keyc(".");
-            keyc(",");
-            keyc("/");
-            keyc("\\");
         }
         private void read_file()
         {
             string[] filepaths = ((string)Application.Current.Properties["FilePaths"]).Split('|');
 
-            var QAd = new Dictionary<string, string>();
+            QAd = new Dictionary<string, List<string>>();
 
             foreach (string filePath in filepaths)
             {
                 StreamReader reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
                 var fprop = new Dictionary<string, string>();
+                int line = 1;
                 string[] fprops = reader.ReadLine().Split(';');
                 foreach (string prop in fprops)
                 {
@@ -97,14 +69,23 @@ namespace typing
                     split_l = fprop["split"][0];
                 }
 
-                while (reader.Peek() >= 0)
+                type = "";
+                if (fprop.ContainsKey("type"))
                 {
-                    string[] qaline = reader.ReadLine().Split(split_l);
-                    QAd[qaline[0]] = qaline[1];
+                    type = fprop["type"];
+                }
+
+                if (type == "ja-en")
+                {
+                    while (reader.Peek() >= 0)
+                    {
+                        line++;
+                        string[] qaline = reader.ReadLine().Split(split_l);
+                        QAd[qaline[0]] = new List<string>() { qaline[1], filePath ,line.ToString()};
+                    }
                 }
                 reader.Close();
             }
-
 
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
@@ -123,28 +104,65 @@ namespace typing
             KeyStates keyStates = e.KeyStates;
             bool isRepeat = e.IsRepeat;
             string s = "";
-            s += string.Format("  Key={0}\n  KeyStates={1}\n  IsRepeat={2}\n",
-                    key, keyStates, isRepeat);
+            s += string.Format("  Key={0}  KeyStates={1}  IsRepeat={2}", key, keyStates, isRepeat);
             ModifierKeys modifierKeys = Keyboard.Modifiers;
-            if ((modifierKeys & ModifierKeys.Alt) != ModifierKeys.None)
-                s += "  Alt ";
-            if ((modifierKeys & ModifierKeys.Control) != ModifierKeys.None)
-                s += "  Control ";
             if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
                 s += "  Shift ";
-            if ((modifierKeys & ModifierKeys.Windows) != ModifierKeys.None)
-                s += "  Windows";
-            if (key == Key.System)
-                s += systemKey;
             Debug.Print(s);
+
+            if (type == "ja-en")
+            {
+                if (nowcnt == 0)
+                {
+                    if (key.ToString() == "Space")
+                    {
+                        bfa = QAd.Keys.ToList()[nowcnt];
+                        Qarea.Text = QAd.Values.ToList()[nowcnt][0];
+                        bflen = QAd.Keys.ToList()[nowcnt].Length;
+                        QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
+                        QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
+                        iqacnt = 0;
+                        Debug.Print(bfa + " " + bflen);
+                        nowcnt++;
+                    }
+                }
+                else
+                {
+                    if (iqacnt < bflen)
+                    {
+                        iqacnt++;
+                        Aarea.Text = bfa.Substring(0, iqacnt);
+                    }
+                    else
+                    {
+                        bfa = QAd.Keys.ToList()[nowcnt];
+                        Qarea.Text = QAd.Values.ToList()[nowcnt][0];
+                        bflen = QAd.Keys.ToList()[nowcnt].Length;
+                        QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
+                        QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
+                        iqacnt = 0;
+                        nowcnt++;
+                        Debug.Print(bfa + " " + bflen);
+                    }
+                }
+            }
         }
 
 
         private void Keyboardkey_Click(object sender, RoutedEventArgs e)
         {
-            Debug.Print("buttonc");
         }
 
+        public void start()
+        {
+            allcnt = QAd.Keys.Count;
+            nowcnt = 0;
+            hitcnt = 0;
+            misscnt = 0;
+            typecnt = 0;
+            QAallcnt.Text = allcnt.ToString();
+            keyc("space");
+        }
         public Dictionary<string,string> keyname()
         {
             return new Dictionary<string, string>()
