@@ -30,6 +30,46 @@ namespace typing
             read_file();
             keyc("space");
 
+            keyc("a");
+            keyc("b");
+            keyc("c");
+            keyc("d");
+            keyc("e");
+            keyc("f");
+            keyc("g");
+            keyc("h");
+            keyc("i");
+            keyc("j");
+            keyc("k");
+            keyc("l");
+            keyc("m");
+            keyc("n");
+            keyc("o");
+            keyc("p");
+            keyc("q");
+            keyc("r");
+            keyc("s");
+            keyc("t");
+            keyc("u");
+            keyc("v");
+            keyc("w");
+            keyc("x");
+            keyc("y");
+            keyc("z");
+            keyc("1");
+            keyc("2");
+            keyc("3");
+            keyc("4");
+            keyc("5");
+            keyc("6");
+            keyc("7");
+            keyc("8");
+            keyc("9");
+            keyc("0");
+            keyc(".");
+            keyc(",");
+            keyc("/");
+            keyc("\\");
         }
         private void read_file()
         {
@@ -69,7 +109,7 @@ namespace typing
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
         {
-            kspace.Focus();
+            kinput.Focus();
         }
         private void keyc(string keyname_)
         {
@@ -136,6 +176,20 @@ namespace typing
                 {"x","kx_b"},
                 {"y","ky_b"},
                 {"z","kz_b"},
+                {"1","k1_b"},
+                {"2","k2_b"},
+                {"3","k3_b"},
+                {"4","k4_b"},
+                {"5","k5_b"},
+                {"6","k6_b"},
+                {"7","k7_b"},
+                {"8","k8_b"},
+                {"9","k9_b"},
+                {"0","k0_b"},
+                {".","kpgt_b"},
+                {",","kclt_b"},
+                {"\\","kby_b"},
+                {"/","ksqs_b"},
             };
         }
     }
