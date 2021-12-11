@@ -50,7 +50,9 @@
                 <TextBlock Text="/s"/>
                 <Separator/>
                 <TextBlock Text="ミスタイプ"/>
-                <TextBlock Text="0/0"/>
+                <TextBlock x:Name="QAmisscnt" Text="-"/>
+                <TextBlock Text="/"/>
+                <TextBlock x:Name="QAtypecnt" Text="-"/>
                 <Separator/>
                 <TextBlock Text="問題"/>
                 <TextBlock Text="file:"/>

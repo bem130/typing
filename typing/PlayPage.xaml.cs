@@ -81,7 +81,7 @@ namespace typing
                     {
                         line++;
                         string[] qaline = reader.ReadLine().Split(split_l);
-                        QAd[qaline[0]] = new List<string>() { qaline[1], filePath ,line.ToString()};
+                        QAd[qaline[0]] = new List<string>() { qaline[1], filePath ,line.ToString(),type};
                     }
                 }
                 reader.Close();
@@ -98,7 +98,7 @@ namespace typing
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
-            Debug.Print("keydown");
+            //Debug.Print("keydown");
             Key key = e.Key;
             Key systemKey = e.SystemKey;
             KeyStates keyStates = e.KeyStates;
@@ -108,7 +108,7 @@ namespace typing
             ModifierKeys modifierKeys = Keyboard.Modifiers;
             if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
                 s += "  Shift ";
-            Debug.Print(s);
+            //Debug.Print(s);
 
             if (type == "ja-en")
             {
@@ -116,11 +116,13 @@ namespace typing
                 {
                     if (key.ToString() == "Space")
                     {
+                        QAnowcnt.Text = nowcnt.ToString();
                         bfa = QAd.Keys.ToList()[nowcnt];
                         Qarea.Text = QAd.Values.ToList()[nowcnt][0];
                         bflen = QAd.Keys.ToList()[nowcnt].Length;
                         QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
                         QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
+                        type = QAd.Values.ToList()[nowcnt][3];
                         iqacnt = 0;
                         Debug.Print(bfa + " " + bflen);
                         nowcnt++;
@@ -130,19 +132,33 @@ namespace typing
                 {
                     if (iqacnt < bflen)
                     {
+                        typecnt++;
+                        QAtypecnt.Text = typecnt.ToString();
                         iqacnt++;
                         Aarea.Text = bfa.Substring(0, iqacnt);
                     }
                     else
                     {
-                        bfa = QAd.Keys.ToList()[nowcnt];
-                        Qarea.Text = QAd.Values.ToList()[nowcnt][0];
-                        bflen = QAd.Keys.ToList()[nowcnt].Length;
-                        QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
-                        QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
-                        iqacnt = 0;
-                        nowcnt++;
-                        Debug.Print(bfa + " " + bflen);
+                        if (nowcnt < allcnt)
+                        {
+                            QAnowcnt.Text = nowcnt.ToString();
+                            bfa = QAd.Keys.ToList()[nowcnt];
+                            Qarea.Text = QAd.Values.ToList()[nowcnt][0];
+                            Aarea.Text = "";
+                            bflen = QAd.Keys.ToList()[nowcnt].Length;
+                            QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
+                            QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
+                            type = QAd.Values.ToList()[nowcnt][3];
+                            iqacnt = 0;
+                            nowcnt++;
+                            Debug.Print(bfa + " " + bflen);
+                        }
+                        else
+                        {
+                            QAnowcnt.Text = nowcnt.ToString();
+                            Qarea.Text = "終了！";
+                            Aarea.Text = "";
+                        }
                     }
                 }
             }
