@@ -1,2 +1,2 @@
-# english_typing
-english typing of desktop
+# typing
+typing game of desktop
