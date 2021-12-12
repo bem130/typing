@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
 
@@ -24,20 +25,28 @@ namespace typing
     /// </summary>
     public partial class PlayPage : Page
     {
+        bool nowplay;
+
         string type;
         Dictionary<string, List<string>> QAd;
 
+        Dictionary<string, string> keylist;
+
         string bfa;
+        string bfkey;
+        string nextkey;
         int bflen;
         int allcnt;
         int nowcnt;
         int iqacnt;
-        int hitcnt;
         int misscnt;
         int typecnt;
+        System.Diagnostics.Stopwatch sw;
+
         public PlayPage()
         {
             InitializeComponent();
+            keylist = keyname();
             read_file();
             start();
 
@@ -94,11 +103,40 @@ namespace typing
         }
         private void keyc(string keyname_)
         {
-            ((Border)FindName(keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            if (char.IsUpper(keyname_[0]))
+            {
+                ((Border)FindName(keyname()["shift"])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            }
+            ((Border)FindName(keyname()[keyname_.ToLower()])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
         }
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        private void keyb(string keyname_)
+        {
+            if (char.IsUpper(keyname_[0]))
+            {
+                ((Border)FindName(keyname()["shift"])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+            }
+            ((Border)FindName(keyname()[keyname_.ToLower()])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+        }
+        async void missback()
+        {
+            KeyboardUI.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFD44444");
+            await Task.Delay(50);
+            KeyboardUI.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFB0ABA4");
+        }
+        async void viewsw()
+        {
+            await Task.Delay(1000);
+            while (nowplay)
+            {
+                await Task.Delay(100);
+                Qstopwatch.Text = sw.Elapsed.ToString();
+                Qtypespeed.Text = (typecnt/sw.Elapsed.TotalSeconds).ToString();
+            }
+        }
+        async private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
             //Debug.Print("keydown");
+
             Key key = e.Key;
             Key systemKey = e.SystemKey;
             KeyStates keyStates = e.KeyStates;
@@ -106,58 +144,104 @@ namespace typing
             string s = "";
             s += string.Format("  Key={0}  KeyStates={1}  IsRepeat={2}", key, keyStates, isRepeat);
             ModifierKeys modifierKeys = Keyboard.Modifiers;
-            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
-                s += "  Shift ";
-            //Debug.Print(s);
+            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) s += "  Shift ";
+            Debug.Print(s);
 
+            string key_name = key.ToString().ToLower();
+            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
+            {
+                key_name = key_name.ToUpper();
+            }
             if (type == "ja-en")
             {
                 if (nowcnt == 0)
                 {
-                    if (key.ToString() == "Space")
+                    if (key_name == "space")
                     {
                         QAnowcnt.Text = nowcnt.ToString();
+                        QAmisscnt.Text = misscnt.ToString();
                         bfa = QAd.Keys.ToList()[nowcnt];
                         Qarea.Text = QAd.Values.ToList()[nowcnt][0];
                         bflen = QAd.Keys.ToList()[nowcnt].Length;
                         QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
                         QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
                         type = QAd.Values.ToList()[nowcnt][3];
+                        bfkey = "space";
+                        nextkey = bfa.Substring(iqacnt, 1);
                         iqacnt = 0;
                         Debug.Print(bfa + " " + bflen);
                         nowcnt++;
+                        keyb(bfkey);
+                        keyc(nextkey);
+                        Qprogress.Maximum = allcnt;
+                        Qprogress.Value = nowcnt;
+                        Aprogress.Maximum = bflen;
+                        Aprogress.Value = iqacnt;
+                        nowplay = true;
+                        sw = new System.Diagnostics.Stopwatch();
+                        sw.Start();
+                        viewsw();
                     }
                 }
                 else
                 {
-                    if (iqacnt < bflen)
+                    keylist = keyname();
+                    if (keylist.ContainsKey(key_name.ToLower()))
                     {
                         typecnt++;
-                        QAtypecnt.Text = typecnt.ToString();
-                        iqacnt++;
-                        Aarea.Text = bfa.Substring(0, iqacnt);
-                    }
-                    else
-                    {
-                        if (nowcnt < allcnt)
+                        if (key_name == nextkey)
                         {
-                            QAnowcnt.Text = nowcnt.ToString();
-                            bfa = QAd.Keys.ToList()[nowcnt];
-                            Qarea.Text = QAd.Values.ToList()[nowcnt][0];
-                            Aarea.Text = "";
-                            bflen = QAd.Keys.ToList()[nowcnt].Length;
-                            QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
-                            QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
-                            type = QAd.Values.ToList()[nowcnt][3];
-                            iqacnt = 0;
-                            nowcnt++;
-                            Debug.Print(bfa + " " + bflen);
+                            if (iqacnt < bflen - 1)
+                            {
+                                QAtypecnt.Text = typecnt.ToString();
+                                bfkey = nextkey;
+                                iqacnt++;
+                                nextkey = bfa.Substring(iqacnt, 1);
+                                Aarea.Text = bfa.Substring(0, iqacnt);
+                                keyb(bfkey);
+                                keyc(nextkey);
+                                Aprogress.Value = iqacnt;
+                            }
+                            else
+                            {
+                                if (nowcnt < allcnt)
+                                {
+                                    QAnowcnt.Text = nowcnt.ToString();
+                                    Aarea.Text = bfa;
+                                    sw.Stop();
+                                    await Task.Delay(5);
+                                    sw.Start();
+                                    Qarea.Text = QAd.Values.ToList()[nowcnt][0];
+                                    Aarea.Text = "";
+                                    bflen = QAd.Keys.ToList()[nowcnt].Length;
+                                    QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
+                                    QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
+                                    type = QAd.Values.ToList()[nowcnt][3];
+                                    iqacnt = 0;
+                                    bfkey = nextkey;
+                                    bfa = QAd.Keys.ToList()[nowcnt];
+                                    nowcnt++;
+                                    nextkey = bfa.Substring(iqacnt, 1);
+                                    keyb(bfkey);
+                                    keyc(nextkey);
+                                    Aprogress.Maximum = bflen;
+                                    Aprogress.Value = iqacnt;
+                                    Qprogress.Value = nowcnt;
+                                    // Debug.Print(bfa + " " + bflen);
+                                }
+                                else
+                                {
+                                    Qarea.Text = "終了！";
+                                    Aarea.Text = "";
+                                    nowplay = false;
+                                }
+                            }
                         }
                         else
                         {
-                            QAnowcnt.Text = nowcnt.ToString();
-                            Qarea.Text = "終了！";
-                            Aarea.Text = "";
+                            missback();
+                            misscnt++;
+                            QAmisscnt.Text = misscnt.ToString();
                         }
                     }
                 }
@@ -173,7 +257,6 @@ namespace typing
         {
             allcnt = QAd.Keys.Count;
             nowcnt = 0;
-            hitcnt = 0;
             misscnt = 0;
             typecnt = 0;
             QAallcnt.Text = allcnt.ToString();
@@ -183,6 +266,7 @@ namespace typing
         {
             return new Dictionary<string, string>()
             {
+                {"shift","klshift_b"},
                 {"space","kspace_b"},
                 {"a","ka_b"},
                 {"b","kb_b"},
