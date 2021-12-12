@@ -234,6 +234,9 @@ namespace typing
                                     Qarea.Text = "終了！";
                                     Aarea.Text = "";
                                     nowplay = false;
+                                    await Task.Delay(5000);
+                                    var tpage = new HomePage();
+                                    NavigationService.Navigate(tpage);
                                 }
                             }
                         }

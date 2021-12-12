@@ -37,7 +37,7 @@ namespace typing
             List<string> files = new List<string>();
             try
             {
-                IEnumerable<FileInfo> names = Files(@"a:\", "*.ntd");
+                IEnumerable<FileInfo> names = Files(serchdir.Text, "*.ntd");
                 foreach (FileInfo name in names)
                 {
                     files.Add(name.FullName);
@@ -63,6 +63,10 @@ namespace typing
             NavigationService.Navigate(tpage);
         }
 
+        private void menu_update(object sender, RoutedEventArgs e)
+        {
+            makemenu();
+        }
 
         private void start(object sender, RoutedEventArgs e)
         {
@@ -97,7 +101,7 @@ namespace typing
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 // 選択されたフォルダーパスをメッセージボックスに表示
-                System.Windows.MessageBox.Show(dlg.SelectedPath);
+                serchdir.Text = dlg.SelectedPath;
             }
         }
 
