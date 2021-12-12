@@ -42,5 +42,7 @@ namespace typing
             var tpage = new PlayPage();
             NavigationService.Navigate(tpage);
         }
+
+
     }
 }
