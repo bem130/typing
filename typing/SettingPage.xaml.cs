@@ -25,15 +25,18 @@ namespace typing
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void Go_home(object sender, RoutedEventArgs e)
         {
             var tpage = new HomePage();
             NavigationService.Navigate(tpage);
+        }
+
+        private void save_data(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.questions_dir = serchdir.Text;
+
+            Properties.Settings.Default.Save();
         }
     }
 }

@@ -53,5 +53,6 @@ namespace typing
             var tpage = new HomePage();
             NavigationService.Navigate(tpage);
         }
+
     }
 }

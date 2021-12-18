@@ -28,6 +28,8 @@ namespace typing
         {
             InitializeComponent();
 
+            serchdir.Text = Properties.Settings.Default.questions_dir;
+
             Menu.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
             makemenu();
         }
@@ -48,7 +50,6 @@ namespace typing
                 Debug.Print(e.ToString());
             }
             Menu.ItemsSource = files;
-
         }
 
         private void Go_title(object sender, RoutedEventArgs e)
@@ -81,7 +82,6 @@ namespace typing
                 menupath.Add(path_.ToString());
             }
 
-            Uri uri;
             Application.Current.Properties["FilePaths"] = string.Join("|", menupath);
             Debug.Print("filepaths " + Application.Current.Properties["FilePaths"]);
             var tpage = new PlayPage();
