@@ -22,10 +22,28 @@
         <Button Click="Go_title" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3">タイトル</Button>
         <Button Click="Go_setting" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">設定</Button>
         <Grid Grid.Row="1" Margin="76,20,76,20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="2" Content="参照⇗" Click="Button_Click" FontSize="12"/>
+                <Button Grid.Column="3" Content="OK" Click="menu_update" FontSize="12" Height="20" VerticalAlignment="Top"/>
+                <TextBox Grid.Column="1" x:Name="serchdir"/>
+                <TextBlock Grid.Column="0" Text="問題のあるフォルダを選択"/>
+            </Grid>
+
+            <ListView Grid.Row="1" x:Name="Menu" Background="#FFEBFFF9">
+            </ListView>
+
+            <Button Grid.Row="2" Content="スタート" Click="start" FontSize="12"/>
         </Grid>
     </Grid>
 </Page>
