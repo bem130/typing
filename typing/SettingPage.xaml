@@ -21,7 +21,7 @@
         <TextBlock Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="#E5E7D8D8" FontFamily="Noto Sans Light,Noto Sans JP"><Run Text="Typing - "/><Run Text="Setting"/></TextBlock>
         <Button Click="save_data" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">保存</Button>
         <Button Click="Go_home" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3">ホーム</Button>
-        <Grid Grid.Row="1" Margin="76,20,76,0" ShowGridLines="True">
+        <Grid Grid.Row="1" Margin="76,20,76,0" ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
@@ -29,10 +29,17 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="20" VerticalAlignment="Center">標準の問題フォルダ</TextBlock>
-            <TextBox Grid.Row="0" Grid.Column="1" FontSize="20" Height="30" x:Name="serchdir"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="serchdir"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center">表示サイズ</TextBlock>
+            <Slider Grid.Row="1" Grid.Column="1" Width="200" VerticalAlignment="Center" x:Name="scale" Minimum="0.5" Maximum="1.5" IsSnapToTickEnabled="True" TickFrequency="0.01" SmallChange="0.05" LargeChange="0.1"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" x:Name="show_scale" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
+                <Run Text="{Binding ElementName=scale,Path=Value}"/>
+                <Run Text="倍"/>
+            </TextBlock>
         </Grid>
     </Grid>
 </Page>

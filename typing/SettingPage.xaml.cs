@@ -23,6 +23,8 @@ namespace typing
         public SettingPage()
         {
             InitializeComponent();
+            serchdir.Text = Properties.Settings.Default.questions_dir;
+            scale.Value = Properties.Settings.Default.scale;
         }
 
 
@@ -35,8 +37,22 @@ namespace typing
         private void save_data(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.questions_dir = serchdir.Text;
-
+            Properties.Settings.Default.scale = scale.Value;
             Properties.Settings.Default.Save();
+            setscale();
         }
+
+        public void setscale()
+        {
+            int[] dmsize = { 800, 600 };
+
+            var window = (MainWindow)Application.Current.MainWindow;
+            double scale = Properties.Settings.Default.scale;
+            window.Scaletrans.ScaleX = scale;
+            window.Scaletrans.ScaleY = scale;
+            window.MinHeight = dmsize[1]*scale;
+            window.MinWidth = dmsize[0]*scale;
+        }
+
     }
 }

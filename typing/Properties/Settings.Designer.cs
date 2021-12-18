@@ -34,5 +34,17 @@ namespace typing.Properties {
                 this["questions_dir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public double scale {
+            get {
+                return ((double)(this["scale"]));
+            }
+            set {
+                this["scale"] = value;
+            }
+        }
     }
 }

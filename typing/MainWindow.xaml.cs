@@ -26,7 +26,7 @@ namespace typing
         {
             InitializeComponent();
 
-
+            setscale();
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
             this.Title = asm.GetName().Name;
@@ -74,6 +74,16 @@ namespace typing
             }
         }
 
+        public void setscale()
+        {
+            int[] dmsize = { 800, 600 };
+
+            double scale = Properties.Settings.Default.scale;
+            Scaletrans.ScaleX = scale;
+            Scaletrans.ScaleY = scale;
+            MinHeight = dmsize[1]*scale;
+            MinWidth = dmsize[0]*scale;
+        }
 
         private bool _allowDirectNavigation = false;
         private NavigatingCancelEventArgs _navArgs = null;
@@ -112,14 +122,12 @@ namespace typing
                 _allowDirectNavigation = true;
                 frame.Navigate(_navArgs.Content);
 
-                // フレームを右からスライドさせるアニメーション
                 ThicknessAnimation animation0 = new ThicknessAnimation();
                 animation0.From = new Thickness(0, -frame.ActualHeight,0, frame.ActualHeight);
                 animation0.To = new Thickness(0, 0, 0, 0);
                 animation0.Duration = TimeSpan.FromMilliseconds(100);
                 frame.BeginAnimation(MarginProperty, animation0);
 
-                // 遷移前ページを画像可した要素を左にスライドするアニメーション
                 ThicknessAnimation animation1 = new ThicknessAnimation();
                 animation1.From = new Thickness(0, 0, 0, 0);
                 animation1.To = new Thickness(0,frame.ActualHeight, 0, -frame.ActualHeight);
