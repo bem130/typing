@@ -151,10 +151,15 @@ namespace typing
             string s = "";
             s += string.Format("  Key={0}  KeyStates={1}  IsRepeat={2}", key, keyStates, isRepeat);
             ModifierKeys modifierKeys = Keyboard.Modifiers;
-            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) s += "  Shift ";
-            Debug.Print(s);
-
+            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) s += "_Shift";
+            //Debug.Print(s);
             string key_name = key.ToString().ToLower();
+            string Keyname = key.ToString();
+            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) Keyname += "_S";
+
+            Debug.Print(Keyname);
+
+
             if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
             {
                 key_name = key_name.ToUpper();
@@ -196,7 +201,6 @@ namespace typing
                     if (keylist.ContainsKey(key_name.ToLower()))
                     {
                         typecnt++;
-                        Debug.Print("keys:" + key_name + "," + nextkey+",");
                         if (key_name == nextkey)
                         {
                             if (iqacnt < bflen - 1)
@@ -283,7 +287,6 @@ namespace typing
             {
                 {"shift","klshift_b"},
                 {"space","kspace_b"},
-                {" ","kspace_b"},
                 {"a","ka_b"},
                 {"b","kb_b"},
                 {"c","kc_b"},
@@ -324,6 +327,40 @@ namespace typing
                 {",","kclt_b"},
                 {"\\","kby_b"},
                 {"/","ksqs_b"},
+            };
+        }
+        public void im()
+        {
+            Dictionary<string, int> keybid = new Dictionary<string, int>()
+            {
+                {"A",044},
+                {"Add",044},
+                {"Apps",044},
+                {"B",044},
+                {"Back",44},
+                {"C",044},
+                {"Cancel",044},
+                {"Capital",044},
+                {"CapsLock",044},
+                {"Clear",044},
+                {"CrSel",044},
+                {"D",044},
+                {"D0",044},
+                {"D1",044},
+                {"D2",044},
+                {"D3",044},
+                {"D4",044},
+                {"D5",044},
+                {"D6",044},
+                {"D7",044},
+                {"D8",044},
+                {"D9",044},
+                {"Decimal",044},
+                {"Delete",044},
+                {"Divide",044},
+                {"Down",044},
+                {"E",044},
+                {"End",044},
             };
         }
     }
