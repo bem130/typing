@@ -196,6 +196,7 @@ namespace typing
                     if (keylist.ContainsKey(key_name.ToLower()))
                     {
                         typecnt++;
+                        Debug.Print("keys:" + key_name + "," + nextkey+",");
                         if (key_name == nextkey)
                         {
                             if (iqacnt < bflen - 1)
@@ -234,7 +235,7 @@ namespace typing
                                     Aprogress.Maximum = bflen;
                                     Aprogress.Value = iqacnt;
                                     Qprogress.Value = nowcnt;
-                                    // Debug.Print(bfa + " " + bflen);
+                                    //Debug.Print(bfa + " " + bflen);
                                 }
                                 else
                                 {
@@ -272,12 +273,17 @@ namespace typing
             QAallcnt.Text = allcnt.ToString();
             keyc("space");
         }
+        public void ime(string keyname)
+        {
+
+        }
         public Dictionary<string,string> keyname()
         {
             return new Dictionary<string, string>()
             {
                 {"shift","klshift_b"},
                 {"space","kspace_b"},
+                {" ","kspace_b"},
                 {"a","ka_b"},
                 {"b","kb_b"},
                 {"c","kc_b"},
