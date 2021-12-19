@@ -6,8 +6,15 @@
       xmlns:local="clr-namespace:typing"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
-      Background="#FFD5DFDB"
-      Title="Play">
+      Title="Play"
+      Background="{DynamicResource cBackground}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="colorthemes/default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
         <Grid>

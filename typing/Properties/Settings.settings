@@ -2,11 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="typing.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="questions_dir" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="colortheme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">colorthemes/default.xaml</Value>
     </Setting>
     <Setting Name="scale" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="questions_dir" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

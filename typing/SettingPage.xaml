@@ -6,8 +6,15 @@
       xmlns:local="clr-namespace:typing"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
-      Background="#FFD5DFDB"
-      Title="Setting">
+      Title="Setting"
+      Background="{DynamicResource cBackground}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="colorthemes/default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
 
     <Grid>
@@ -18,11 +25,12 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="#E5E7D8D8" FontFamily="Noto Sans Light,Noto Sans JP"><Run Text="Typing - "/><Run Text="Setting"/></TextBlock>
-        <Button Click="save_data" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2">保存</Button>
-        <Button Click="Go_home" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3">ホーム</Button>
+        <TextBlock Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="#E5E7D8D8" FontFamily="Noto Sans Light,Noto Sans JP"><Run Text="Typing - " Foreground="{DynamicResource cFontcolor}"/><Run Text="Setting"/></TextBlock>
+        <Button Click="save_data" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Foreground="{DynamicResource cFontcolor}">保存</Button>
+        <Button Click="Go_home" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Foreground="{DynamicResource cFontcolor}">ホーム</Button>
         <Grid Grid.Row="1" Margin="76,20,76,0" ShowGridLines="False">
             <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
@@ -40,6 +48,8 @@
                 <Run Text="{Binding ElementName=scale,Path=Value}"/>
                 <Run Text="倍"/>
             </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">カラーテーマ</TextBlock>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="2" x:Name="colortheme" VerticalAlignment="Center" Width="250" SelectedValuePath="Key" DisplayMemberPath="Value" />
         </Grid>
     </Grid>
 </Page>

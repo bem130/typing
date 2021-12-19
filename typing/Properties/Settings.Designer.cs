@@ -25,13 +25,13 @@ namespace typing.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string questions_dir {
+        [global::System.Configuration.DefaultSettingValueAttribute("colorthemes/default.xaml")]
+        public string colortheme {
             get {
-                return ((string)(this["questions_dir"]));
+                return ((string)(this["colortheme"]));
             }
             set {
-                this["questions_dir"] = value;
+                this["colortheme"] = value;
             }
         }
         
@@ -44,6 +44,18 @@ namespace typing.Properties {
             }
             set {
                 this["scale"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string questions_dir {
+            get {
+                return ((string)(this["questions_dir"]));
+            }
+            set {
+                this["questions_dir"] = value;
             }
         }
     }

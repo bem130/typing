@@ -27,6 +27,7 @@ namespace typing
             InitializeComponent();
 
             setscale();
+            setcolortheme();
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
             this.Title = asm.GetName().Name;
@@ -72,6 +73,14 @@ namespace typing
                     frame.Source = uri;
                 }
             }
+        }
+
+        public void setcolortheme()
+        {
+            string dicPath = Properties.Settings.Default.colortheme;
+            ResourceDictionary dic = new ResourceDictionary();
+            dic.Source = new Uri(dicPath, UriKind.Relative);
+            this.Resources.MergedDictionaries.Add(dic);
         }
 
         public void setscale()

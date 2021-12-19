@@ -7,8 +7,15 @@
       xmlns:properties="clr-namespace:typing.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
-       Background="#FFD5DFDB"
-      Title="Home">
+      Title="Home"
+      Background="{DynamicResource cBackground}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="colorthemes/default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>

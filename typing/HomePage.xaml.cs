@@ -27,6 +27,7 @@ namespace typing
         public HomePage()
         {
             InitializeComponent();
+            setcolortheme();
 
             serchdir.Text = Properties.Settings.Default.questions_dir;
 
@@ -34,6 +35,13 @@ namespace typing
             makemenu();
         }
 
+        public void setcolortheme()
+        {
+            string dicPath = Properties.Settings.Default.colortheme;
+            ResourceDictionary dic = new ResourceDictionary();
+            dic.Source = new Uri(dicPath, UriKind.Relative);
+            this.Resources.MergedDictionaries.Add(dic);
+        }
         private void makemenu()
         {
             List<string> files = new List<string>();
