@@ -50,6 +50,8 @@ namespace typing
             read_file();
             start();
 
+            im();
+
         }
         public void setcolortheme()
         {
@@ -157,8 +159,10 @@ namespace typing
             string Keyname = key.ToString();
             if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) Keyname += "_S";
 
-            Debug.Print(Keyname);
+            int Keycode = ((int)key);
 
+
+            Debug.Print(Keyname+" "+Keycode.ToString());
 
             if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
             {
@@ -181,7 +185,7 @@ namespace typing
                         bfkey = "space";
                         nextkey = bfa.Substring(iqacnt, 1);
                         iqacnt = 0;
-                        Debug.Print(bfa + " " + bflen);
+                        //Debug.Print(bfa + " " + bflen);
                         nowcnt++;
                         keyb(bfkey);
                         keyc(nextkey);
@@ -331,37 +335,60 @@ namespace typing
         }
         public void im()
         {
-            Dictionary<string, int> keybid = new Dictionary<string, int>()
+            string ans = "ab";
+
+            Debug.Print(ans);
+
+            short[][] redata = new short[0][];
+
+            for (int cnt=0;cnt<ans.Length;cnt++)
             {
-                {"A",044},
-                {"Add",044},
-                {"Apps",044},
-                {"B",044},
-                {"Back",44},
-                {"C",044},
-                {"Cancel",044},
-                {"Capital",044},
-                {"CapsLock",044},
-                {"Clear",044},
-                {"CrSel",044},
-                {"D",044},
-                {"D0",044},
-                {"D1",044},
-                {"D2",044},
-                {"D3",044},
-                {"D4",044},
-                {"D5",044},
-                {"D6",044},
-                {"D7",044},
-                {"D8",044},
-                {"D9",044},
-                {"Decimal",044},
-                {"Delete",044},
-                {"Divide",044},
-                {"Down",044},
-                {"E",044},
-                {"End",044},
-            };
+                string letter = ans.Substring(cnt, 1);
+                short[] rekeycode = new short[0];
+
+                switch (letter)
+                {
+                    case "a":
+                        Array.Resize(ref rekeycode, 1);
+                        rekeycode = new short[] { 44 };
+                        break;
+                    case "b":
+                        Array.Resize(ref rekeycode, 1);
+                        rekeycode = new short[] { 45 };
+                        break;
+                    default:
+                        break;
+                }
+
+                if (rekeycode.Length>0)
+                {
+                    short[][] redataed = redata;
+                    for (int rkcc=0;rkcc<rekeycode.Length; rkcc++)
+                    {
+                        short[][] redataedtm = redataed;
+                        if (redata.Length>0)
+                        {
+                            for (int rdcnt = 0; rdcnt<redata.Length; rdcnt++)
+                            {
+                                redataedtm[rdcnt] = redataed[rdcnt].Concat(new short[] { rekeycode[rkcc] }).ToArray();
+                            }
+                            redata = redata.Concat(redataedtm).ToArray();
+                        }
+                        else
+                        {
+
+                            Array.Resize(ref redata, 1);
+                            redata[0] = new short[] { rekeycode[rkcc] };
+                        }
+                    }
+                }
+            }
+
+            foreach(short[] tmd in redata)
+            {
+                Debug.Print(String.Join(",", tmd));
+            }
+
         }
     }
 }
