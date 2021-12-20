@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
 
@@ -46,10 +45,20 @@ namespace typing
         public PlayPage()
         {
             InitializeComponent();
+            setcolortheme();
             keylist = keyname();
             read_file();
             start();
 
+            im();
+
+        }
+        public void setcolortheme()
+        {
+            string dicPath = Properties.Settings.Default.colortheme;
+            ResourceDictionary dic = new ResourceDictionary();
+            dic.Source = new Uri(dicPath, UriKind.Relative);
+            this.Resources.MergedDictionaries.Add(dic);
         }
         private void read_file()
         {
@@ -144,10 +153,17 @@ namespace typing
             string s = "";
             s += string.Format("  Key={0}  KeyStates={1}  IsRepeat={2}", key, keyStates, isRepeat);
             ModifierKeys modifierKeys = Keyboard.Modifiers;
-            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) s += "  Shift ";
-            Debug.Print(s);
-
+            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) s += "_Shift";
+            //Debug.Print(s);
             string key_name = key.ToString().ToLower();
+            string Keyname = key.ToString();
+            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) Keyname += "_S";
+
+            int Keycode = ((int)key);
+
+
+            Debug.Print(Keyname+" "+Keycode.ToString());
+
             if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
             {
                 key_name = key_name.ToUpper();
@@ -169,7 +185,7 @@ namespace typing
                         bfkey = "space";
                         nextkey = bfa.Substring(iqacnt, 1);
                         iqacnt = 0;
-                        Debug.Print(bfa + " " + bflen);
+                        //Debug.Print(bfa + " " + bflen);
                         nowcnt++;
                         keyb(bfkey);
                         keyc(nextkey);
@@ -227,7 +243,7 @@ namespace typing
                                     Aprogress.Maximum = bflen;
                                     Aprogress.Value = iqacnt;
                                     Qprogress.Value = nowcnt;
-                                    // Debug.Print(bfa + " " + bflen);
+                                    //Debug.Print(bfa + " " + bflen);
                                 }
                                 else
                                 {
@@ -264,6 +280,10 @@ namespace typing
             typecnt = 0;
             QAallcnt.Text = allcnt.ToString();
             keyc("space");
+        }
+        public void ime(string keyname)
+        {
+
         }
         public Dictionary<string,string> keyname()
         {
@@ -312,6 +332,63 @@ namespace typing
                 {"\\","kby_b"},
                 {"/","ksqs_b"},
             };
+        }
+        public void im()
+        {
+            string ans = "ab";
+
+            Debug.Print(ans);
+
+            short[][] redata = new short[0][];
+
+            for (int cnt=0;cnt<ans.Length;cnt++)
+            {
+                string letter = ans.Substring(cnt, 1);
+                short[] rekeycode = new short[0];
+
+                switch (letter)
+                {
+                    case "a":
+                        Array.Resize(ref rekeycode, 1);
+                        rekeycode = new short[] { 44 };
+                        break;
+                    case "b":
+                        Array.Resize(ref rekeycode, 1);
+                        rekeycode = new short[] { 45 };
+                        break;
+                    default:
+                        break;
+                }
+
+                if (rekeycode.Length>0)
+                {
+                    short[][] redataed = redata;
+                    for (int rkcc=0;rkcc<rekeycode.Length; rkcc++)
+                    {
+                        short[][] redataedtm = redataed;
+                        if (redata.Length>0)
+                        {
+                            for (int rdcnt = 0; rdcnt<redata.Length; rdcnt++)
+                            {
+                                redataedtm[rdcnt] = redataed[rdcnt].Concat(new short[] { rekeycode[rkcc] }).ToArray();
+                            }
+                            redata = redata.Concat(redataedtm).ToArray();
+                        }
+                        else
+                        {
+
+                            Array.Resize(ref redata, 1);
+                            redata[0] = new short[] { rekeycode[rkcc] };
+                        }
+                    }
+                }
+            }
+
+            foreach(short[] tmd in redata)
+            {
+                Debug.Print(String.Join(",", tmd));
+            }
+
         }
     }
 }

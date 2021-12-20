@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:typing">
+
+
+    <!--colors-->
+    <Brush x:Key="cBackground">#FFD5DFDB</Brush>
+    <Brush x:Key="cFontcolor">#FF000000</Brush>
+    <Brush x:Key="cButtonBackground">#FFD5DFEB</Brush>
+    <Brush x:Key="cButtonFontcolor">#FF000000</Brush>
+
+</ResourceDictionary>

@@ -27,6 +27,7 @@ namespace typing
         public TitlePage()
         {
             InitializeComponent();
+            setcolortheme();
             ProgressBar.IsIndeterminate = true;
             versiondata.Text = "version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -52,6 +53,14 @@ namespace typing
             cpage = true;
             var tpage = new HomePage();
             NavigationService.Navigate(tpage);
+        }
+
+        public void setcolortheme()
+        {
+            string dicPath = Properties.Settings.Default.colortheme;
+            ResourceDictionary dic = new ResourceDictionary();
+            dic.Source = new Uri(dicPath, UriKind.Relative);
+            this.Resources.MergedDictionaries.Add(dic);
         }
 
     }

@@ -14,6 +14,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Image Name="image" Grid.Row="1"/>
-        <Frame Name="frame" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating" Grid.Row="1"/>
+        <Frame Name="frame" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating" Grid.Row="1">
+            <Frame.LayoutTransform>
+                <ScaleTransform x:Name="Scaletrans" ScaleX="1" ScaleY="1"/>
+            </Frame.LayoutTransform>
+        </Frame>
     </Grid>
 </Window>
