@@ -14,7 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Xml.Linq;
-
+using System.Data;
+using System.Linq;
 using System.Diagnostics;
 
 namespace typing
@@ -24,11 +25,11 @@ namespace typing
     /// </summary>
     public partial class PlayPage : Page
     {
+        DataTable QAd;
+
         bool nowplay;
 
         string type;
-        Dictionary<string, List<string>> QAd;
-        List<string> QAorder;
 
         Dictionary<int, string> keylist;
 
@@ -64,46 +65,83 @@ namespace typing
         {
             string[] filepaths = ((string)Application.Current.Properties["FilePaths"]).Split('|');
 
-            QAd = new Dictionary<string, List<string>>();
+            QAd = new DataTable("QAd");
 
+
+            QAd.Columns.Add("id");
+            QAd.Columns.Add("question");
+            QAd.Columns.Add("answer");
+            QAd.Columns.Add("title");
+            QAd.Columns.Add("filelocation");
+            QAd.Columns.Add("fileline");
+            QAd.Columns.Add("type");
+            int questionid = 0;
             foreach (string filePath in filepaths)
             {
                 StreamReader reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
-                var fprop = new Dictionary<string, string>();
-                int line = 1;
-                string[] fprops = reader.ReadLine().Split(';');
-                foreach (string prop in fprops)
+                Dictionary<string, string> fprop = new Dictionary<string, string>()
                 {
-                    if (prop.Contains(":"))
+                    {"split","◊"},
+                    {"title","noTitle"},
+                    {"type",""},
+                };
+                Dictionary<string, string> dfprop = new Dictionary<string, string>()
+                {
+                    {"split","◊"},
+                    {"title","noTitle"},
+                    {"type",""},
+                }; ;
+
+
+                int line = 0;
+
+                while (reader.Peek() >= 0)
+                {
+                    string fileline = reader.ReadLine();
+                    line++;
+                    if (fileline.StartsWith("[set]")) //設定行の場合
                     {
-                        string[] spprop = prop.Split(':');
-                        fprop[spprop[0]] = spprop[1];
+                        string[] fprops = fileline.Substring(5,fileline.Length-5).Split(';');
+                        foreach (string prop in fprops)
+                        {
+                            if (prop.Contains(":"))
+                            {
+                                string[] spprop = prop.Split(':');
+                                if (spprop[1]=="default"+spprop[0])
+                                {
+                                    if (dfprop.ContainsKey(spprop[0]))
+                                    {
+                                        fprop[spprop[0]] = dfprop[spprop[0]];
+                                    }
+                                }
+                                else
+                                {
+                                    fprop[spprop[0]] = spprop[1];
+                                }
+                            }
+                        }
+                    }
+                    else //問題行の場合
+                    {
+                        if (fprop["type"] == "ja-en")
+                        {
+                            string[] qaline = fileline.Split(fprop["split"][0]);
+                            questionid++;
+                            QAd.Rows.Add(questionid, qaline[0], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
+                        }
                     }
                 }
 
-                char split_l = '◊';
-                if (fprop.ContainsKey("split"))
-                {
-                    split_l = fprop["split"][0];
-                }
-
-                type = "";
-                if (fprop.ContainsKey("type"))
-                {
-                    type = fprop["type"];
-                }
-
-                if (type == "ja-en")
-                {
-                    while (reader.Peek() >= 0)
-                    {
-                        line++;
-                        string[] qaline = reader.ReadLine().Split(split_l);
-                        QAd[qaline[0]] = new List<string>() { qaline[1], filePath ,line.ToString(),type};
-                    }
-                }
                 reader.Close();
-                QAorder = QAd.Keys.ToList();
+
+
+                foreach (DataRow tr in QAd.Rows)
+                {
+                    Debug.Print(string.Join(",",new List<string>{ tr["id"].ToString(), tr["question"].ToString(), tr["answer"].ToString() , tr["title"].ToString() , tr["filelocation"].ToString() , tr["fileline"].ToString() }));
+                }
+
+                //QAorder = QAd.Keys.ToList();
+                //Debug.Print(string.Join(" , ", QAorder));
             }
 
         }
@@ -164,7 +202,7 @@ namespace typing
 
         public void start()
         {
-            allcnt = QAd.Keys.Count;
+            allcnt = QAd.Rows.Count;
             nowcnt = 0;
             misscnt = 0;
             typecnt = 0;
@@ -173,9 +211,19 @@ namespace typing
         }
         public void im(int keycode)
         {
+            Debug.Print("nowcnt:" + nowcnt.ToString());
             if (nowcnt == 0 & keycode == 18)
             {
                 nowcnt++;
+            }
+            else if (nowcnt>0)
+            {
+                typecnt++;
+
+                //string nowQuesv = QAorder[nowcnt];
+                //List<string> nowQues = QAd[QAorder[nowcnt]];
+
+                //Debug.Print(nowQuesv+ " " + string.Join(" , ", nowQues));
             }
         }
         public Dictionary<int,string> keyname()
