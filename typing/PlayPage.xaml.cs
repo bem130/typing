@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Xml.Linq;
-
+using System.Data;
 using System.Diagnostics;
 
 namespace typing
@@ -24,12 +24,13 @@ namespace typing
     /// </summary>
     public partial class PlayPage : Page
     {
+        DataTable QAd;
+
         bool nowplay;
 
         string type;
-        Dictionary<string, List<string>> QAd;
 
-        Dictionary<string, string> keylist;
+        Dictionary<int, string> keylist;
 
         string bfa;
         string bfkey;
@@ -37,20 +38,24 @@ namespace typing
         int bflen;
         int allcnt;
         int nowcnt;
+        int partcnt;
+        int typecnt;
+        string[] ncparts;
+        DataRow nowq;
         int iqacnt;
         int misscnt;
-        int typecnt;
+        Dictionary<string, int[][]> ckeys;
         System.Diagnostics.Stopwatch sw;
 
         public PlayPage()
         {
             InitializeComponent();
             setcolortheme();
+            ckeys = cparts();
             keylist = keyname();
             read_file();
             start();
 
-            im();
 
         }
         public void setcolortheme()
@@ -64,67 +69,105 @@ namespace typing
         {
             string[] filepaths = ((string)Application.Current.Properties["FilePaths"]).Split('|');
 
-            QAd = new Dictionary<string, List<string>>();
+            QAd = new DataTable("QAd");
+            StreamReader reader;
 
+
+            QAd.Columns.Add("id");
+            QAd.Columns.Add("question");
+            QAd.Columns.Add("answer");
+            QAd.Columns.Add("r_answer");
+            QAd.Columns.Add("title");
+            QAd.Columns.Add("filelocation");
+            QAd.Columns.Add("fileline");
+            QAd.Columns.Add("type");
+            int questionid = 0;
             foreach (string filePath in filepaths)
             {
-                StreamReader reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
-                var fprop = new Dictionary<string, string>();
-                int line = 1;
-                string[] fprops = reader.ReadLine().Split(';');
-                foreach (string prop in fprops)
+                reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
+                Dictionary<string, string> fprop = new Dictionary<string, string>()
                 {
-                    if (prop.Contains(":"))
+                    {"split","◊"},
+                    {"title","noTitle"},
+                    {"type",""},
+                };
+                Dictionary<string, string> dfprop = new Dictionary<string, string>()
+                {
+                    {"split","◊"},
+                    {"title","noTitle"},
+                    {"type",""},
+                };
+                int line = 0;
+                while (reader.Peek() >= 0)
+                {
+                    string fileline = reader.ReadLine();
+                    line++;
+                    if (fileline.StartsWith("[set]")) //設定行の場合
                     {
-                        string[] spprop = prop.Split(':');
-                        fprop[spprop[0]] = spprop[1];
+                        string[] fprops = fileline.Substring(5,fileline.Length-5).Split(';');
+                        foreach (string prop in fprops)
+                        {
+                            if (prop.Contains(":"))
+                            {
+                                string[] spprop = prop.Split(':');
+                                if (spprop[1]=="default"+spprop[0])
+                                {
+                                    if (dfprop.ContainsKey(spprop[0]))
+                                    {
+                                        fprop[spprop[0]] = dfprop[spprop[0]];
+                                    }
+                                }
+                                else
+                                {
+                                    fprop[spprop[0]] = spprop[1];
+                                }
+                            }
+                        }
                     }
-                }
-
-                char split_l = '◊';
-                if (fprop.ContainsKey("split"))
-                {
-                    split_l = fprop["split"][0];
-                }
-
-                type = "";
-                if (fprop.ContainsKey("type"))
-                {
-                    type = fprop["type"];
-                }
-
-                if (type == "ja-en")
-                {
-                    while (reader.Peek() >= 0)
+                    else //問題行の場合
                     {
-                        line++;
-                        string[] qaline = reader.ReadLine().Split(split_l);
-                        QAd[qaline[0]] = new List<string>() { qaline[1], filePath ,line.ToString(),type};
+                        if (fprop["type"] == "ja")
+                        {
+                            string[] qaline = fileline.Split(fprop["split"][0]);
+                            questionid++;
+                            QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
+                        }
+                        if (fprop["type"] == "ja-en")
+                        {
+                            string[] qaline = fileline.Split(fprop["split"][0]);
+                            questionid++;
+                            QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                        }
                     }
                 }
                 reader.Close();
             }
-
+            foreach (DataRow tr in QAd.Rows)
+            {
+                Debug.Print(string.Join(",", new List<string> { tr["id"].ToString(), tr["question"].ToString(), tr["answer"].ToString(), tr["title"].ToString(), tr["filelocation"].ToString(), tr["fileline"].ToString(), tr["type"].ToString() }));
+                ncparts = splita(tr["answer"].ToString());
+                Debug.Print("  "+string.Join(",", ncparts));
+            }
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
         {
             kinput.Focus();
         }
-        private void keyc(string keyname_)
+        private void keyc(int keyname_)
         {
-            if (char.IsUpper(keyname_[0]))
+            if (keyname_ < 0)
             {
-                ((Border)FindName(keyname()["shift"])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+                ((Border)FindName(keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
             }
-            ((Border)FindName(keyname()[keyname_.ToLower()])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            ((Border)FindName(keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
         }
-        private void keyb(string keyname_)
+        private void keyb(int keyname_)
         {
-            if (char.IsUpper(keyname_[0]))
+            if (keyname_ < 0)
             {
-                ((Border)FindName(keyname()["shift"])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+                ((Border)FindName(keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
             }
-            ((Border)FindName(keyname()[keyname_.ToLower()])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+            ((Border)FindName(keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
         }
         async void missback()
         {
@@ -142,129 +185,22 @@ namespace typing
                 Qtypespeed.Text = (typecnt/sw.Elapsed.TotalSeconds).ToString();
             }
         }
-        async private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
-            //Debug.Print("keydown");
-
             Key key = e.Key;
             Key systemKey = e.SystemKey;
             KeyStates keyStates = e.KeyStates;
             bool isRepeat = e.IsRepeat;
-            string s = "";
-            s += string.Format("  Key={0}  KeyStates={1}  IsRepeat={2}", key, keyStates, isRepeat);
             ModifierKeys modifierKeys = Keyboard.Modifiers;
-            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) s += "_Shift";
-            //Debug.Print(s);
-            string key_name = key.ToString().ToLower();
             string Keyname = key.ToString();
-            if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None) Keyname += "_S";
-
             int Keycode = ((int)key);
-
-
-            Debug.Print(Keyname+" "+Keycode.ToString());
-
             if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
             {
-                key_name = key_name.ToUpper();
+                Keyname += "_S";
+                Keycode *= -1;
             }
-            if (type == "ja-en")
-            {
-                if (nowcnt == 0)
-                {
-                    if (key_name == "space")
-                    {
-                        QAnowcnt.Text = nowcnt.ToString();
-                        QAmisscnt.Text = misscnt.ToString();
-                        bfa = QAd.Keys.ToList()[nowcnt];
-                        Qarea.Text = QAd.Values.ToList()[nowcnt][0];
-                        bflen = QAd.Keys.ToList()[nowcnt].Length;
-                        QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
-                        QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
-                        type = QAd.Values.ToList()[nowcnt][3];
-                        bfkey = "space";
-                        nextkey = bfa.Substring(iqacnt, 1);
-                        iqacnt = 0;
-                        //Debug.Print(bfa + " " + bflen);
-                        nowcnt++;
-                        keyb(bfkey);
-                        keyc(nextkey);
-                        Qprogress.Maximum = allcnt;
-                        Qprogress.Value = nowcnt;
-                        Aprogress.Maximum = bflen;
-                        Aprogress.Value = iqacnt;
-                        nowplay = true;
-                        sw = new System.Diagnostics.Stopwatch();
-                        sw.Start();
-                        viewsw();
-                    }
-                }
-                else
-                {
-                    keylist = keyname();
-                    if (keylist.ContainsKey(key_name.ToLower()))
-                    {
-                        typecnt++;
-                        if (key_name == nextkey)
-                        {
-                            if (iqacnt < bflen - 1)
-                            {
-                                QAtypecnt.Text = typecnt.ToString();
-                                bfkey = nextkey;
-                                iqacnt++;
-                                nextkey = bfa.Substring(iqacnt, 1);
-                                Aarea.Text = bfa.Substring(0, iqacnt);
-                                keyb(bfkey);
-                                keyc(nextkey);
-                                Aprogress.Value = iqacnt;
-                            }
-                            else
-                            {
-                                if (nowcnt < allcnt)
-                                {
-                                    QAnowcnt.Text = nowcnt.ToString();
-                                    Aarea.Text = bfa;
-                                    sw.Stop();
-                                    await Task.Delay(5);
-                                    sw.Start();
-                                    Qarea.Text = QAd.Values.ToList()[nowcnt][0];
-                                    Aarea.Text = "";
-                                    bflen = QAd.Keys.ToList()[nowcnt].Length;
-                                    QAfilename.Text = QAd.Values.ToList()[nowcnt][1];
-                                    QAlinecnt.Text = QAd.Values.ToList()[nowcnt][2];
-                                    type = QAd.Values.ToList()[nowcnt][3];
-                                    iqacnt = 0;
-                                    bfkey = nextkey;
-                                    bfa = QAd.Keys.ToList()[nowcnt];
-                                    nowcnt++;
-                                    nextkey = bfa.Substring(iqacnt, 1);
-                                    keyb(bfkey);
-                                    keyc(nextkey);
-                                    Aprogress.Maximum = bflen;
-                                    Aprogress.Value = iqacnt;
-                                    Qprogress.Value = nowcnt;
-                                    //Debug.Print(bfa + " " + bflen);
-                                }
-                                else
-                                {
-                                    Qarea.Text = "終了！";
-                                    Aarea.Text = "";
-                                    nowplay = false;
-                                    await Task.Delay(5000);
-                                    var tpage = new HomePage();
-                                    NavigationService.Navigate(tpage);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            missback();
-                            misscnt++;
-                            QAmisscnt.Text = misscnt.ToString();
-                        }
-                    }
-                }
-            }
+            Debug.Print(Keyname+" "+Keycode.ToString());
+            im(Keycode);
         }
 
 
@@ -274,121 +210,105 @@ namespace typing
 
         public void start()
         {
-            allcnt = QAd.Keys.Count;
+            allcnt = QAd.Rows.Count;
             nowcnt = 0;
             misscnt = 0;
             typecnt = 0;
             QAallcnt.Text = allcnt.ToString();
-            keyc("space");
+            keyc(18);
         }
-        public void ime(string keyname)
+        public void im(int keycode)
         {
-
-        }
-        public Dictionary<string,string> keyname()
-        {
-            return new Dictionary<string, string>()
+            Debug.Print("nowcnt:" + nowcnt.ToString());
+            if (nowcnt == 0 & keycode == 18)
             {
-                {"shift","klshift_b"},
-                {"space","kspace_b"},
-                {"a","ka_b"},
-                {"b","kb_b"},
-                {"c","kc_b"},
-                {"d","kd_b"},
-                {"e","ke_b"},
-                {"f","kf_b"},
-                {"g","kg_b"},
-                {"h","kh_b"},
-                {"i","ki_b"},
-                {"j","kj_b"},
-                {"k","kk_b"},
-                {"l","kl_b"},
-                {"m","km_b"},
-                {"n","kn_b"},
-                {"o","ko_b"},
-                {"p","kp_b"},
-                {"q","kq_b"},
-                {"r","kr_b"},
-                {"s","ks_b"},
-                {"t","kt_b"},
-                {"u","ku_b"},
-                {"v","kv_b"},
-                {"w","kw_b"},
-                {"x","kx_b"},
-                {"y","ky_b"},
-                {"z","kz_b"},
-                {"1","k1_b"},
-                {"2","k2_b"},
-                {"3","k3_b"},
-                {"4","k4_b"},
-                {"5","k5_b"},
-                {"6","k6_b"},
-                {"7","k7_b"},
-                {"8","k8_b"},
-                {"9","k9_b"},
-                {"0","k0_b"},
-                {".","kpgt_b"},
-                {",","kclt_b"},
-                {"\\","kby_b"},
-                {"/","ksqs_b"},
-            };
-        }
-        public void im()
-        {
-            string ans = "ab";
+                nowcnt++;
+                partcnt = 0;
 
-            Debug.Print(ans);
+                nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
+                Debug.Print(string.Join(",", new List<string> { nowq["id"].ToString(), nowq["question"].ToString(), nowq["answer"].ToString(), nowq["title"].ToString(), nowq["filelocation"].ToString(), nowq["fileline"].ToString() }));
+                ncparts = splita(nowq["answer"].ToString());
+                Debug.Print(string.Join(",",ncparts));
 
-            short[][] redata = new short[0][];
-
-            for (int cnt=0;cnt<ans.Length;cnt++)
+            }
+            else if (nowcnt>0)
             {
-                string letter = ans.Substring(cnt, 1);
-                short[] rekeycode = new short[0];
-
-                switch (letter)
+                typecnt++;
+            }
+        }
+        public string[] splita(string str)
+        {
+            string[] rt = new string[str.Length];
+            int lc = 0;
+            string[] ckeyskeys = new string[ckeys.Count];
+            ckeys.Keys.CopyTo(ckeyskeys, 0);
+            while (str.Length > 0)
+            {
+                for (int i=0;i<ckeys.Count;i++)
                 {
-                    case "a":
-                        Array.Resize(ref rekeycode, 1);
-                        rekeycode = new short[] { 44 };
-                        break;
-                    case "b":
-                        Array.Resize(ref rekeycode, 1);
-                        rekeycode = new short[] { 45 };
-                        break;
-                    default:
-                        break;
-                }
-
-                if (rekeycode.Length>0)
-                {
-                    short[][] redataed = redata;
-                    for (int rkcc=0;rkcc<rekeycode.Length; rkcc++)
+                    if (str.StartsWith(ckeyskeys[i]))
                     {
-                        short[][] redataedtm = redataed;
-                        if (redata.Length>0)
-                        {
-                            for (int rdcnt = 0; rdcnt<redata.Length; rdcnt++)
-                            {
-                                redataedtm[rdcnt] = redataed[rdcnt].Concat(new short[] { rekeycode[rkcc] }).ToArray();
-                            }
-                            redata = redata.Concat(redataedtm).ToArray();
-                        }
-                        else
-                        {
-
-                            Array.Resize(ref redata, 1);
-                            redata[0] = new short[] { rekeycode[rkcc] };
-                        }
+                        rt[lc] = ckeyskeys[i];
+                        lc++;
+                        str = str.Substring(ckeyskeys[i].Length);
+                        break;
+                    }
+                    else if (i==ckeys.Count-1)
+                    {
+                        str = str.Substring(1);
                     }
                 }
             }
-
-            foreach(short[] tmd in redata)
+            Array.Resize(ref rt, lc);
+            return rt;
+        }
+        public Dictionary<int,string> keyname()
+        {
+            return new Dictionary<int, string>()
             {
-                Debug.Print(String.Join(",", tmd));
-            }
+                {18,"kspace_b"},
+                {116,"klshift_b"},
+                {117,"krshift_b"},
+                {44,"ka_b"},
+            };
+        }
+        public Dictionary<string, int[][]> cparts()
+        {
+            return new Dictionary<string, int[][]>()
+            {
+                {"a",new int[][] { new int[] { 44 } }},
+                {"b",new int[][] { new int[] { 45 } }},
+                {"c",new int[][] { new int[] { 46 } }},
+                {"d",new int[][] { new int[] { 47 } }},
+                {"e",new int[][] { new int[] { 48 } }},
+                {"f",new int[][] { new int[] { 49 } }},
+                {"g",new int[][] { new int[] { 50 } }},
+                {"h",new int[][] { new int[] { 51 } }},
+                {"i",new int[][] { new int[] { 52 } }},
+                {"j",new int[][] { new int[] { 53 } }},
+                {"k",new int[][] { new int[] { 54 } }},
+                {"l",new int[][] { new int[] { 55 } }},
+                {"m",new int[][] { new int[] { 56 } }},
+                {"n",new int[][] { new int[] { 57 } }},
+                {"o",new int[][] { new int[] { 58 } }},
+                {"p",new int[][] { new int[] { 59 } }},
+                {"q",new int[][] { new int[] { 60 } }},
+                {"r",new int[][] { new int[] { 61 } }},
+                {"s",new int[][] { new int[] { 62 } }},
+                {"t",new int[][] { new int[] { 63 } }},
+                {"u",new int[][] { new int[] { 64 } }},
+                {"v",new int[][] { new int[] { 65 } }},
+                {"w",new int[][] { new int[] { 66 } }},
+                {"x",new int[][] { new int[] { 67 } }},
+                {"y",new int[][] { new int[] { 68 } }},
+                {"z",new int[][] { new int[] { 69 } }},
 
+
+                {"しゃ",new int[][] { new int[] { 62,68,44 }, new int[] { 62,52,55,54 } }},
+                {"し",new int[][] { new int[] { 62,52 } }},
+                {"ぁ",new int[][] { new int[] { 55,54 } }},
+                {"ん",new int[][] { new int[] { 57,57 } }},
+            };
         }
     }
 }
