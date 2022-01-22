@@ -11,11 +11,11 @@ supporting JIS keyboard
 supported most hiragana(Japanese) and alphabets  
 
 ## plans
-私がJISキーボード以外のキーボードを理解できたら、そのキーボードも対応させたい
-私が他の言語を理解できたら、その言語も対応させたい
+私がJISキーボード以外のキーボードを理解できたら、そのキーボードも対応させたい  
+私が他の言語を理解できたら、その言語も対応させたい  
 
-if I can understand keyboard other than JIS keyboard, it will support the keyboard
-if I can understand other lang, it will support the lang
+if I can understand keyboard other than JIS keyboard, it will support the keyboard  
+if I can understand other lang, it will support the lang  
 
 ## How to use 
 coming soon (I haven't started writing)
