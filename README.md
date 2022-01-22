@@ -1,5 +1,7 @@
 # typing
+タイピングゲーム
 typing game of desktop
 
 ## Now
-It is now possible to see most hiragana and alphabets
+ほとんどの平仮名とアルファベットに対応しました
+supported most hiragana and alphabets
