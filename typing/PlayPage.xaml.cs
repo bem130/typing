@@ -230,13 +230,15 @@ namespace typing
             {
                 nowcnt++;
                 partcnt = 0;
-                ipartcnt =0;
+                ipartcnt = 0;
 
                 nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
                 Debug.Print(string.Join(",", new List<string> { nowq["id"].ToString(), nowq["question"].ToString(), nowq["answer"].ToString(), nowq["title"].ToString(), nowq["filelocation"].ToString(), nowq["fileline"].ToString() }));
                 ncparts = splita(nowq["answer"].ToString());
                 Debug.Print(string.Join(",",ncparts));
                 Qarea.Text = nowq["question"].ToString();
+                QAfilename.Text = nowq["filelocation"].ToString();
+                QAlinecnt.Text = nowq["fileline"].ToString();
                 int mik = 0;
                 int imik;
                 foreach (string ch in ncparts)
@@ -262,49 +264,82 @@ namespace typing
                     }
                 }
                 inputpart = new int[imik];
-
             }
             else if (nowcnt>0)
             {
+
                 typecnt++;
 
                 inputpart[ipartcnt] = keycode;
+                bool ipok = false;
+                //for (int ck = 0; ck<ckeys[ncparts[partcnt]].Length; ck++)
+                //{
+                //    int[] t = ckeys[ncparts[partcnt]][ck];
+                //    Debug.Print(string.Join(",", t)+" "+string.Join(",", inputpart));
+                //    bool iipok = true;
+                //    for (int i = 0; i<t.Length; i++)
+                //    {
+                //        if (inputpart[i] != t[0])
+                //        {
+                //            iipok = false;
+                //            break;
+                //        }
+                //    }
+                //    if (iipok)
+                //    {
+                //        ipok = true;
+                //        if (ipartcnt+1 == t.Length)
+                //        {
+                //            ipok = false;
+                //            partcnt++;
+                //            ipartcnt = 0;
+                //            int imik = 0;
+                //            foreach (int[] c in ckeys[ncparts[0]])
+                //            {
+                //                if (c.Length > imik)
+                //                {
+                //                    imik = c.Length;
+                //                }
+                //            }
+                //            inputpart = new int[imik];
+                //        }
+                //        break;
+                //    }
+                //}
+                //if (ipok)
+                //{
+                //    ipartcnt++;
+                //}
                 foreach (int[] t in ckeys[ncparts[partcnt]])
                 {
-                    Debug.Print(string.Join(",", t)+" "+string.Join(",", inputpart));
-                    bool iipok = true;
-                    for (int i = 0; i<t.Length; i++)
+                    if (t.Length > ipartcnt)
                     {
-                        if (inputpart.Length < i & inputpart[i] != t[i])
+                        int[] spt = new int[ipartcnt+1];
+                        int[] spinp = new int[ipartcnt+1];
+                        Array.Copy(t, 0, spt, 0, ipartcnt+1);
+                        Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
+                        Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
+                        if (spt.SequenceEqual(spinp))
                         {
-                            ipartcnt = i;
-                            iipok = false;
-                            break;
-                        }
-                    }
-                    if (iipok)
-                    {
-                        if (ipartcnt+1 == t.Length)
-                        {
-                            partcnt++;
-                            ipartcnt = 0;
-
-                            int imik = 0;
-                            foreach (int[] c in ckeys[ncparts[0]])
+                            if (t.Length == ipartcnt+1)
                             {
-                                if (c.Length > imik)
+                                partcnt++;
+                                ipartcnt = 0;
+                                int imik = 0;
+                                foreach (int[] c in ckeys[ncparts[0]])
                                 {
-                                    imik = c.Length;
+                                    if (c.Length > imik)
+                                    {
+                                        imik = c.Length;
+                                    }
                                 }
+                                inputpart = new int[imik];
+                                break;
                             }
-                            inputpart = new int[imik];
-                        }
-                        else
-                        {
                             ipartcnt++;
                         }
-                        break;
                     }
+
                 }
                 Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString() + "allparts:" + (ncparts.Length).ToString());
                 if (partcnt == ncparts.Length)
@@ -336,6 +371,10 @@ namespace typing
                         }
                         inputpart = new int[mik];
                     }
+                    Qprogress.Maximum = allcnt;
+                    Qprogress.Value = nowcnt;
+                    Aprogress.Maximum = allcnt;
+                    Aprogress.Value = nowcnt;
                 }
             }
         }
@@ -407,8 +446,8 @@ namespace typing
                 {"z",new int[][] { new int[] { 69 } }},
 
 
-                {"しゃ",new int[][] { new int[] { 62,68,44 }}},
-                {"し",new int[][] { new int[] { 62,52 } }},
+                {"しゃ",new int[][] { new int[] { 62,68,44 },new int[] { 62,51,52,55,54 },new int[] { 62,52,55,44 },new int[] { 62,68,44 }}},
+                {"し",new int[][] { new int[] { 62,52},new int[] { 62,51,52} }},
                 {"ゃ",new int[][] { new int[] { 55,54 } }},
                 {"ん",new int[][] { new int[] { 57,57 },new int[] { 67,57 }  }},
             };
