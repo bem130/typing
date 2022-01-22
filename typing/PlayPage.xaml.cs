@@ -24,6 +24,7 @@ namespace typing
     /// </summary>
     public partial class PlayPage : Page
     {
+        keyboard keyb;
         DataTable QAd;
 
         bool nowplay;
@@ -52,10 +53,12 @@ namespace typing
 
         public PlayPage()
         {
+            keyb = new keyboard();
+
             InitializeComponent();
             setcolortheme();
-            ckeys = cparts();
-            keylist = keyname();
+            ckeys = keyb.cparts();
+            keylist = keyb.keyname();
             read_file();
             start();
 
@@ -163,17 +166,17 @@ namespace typing
         {
             if (keyname_ < 0)
             {
-                ((Border)FindName(keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+                ((Border)FindName(keyb.keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
             }
-            ((Border)FindName(keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            ((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
         }
-        private void keyb(int keyname_)
+        private void keybr(int keyname_)
         {
             if (keyname_ < 0)
             {
-                ((Border)FindName(keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+                ((Border)FindName(keyb.keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
             }
-            ((Border)FindName(keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+            ((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
         }
         async void missback()
         {
@@ -271,45 +274,6 @@ namespace typing
                 typecnt++;
 
                 inputpart[ipartcnt] = keycode;
-                bool ipok = false;
-                //for (int ck = 0; ck<ckeys[ncparts[partcnt]].Length; ck++)
-                //{
-                //    int[] t = ckeys[ncparts[partcnt]][ck];
-                //    Debug.Print(string.Join(",", t)+" "+string.Join(",", inputpart));
-                //    bool iipok = true;
-                //    for (int i = 0; i<t.Length; i++)
-                //    {
-                //        if (inputpart[i] != t[0])
-                //        {
-                //            iipok = false;
-                //            break;
-                //        }
-                //    }
-                //    if (iipok)
-                //    {
-                //        ipok = true;
-                //        if (ipartcnt+1 == t.Length)
-                //        {
-                //            ipok = false;
-                //            partcnt++;
-                //            ipartcnt = 0;
-                //            int imik = 0;
-                //            foreach (int[] c in ckeys[ncparts[0]])
-                //            {
-                //                if (c.Length > imik)
-                //                {
-                //                    imik = c.Length;
-                //                }
-                //            }
-                //            inputpart = new int[imik];
-                //        }
-                //        break;
-                //    }
-                //}
-                //if (ipok)
-                //{
-                //    ipartcnt++;
-                //}
                 foreach (int[] t in ckeys[ncparts[partcnt]])
                 {
                     if (t.Length > ipartcnt)
@@ -403,54 +367,6 @@ namespace typing
             }
             Array.Resize(ref rt, lc);
             return rt;
-        }
-        public Dictionary<int,string> keyname()
-        {
-            return new Dictionary<int, string>()
-            {
-                {18,"kspace_b"},
-                {116,"klshift_b"},
-                {117,"krshift_b"},
-                {44,"ka_b"},
-            };
-        }
-        public Dictionary<string, int[][]> cparts()
-        {
-            return new Dictionary<string, int[][]>()
-            {
-                {"a",new int[][] { new int[] { 44 } }},
-                {"b",new int[][] { new int[] { 45 } }},
-                {"c",new int[][] { new int[] { 46 } }},
-                {"d",new int[][] { new int[] { 47 } }},
-                {"e",new int[][] { new int[] { 48 } }},
-                {"f",new int[][] { new int[] { 49 } }},
-                {"g",new int[][] { new int[] { 50 } }},
-                {"h",new int[][] { new int[] { 51 } }},
-                {"i",new int[][] { new int[] { 52 } }},
-                {"j",new int[][] { new int[] { 53 } }},
-                {"k",new int[][] { new int[] { 54 } }},
-                {"l",new int[][] { new int[] { 55 } }},
-                {"m",new int[][] { new int[] { 56 } }},
-                {"n",new int[][] { new int[] { 57 } }},
-                {"o",new int[][] { new int[] { 58 } }},
-                {"p",new int[][] { new int[] { 59 } }},
-                {"q",new int[][] { new int[] { 60 } }},
-                {"r",new int[][] { new int[] { 61 } }},
-                {"s",new int[][] { new int[] { 62 } }},
-                {"t",new int[][] { new int[] { 63 } }},
-                {"u",new int[][] { new int[] { 64 } }},
-                {"v",new int[][] { new int[] { 65 } }},
-                {"w",new int[][] { new int[] { 66 } }},
-                {"x",new int[][] { new int[] { 67 } }},
-                {"y",new int[][] { new int[] { 68 } }},
-                {"z",new int[][] { new int[] { 69 } }},
-
-
-                {"しゃ",new int[][] { new int[] { 62,68,44 },new int[] { 62,51,52,55,54 },new int[] { 62,52,55,44 },new int[] { 62,68,44 }}},
-                {"し",new int[][] { new int[] { 62,52},new int[] { 62,51,52} }},
-                {"ゃ",new int[][] { new int[] { 55,54 } }},
-                {"ん",new int[][] { new int[] { 57,57 },new int[] { 67,57 }  }},
-            };
         }
     }
 }
