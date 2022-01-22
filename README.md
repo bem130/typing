@@ -21,7 +21,7 @@ if I can understand other lang, it will support the lang
 coming soon (I haven't started writing)
 
 ### type of question
- (1) ja_word
-   日本語の単語 - Japanese words
- (2) ja_sentence
-   日本語の文章 - Japanese sentences
+ (1) ja_word  
+   日本語の単語 - Japanese words  
+ (2) ja_sentence  
+   日本語の文章 - Japanese sentences  
