@@ -24,6 +24,7 @@ namespace typing
     /// </summary>
     public partial class PlayPage : Page
     {
+        keyboard keyb;
         DataTable QAd;
 
         bool nowplay;
@@ -38,7 +39,10 @@ namespace typing
         int bflen;
         int allcnt;
         int nowcnt;
+        int[] inputpart;
+        int[] input_a;
         int partcnt;
+        int ipartcnt;
         int typecnt;
         string[] ncparts;
         DataRow nowq;
@@ -49,10 +53,12 @@ namespace typing
 
         public PlayPage()
         {
+            keyb = new keyboard();
+
             InitializeComponent();
             setcolortheme();
-            ckeys = cparts();
-            keylist = keyname();
+            ckeys = keyb.cparts();
+            keylist = keyb.keyname();
             read_file();
             start();
 
@@ -124,15 +130,18 @@ namespace typing
                             }
                         }
                     }
+                    else if (fileline.StartsWith("[comment]")) //コメント行の場合
+                    {
+                    }
                     else //問題行の場合
                     {
-                        if (fprop["type"] == "ja")
+                        if (fprop["type"] == "ja_word")
                         {
                             string[] qaline = fileline.Split(fprop["split"][0]);
                             questionid++;
                             QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
                         }
-                        if (fprop["type"] == "ja-en")
+                        if (fprop["type"] == "ja-en_word")
                         {
                             string[] qaline = fileline.Split(fprop["split"][0]);
                             questionid++;
@@ -157,17 +166,17 @@ namespace typing
         {
             if (keyname_ < 0)
             {
-                ((Border)FindName(keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+                ((Border)FindName(keyb.keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
             }
-            ((Border)FindName(keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            ((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
         }
-        private void keyb(int keyname_)
+        private void keybr(int keyname_)
         {
             if (keyname_ < 0)
             {
-                ((Border)FindName(keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+                ((Border)FindName(keyb.keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
             }
-            ((Border)FindName(keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+            ((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
         }
         async void missback()
         {
@@ -219,21 +228,118 @@ namespace typing
         }
         public void im(int keycode)
         {
-            Debug.Print("nowcnt:" + nowcnt.ToString());
+            Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString());
             if (nowcnt == 0 & keycode == 18)
             {
                 nowcnt++;
                 partcnt = 0;
+                ipartcnt = 0;
 
                 nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
                 Debug.Print(string.Join(",", new List<string> { nowq["id"].ToString(), nowq["question"].ToString(), nowq["answer"].ToString(), nowq["title"].ToString(), nowq["filelocation"].ToString(), nowq["fileline"].ToString() }));
                 ncparts = splita(nowq["answer"].ToString());
                 Debug.Print(string.Join(",",ncparts));
-
+                Qarea.Text = nowq["question"].ToString();
+                QAfilename.Text = nowq["filelocation"].ToString();
+                QAlinecnt.Text = nowq["fileline"].ToString();
+                int mik = 0;
+                int imik;
+                foreach (string ch in ncparts)
+                {
+                    int[][] tchk = ckeys[ch];
+                    imik = 0;
+                    foreach (int[] c in tchk)
+                    {
+                        if (c.Length > imik)
+                        {
+                            imik = c.Length;
+                        }
+                    }
+                    mik += imik;
+                }
+                input_a = new int[mik];
+                imik = 0;
+                foreach (int[] c in ckeys[ncparts[0]])
+                {
+                    if (c.Length > imik)
+                    {
+                        imik = c.Length;
+                    }
+                }
+                inputpart = new int[imik];
             }
             else if (nowcnt>0)
             {
+
                 typecnt++;
+
+                inputpart[ipartcnt] = keycode;
+                foreach (int[] t in ckeys[ncparts[partcnt]])
+                {
+                    if (t.Length > ipartcnt)
+                    {
+                        int[] spt = new int[ipartcnt+1];
+                        int[] spinp = new int[ipartcnt+1];
+                        Array.Copy(t, 0, spt, 0, ipartcnt+1);
+                        Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
+                        Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
+                        if (spt.SequenceEqual(spinp))
+                        {
+                            if (t.Length == ipartcnt+1)
+                            {
+                                partcnt++;
+                                ipartcnt = 0;
+                                int imik = 0;
+                                foreach (int[] c in ckeys[ncparts[0]])
+                                {
+                                    if (c.Length > imik)
+                                    {
+                                        imik = c.Length;
+                                    }
+                                }
+                                inputpart = new int[imik];
+                                break;
+                            }
+                            ipartcnt++;
+                        }
+                    }
+
+                }
+                Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString() + "allparts:" + (ncparts.Length).ToString());
+                if (partcnt == ncparts.Length)
+                {
+                    nowcnt++;
+                    if (nowcnt <= allcnt)
+                    {
+                        partcnt = 0;
+                        ipartcnt =0;
+
+                        nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
+                        Debug.Print(string.Join(",", new List<string> { nowq["id"].ToString(), nowq["question"].ToString(), nowq["answer"].ToString(), nowq["title"].ToString(), nowq["filelocation"].ToString(), nowq["fileline"].ToString() }));
+                        ncparts = splita(nowq["answer"].ToString());
+                        Debug.Print(string.Join(",", ncparts));
+                        Qarea.Text = nowq["question"].ToString();
+                        int mik = 0;
+                        foreach (string ch in ncparts)
+                        {
+                            int[][] tchk = ckeys[ch];
+                            int imik = 0;
+                            foreach (int[] c in tchk)
+                            {
+                                if (c.Length > imik)
+                                {
+                                    imik = c.Length;
+                                }
+                            }
+                            mik += imik;
+                        }
+                        inputpart = new int[mik];
+                    }
+                    Qprogress.Maximum = allcnt;
+                    Qprogress.Value = nowcnt;
+                    Aprogress.Maximum = allcnt;
+                    Aprogress.Value = nowcnt;
+                }
             }
         }
         public string[] splita(string str)
@@ -261,54 +367,6 @@ namespace typing
             }
             Array.Resize(ref rt, lc);
             return rt;
-        }
-        public Dictionary<int,string> keyname()
-        {
-            return new Dictionary<int, string>()
-            {
-                {18,"kspace_b"},
-                {116,"klshift_b"},
-                {117,"krshift_b"},
-                {44,"ka_b"},
-            };
-        }
-        public Dictionary<string, int[][]> cparts()
-        {
-            return new Dictionary<string, int[][]>()
-            {
-                {"a",new int[][] { new int[] { 44 } }},
-                {"b",new int[][] { new int[] { 45 } }},
-                {"c",new int[][] { new int[] { 46 } }},
-                {"d",new int[][] { new int[] { 47 } }},
-                {"e",new int[][] { new int[] { 48 } }},
-                {"f",new int[][] { new int[] { 49 } }},
-                {"g",new int[][] { new int[] { 50 } }},
-                {"h",new int[][] { new int[] { 51 } }},
-                {"i",new int[][] { new int[] { 52 } }},
-                {"j",new int[][] { new int[] { 53 } }},
-                {"k",new int[][] { new int[] { 54 } }},
-                {"l",new int[][] { new int[] { 55 } }},
-                {"m",new int[][] { new int[] { 56 } }},
-                {"n",new int[][] { new int[] { 57 } }},
-                {"o",new int[][] { new int[] { 58 } }},
-                {"p",new int[][] { new int[] { 59 } }},
-                {"q",new int[][] { new int[] { 60 } }},
-                {"r",new int[][] { new int[] { 61 } }},
-                {"s",new int[][] { new int[] { 62 } }},
-                {"t",new int[][] { new int[] { 63 } }},
-                {"u",new int[][] { new int[] { 64 } }},
-                {"v",new int[][] { new int[] { 65 } }},
-                {"w",new int[][] { new int[] { 66 } }},
-                {"x",new int[][] { new int[] { 67 } }},
-                {"y",new int[][] { new int[] { 68 } }},
-                {"z",new int[][] { new int[] { 69 } }},
-
-
-                {"しゃ",new int[][] { new int[] { 62,68,44 }, new int[] { 62,52,55,54 } }},
-                {"し",new int[][] { new int[] { 62,52 } }},
-                {"ぁ",new int[][] { new int[] { 55,54 } }},
-                {"ん",new int[][] { new int[] { 57,57 } }},
-            };
         }
     }
 }
