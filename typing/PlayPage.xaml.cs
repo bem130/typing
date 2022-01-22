@@ -141,7 +141,19 @@ namespace typing
                             questionid++;
                             QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
                         }
+                        if (fprop["type"] == "ja_sentence")
+                        {
+                            string[] qaline = fileline.Split(fprop["split"][0]);
+                            questionid++;
+                            QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
+                        }
                         if (fprop["type"] == "ja-en_word")
+                        {
+                            string[] qaline = fileline.Split(fprop["split"][0]);
+                            questionid++;
+                            QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                        }
+                        if (fprop["type"] == "ja-en_sentence")
                         {
                             string[] qaline = fileline.Split(fprop["split"][0]);
                             questionid++;
@@ -228,6 +240,7 @@ namespace typing
         }
         public void im(int keycode)
         {
+            string[] nowa;
             Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString());
             if (nowcnt == 0 & keycode == 18)
             {
@@ -273,6 +286,9 @@ namespace typing
             {
 
                 typecnt++;
+                nowa = new string[partcnt];
+                Array.Copy(ncparts, 0, nowa, 0, partcnt);
+                Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
 
                 inputpart[ipartcnt] = keycode;
                 foreach (int[] t in ckeys[ncparts[partcnt]])
@@ -285,9 +301,6 @@ namespace typing
                         Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
                         Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
 
-                        string[] nowa = new string[partcnt];
-                        Array.Copy(ncparts, 0, nowa, 0, partcnt);
-                        Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
 
                         if (spt.SequenceEqual(spinp))
                         {
@@ -298,6 +311,7 @@ namespace typing
                                 {
                                     break;
                                 }
+
                                 int imik = 0;
                                 foreach (int[] c in ckeys[ncparts[partcnt]])
                                 {
@@ -316,6 +330,9 @@ namespace typing
 
                 }
                 Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString() + "allparts:" + (ncparts.Length).ToString());
+                nowa = new string[partcnt];
+                Array.Copy(ncparts, 0, nowa, 0, partcnt);
+                Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
                 if (partcnt == ncparts.Length)
                 {
                     nowcnt++;
