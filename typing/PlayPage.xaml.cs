@@ -168,7 +168,7 @@ namespace typing
             {
                 ((Border)FindName(keyb.keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
             }
-            ((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            //((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
         }
         private void keybr(int keyname_)
         {
@@ -176,7 +176,7 @@ namespace typing
             {
                 ((Border)FindName(keyb.keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
             }
-            ((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+            //((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
         }
         async void missback()
         {
@@ -242,6 +242,7 @@ namespace typing
                 Qarea.Text = nowq["question"].ToString();
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
+                AnsArea.Text = string.Join("", ncparts);
                 int mik = 0;
                 int imik;
                 foreach (string ch in ncparts)
@@ -283,14 +284,22 @@ namespace typing
                         Array.Copy(t, 0, spt, 0, ipartcnt+1);
                         Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
                         Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
+
+                        string[] nowa = new string[partcnt];
+                        Array.Copy(ncparts, 0, nowa, 0, partcnt);
+                        Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
+
                         if (spt.SequenceEqual(spinp))
                         {
                             if (t.Length == ipartcnt+1)
                             {
                                 partcnt++;
-                                ipartcnt = 0;
+                                if (partcnt >= ncparts.Length)
+                                {
+                                    break;
+                                }
                                 int imik = 0;
-                                foreach (int[] c in ckeys[ncparts[0]])
+                                foreach (int[] c in ckeys[ncparts[partcnt]])
                                 {
                                     if (c.Length > imik)
                                     {
@@ -298,6 +307,7 @@ namespace typing
                                     }
                                 }
                                 inputpart = new int[imik];
+                                ipartcnt = 0;
                                 break;
                             }
                             ipartcnt++;
@@ -309,8 +319,14 @@ namespace typing
                 if (partcnt == ncparts.Length)
                 {
                     nowcnt++;
+                    if (nowcnt > QAd.Rows.Count)
+                    {
+                        Aarea.Text = "finished";
+                        return;
+                    }
                     if (nowcnt <= allcnt)
                     {
+                        Aarea.Text = "";
                         partcnt = 0;
                         ipartcnt =0;
 
@@ -319,6 +335,10 @@ namespace typing
                         ncparts = splita(nowq["answer"].ToString());
                         Debug.Print(string.Join(",", ncparts));
                         Qarea.Text = nowq["question"].ToString();
+                        QAfilename.Text = nowq["filelocation"].ToString();
+                        QAlinecnt.Text = nowq["fileline"].ToString();
+                        AnsArea.Text = string.Join("", ncparts);
+
                         int mik = 0;
                         foreach (string ch in ncparts)
                         {
