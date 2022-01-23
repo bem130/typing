@@ -61,10 +61,6 @@ namespace typing
                 {68,"y"},
                 {69,"z"},
 
-                {18,"kspace"},
-                {116,"klshift"},
-                {117,"krshift"},
-
             };
         }
         public Dictionary<string, int[][]> cparts()

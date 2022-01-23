@@ -33,10 +33,6 @@ namespace typing
 
         Dictionary<int, string> keylist;
 
-        string bfa;
-        string bfkey;
-        string nextkey;
-        int bflen;
         int allcnt;
         int nowcnt;
         int[] inputpart;
@@ -220,7 +216,7 @@ namespace typing
                 Keyname += "_S";
                 Keycode *= -1;
             }
-            Debug.Print(Keyname+" "+Keycode.ToString());
+            Latestkey.Text = Keycode.ToString();
             im(Keycode);
         }
 
@@ -255,6 +251,7 @@ namespace typing
                 Qarea.Text = nowq["question"].ToString();
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
+                Qtitle.Text = nowq["title"].ToString();
                 AnsArea.Text = string.Join("", ncparts);
                 int mik = 0;
                 int imik;
@@ -354,6 +351,7 @@ namespace typing
                         Qarea.Text = nowq["question"].ToString();
                         QAfilename.Text = nowq["filelocation"].ToString();
                         QAlinecnt.Text = nowq["fileline"].ToString();
+                        Qtitle.Text = nowq["title"].ToString();
                         AnsArea.Text = string.Join("", ncparts);
 
                         int mik = 0;
@@ -372,8 +370,6 @@ namespace typing
                         }
                         inputpart = new int[mik];
                     }
-                    Qprogress.Maximum = allcnt;
-                    Qprogress.Value = nowcnt;
                     Aprogress.Maximum = allcnt;
                     Aprogress.Value = nowcnt;
                 }
