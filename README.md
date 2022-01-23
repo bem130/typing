@@ -1,7 +1,12 @@
 # typing
+
 タイピングゲーム  
 
 typing game of desktop  
+
+
+中心的な部分を開発している途中です。そのためコードの更新時に、新しい方と古い方の間で互換性がある保障はできません。 - 2022年1月23日
+now, developing the central part. so when the code update, I can't guarantee compatibility between new and old. - 2022 1/23
 
 ## Now
 JISキーボードに対応しています  
