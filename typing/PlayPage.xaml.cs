@@ -217,7 +217,10 @@ namespace typing
                 Keycode *= -1;
             }
             Latestkey.Text = Keycode.ToString();
-            im(Keycode);
+            if (keyb.passim(Keycode))
+            {
+                im(Keycode);
+            }
         }
 
 
@@ -237,7 +240,6 @@ namespace typing
         public void im(int keycode)
         {
             string[] nowa;
-            Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString());
             if (nowcnt == 0 & keycode == 18)
             {
                 nowcnt++;
@@ -245,9 +247,7 @@ namespace typing
                 ipartcnt = 0;
 
                 nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
-                Debug.Print(string.Join(",", new List<string> { nowq["id"].ToString(), nowq["question"].ToString(), nowq["answer"].ToString(), nowq["title"].ToString(), nowq["filelocation"].ToString(), nowq["fileline"].ToString() }));
                 ncparts = splita(nowq["answer"].ToString());
-                Debug.Print(string.Join(",",ncparts));
                 Qarea.Text = nowq["question"].ToString();
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
@@ -283,6 +283,7 @@ namespace typing
             {
 
                 typecnt++;
+                QAtypecnt.Text = typecnt.ToString();
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
                 Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
@@ -326,7 +327,6 @@ namespace typing
                     }
 
                 }
-                Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString() + "allparts:" + (ncparts.Length).ToString());
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
                 Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
@@ -345,9 +345,7 @@ namespace typing
                         ipartcnt =0;
 
                         nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
-                        Debug.Print(string.Join(",", new List<string> { nowq["id"].ToString(), nowq["question"].ToString(), nowq["answer"].ToString(), nowq["title"].ToString(), nowq["filelocation"].ToString(), nowq["fileline"].ToString() }));
                         ncparts = splita(nowq["answer"].ToString());
-                        Debug.Print(string.Join(",", ncparts));
                         Qarea.Text = nowq["question"].ToString();
                         QAfilename.Text = nowq["filelocation"].ToString();
                         QAlinecnt.Text = nowq["fileline"].ToString();
