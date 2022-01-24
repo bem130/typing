@@ -217,10 +217,7 @@ namespace typing
                 Keycode *= -1;
             }
             Latestkey.Text = Keycode.ToString();
-            if (keyb.passim(Keycode))
-            {
-                im(Keycode);
-            }
+            im(Keycode);
         }
 
 
@@ -279,7 +276,7 @@ namespace typing
                 }
                 inputpart = new int[imik];
             }
-            else if (nowcnt>0)
+            else if (nowcnt>0 & keyb.passim(keycode))
             {
 
                 typecnt++;

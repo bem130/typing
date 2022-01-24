@@ -71,9 +71,10 @@ namespace typing
         {
             List<int> a = new List<int>
             {
-                44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69
+                34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,
+                142,144
             };
-            return true;
+            return a.Contains(Math.Abs(keycode));
         }
 
         public Dictionary<string,int[][]> _cparts()
@@ -109,7 +110,75 @@ namespace typing
         {
             return new Dictionary<string, int[][]>()
             {
+
                 {"a",new int[][] { new int[] { 44 } }},
+                {"b",new int[][] { new int[] { 45 } }},
+                {"c",new int[][] { new int[] { 46 } }},
+                {"d",new int[][] { new int[] { 47 } }},
+                {"e",new int[][] { new int[] { 48 } }},
+                {"f",new int[][] { new int[] { 49 } }},
+                {"g",new int[][] { new int[] { 50 } }},
+                {"h",new int[][] { new int[] { 51 } }},
+                {"i",new int[][] { new int[] { 52 } }},
+                {"j",new int[][] { new int[] { 53 } }},
+                {"k",new int[][] { new int[] { 54 } }},
+                {"l",new int[][] { new int[] { 55 } }},
+                {"m",new int[][] { new int[] { 56 } }},
+                {"n",new int[][] { new int[] { 57 } }},
+                {"o",new int[][] { new int[] { 58 } }},
+                {"p",new int[][] { new int[] { 59 } }},
+                {"q",new int[][] { new int[] { 60 } }},
+                {"r",new int[][] { new int[] { 61 } }},
+                {"s",new int[][] { new int[] { 62 } }},
+                {"t",new int[][] { new int[] { 63 } }},
+                {"u",new int[][] { new int[] { 64 } }},
+                {"v",new int[][] { new int[] { 65 } }},
+                {"w",new int[][] { new int[] { 66 } }},
+                {"x",new int[][] { new int[] { 67 } }},
+                {"y",new int[][] { new int[] { 68 } }},
+                {"z",new int[][] { new int[] { 69 } }},
+
+                {"A",new int[][] { new int[] { -44 } }},
+                {"B",new int[][] { new int[] { -45 } }},
+                {"C",new int[][] { new int[] { -46 } }},
+                {"D",new int[][] { new int[] { -47 } }},
+                {"E",new int[][] { new int[] { -48 } }},
+                {"F",new int[][] { new int[] { -49 } }},
+                {"G",new int[][] { new int[] { -50 } }},
+                {"H",new int[][] { new int[] { -51 } }},
+                {"I",new int[][] { new int[] { -52 } }},
+                {"J",new int[][] { new int[] { -53 } }},
+                {"K",new int[][] { new int[] { -54 } }},
+                {"L",new int[][] { new int[] { -55 } }},
+                {"M",new int[][] { new int[] { -56 } }},
+                {"N",new int[][] { new int[] { -57 } }},
+                {"O",new int[][] { new int[] { -58 } }},
+                {"P",new int[][] { new int[] { -59 } }},
+                {"Q",new int[][] { new int[] { -60 } }},
+                {"R",new int[][] { new int[] { -61 } }},
+                {"S",new int[][] { new int[] { -62 } }},
+                {"T",new int[][] { new int[] { -63 } }},
+                {"U",new int[][] { new int[] { -64 } }},
+                {"V",new int[][] { new int[] { -65 } }},
+                {"W",new int[][] { new int[] { -66 } }},
+                {"X",new int[][] { new int[] { -67 } }},
+                {"Y",new int[][] { new int[] { -68 } }},
+                {"Z",new int[][] { new int[] { -69 } }},
+
+
+                {",",new int[][] { new int[] { 142 } }},
+                {".",new int[][] { new int[] { 144 } }},
+
+                {"0",new int[][] { new int[] { 34 } }},
+                {"1",new int[][] { new int[] { 35 } }},
+                {"2",new int[][] { new int[] { 36 } }},
+                {"3",new int[][] { new int[] { 37 } }},
+                {"4",new int[][] { new int[] { 38 } }},
+                {"5",new int[][] { new int[] { 39 } }},
+                {"6",new int[][] { new int[] { 40 } }},
+                {"7",new int[][] { new int[] { 41 } }},
+                {"8",new int[][] { new int[] { 42 } }},
+                {"9",new int[][] { new int[] { 43 } }},
 
                 {"ぎゃ",new int[][] { new int[] { 50,44 },new int[] { 50,68,44 },new int[] { 50,52,55,44 },new int[] { 50,52,67,44 } }},
                 {"ぎゅ",new int[][] { new int[] { 50,44 },new int[] { 50,68,44 },new int[] { 50,52,55,44 },new int[] { 50,52,67,44 } }},
@@ -217,6 +286,9 @@ namespace typing
                 {"ぷ",new int[][] { new int[] { 59,64 } }},
                 {"ぺ",new int[][] { new int[] { 59,48 } }},
                 {"ぽ",new int[][] { new int[] { 59,58 } }},
+
+                {"、",new int[][] { new int[] { 142 } }},
+                {"。",new int[][] { new int[] { 144 } }},
             };
         }
     }
