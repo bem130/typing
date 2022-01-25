@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Windows;
+using System.IO;
+using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace typing
 {
@@ -61,16 +66,78 @@ namespace typing
                 {68,"y"},
                 {69,"z"},
 
-                {18,"kspace"},
-                {116,"klshift"},
-                {117,"krshift"},
-
             };
         }
+        public bool passim(int keycode)
+        {
+            List<int> rt = new List<int>{};
+            Dictionary<string, int[][]> dic = cparts();
+
+            Dictionary<string, int[][]> ckeys = cparts();
+            string[] ckeyskeys = new string[ckeys.Count];
+            ckeys.Keys.CopyTo(ckeyskeys, 0);
+
+            for (int i = 0; i<ckeys.Count; i++)
+            {
+                int[][] ch = ckeys[ckeyskeys[i]];
+                foreach (int[] ck in ch)
+                {
+                    foreach (int cka in ck)
+                    {
+                        if (rt.Contains(Math.Abs(cka)) == false)
+                        {
+                            rt.Add(Math.Abs(cka));
+                        }
+                    }
+                }
+            }
+
+
+            return rt.Contains(Math.Abs(keycode));
+        }
+
+        public Dictionary<string,int[][]> _cparts()
+        {
+            Dictionary<string, int[][]> rtd = new Dictionary<string, int[][]>();
+
+            string[] filepaths = (@"A:\typingqa\key.ntkd").Split('|');
+
+            StreamReader reader;
+            foreach (string filePath in filepaths)
+            {
+                reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
+                while (reader.Peek() >= 0)
+                {
+                    string fileline = reader.ReadLine();
+                    
+                    if (fileline.StartsWith("[comment]")) //コメント行の場合
+                    {
+                    }
+                    else //通常行の場合
+                    {
+                        Debug.Print(fileline);
+                        string[] c_p = fileline.Split(':');
+                        string chars = c_p[0];
+                        Debug.Print(String.Join(",", c_p));
+                        string[] props = c_p[1].Split(';');
+                        Debug.Print(String.Join(" ; ", props));
+
+                        if (rtd.ContainsKey(c_p[0]))
+                        {
+
+                        }
+                    }
+                }
+                reader.Close();
+            }
+            return rtd;
+        }
+
         public Dictionary<string, int[][]> cparts()
         {
             return new Dictionary<string, int[][]>()
             {
+
                 {"a",new int[][] { new int[] { 44 } }},
                 {"b",new int[][] { new int[] { 45 } }},
                 {"c",new int[][] { new int[] { 46 } }},
@@ -125,6 +192,20 @@ namespace typing
                 {"Y",new int[][] { new int[] { -68 } }},
                 {"Z",new int[][] { new int[] { -69 } }},
 
+
+                {",",new int[][] { new int[] { 142 } }},
+                {".",new int[][] { new int[] { 144 } }},
+
+                {"0",new int[][] { new int[] { 34 } }},
+                {"1",new int[][] { new int[] { 35 } }},
+                {"2",new int[][] { new int[] { 36 } }},
+                {"3",new int[][] { new int[] { 37 } }},
+                {"4",new int[][] { new int[] { 38 } }},
+                {"5",new int[][] { new int[] { 39 } }},
+                {"6",new int[][] { new int[] { 40 } }},
+                {"7",new int[][] { new int[] { 41 } }},
+                {"8",new int[][] { new int[] { 42 } }},
+                {"9",new int[][] { new int[] { 43 } }},
 
                 {"ぎゃ",new int[][] { new int[] { 50,44 },new int[] { 50,68,44 },new int[] { 50,52,55,44 },new int[] { 50,52,67,44 } }},
                 {"ぎゅ",new int[][] { new int[] { 50,44 },new int[] { 50,68,44 },new int[] { 50,52,55,44 },new int[] { 50,52,67,44 } }},
@@ -232,6 +313,9 @@ namespace typing
                 {"ぷ",new int[][] { new int[] { 59,64 } }},
                 {"ぺ",new int[][] { new int[] { 59,48 } }},
                 {"ぽ",new int[][] { new int[] { 59,58 } }},
+
+                {"、",new int[][] { new int[] { 142 } }},
+                {"。",new int[][] { new int[] { 144 } }},
             };
         }
     }

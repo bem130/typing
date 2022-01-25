@@ -33,10 +33,6 @@ namespace typing
 
         Dictionary<int, string> keylist;
 
-        string bfa;
-        string bfkey;
-        string nextkey;
-        int bflen;
         int allcnt;
         int nowcnt;
         int[] inputpart;
@@ -47,7 +43,7 @@ namespace typing
         string[] ncparts;
         DataRow nowq;
         int iqacnt;
-        int misscnt;
+        int miscnt;
         Dictionary<string, int[][]> ckeys;
         System.Diagnostics.Stopwatch sw;
 
@@ -61,6 +57,8 @@ namespace typing
             keylist = keyb.keyname();
             read_file();
             start();
+
+            keyb._cparts();
 
 
         }
@@ -220,7 +218,7 @@ namespace typing
                 Keyname += "_S";
                 Keycode *= -1;
             }
-            Debug.Print(Keyname+" "+Keycode.ToString());
+            Latestkey.Text = Keycode.ToString();
             im(Keycode);
         }
 
@@ -233,15 +231,15 @@ namespace typing
         {
             allcnt = QAd.Rows.Count;
             nowcnt = 0;
-            misscnt = 0;
+            miscnt = 0;
             typecnt = 0;
             QAallcnt.Text = allcnt.ToString();
+            QAmiscnt.Text = miscnt.ToString();
             keyc(18);
         }
         public void im(int keycode)
         {
             string[] nowa;
-            Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString());
             if (nowcnt == 0 & keycode == 18)
             {
                 nowcnt++;
@@ -249,13 +247,13 @@ namespace typing
                 ipartcnt = 0;
 
                 nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
-                Debug.Print(string.Join(",", new List<string> { nowq["id"].ToString(), nowq["question"].ToString(), nowq["answer"].ToString(), nowq["title"].ToString(), nowq["filelocation"].ToString(), nowq["fileline"].ToString() }));
                 ncparts = splita(nowq["answer"].ToString());
-                Debug.Print(string.Join(",",ncparts));
                 Qarea.Text = nowq["question"].ToString();
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
+                Qtitle.Text = nowq["title"].ToString();
                 AnsArea.Text = string.Join("", ncparts);
+                QAnowcnt.Text = nowcnt.ToString();
                 int mik = 0;
                 int imik;
                 foreach (string ch in ncparts)
@@ -282,15 +280,18 @@ namespace typing
                 }
                 inputpart = new int[imik];
             }
-            else if (nowcnt>0)
+            else if (nowcnt>0 & keyb.passim(keycode))
             {
 
                 typecnt++;
+                QAtypecnt.Text = typecnt.ToString();
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
                 Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
 
                 inputpart[ipartcnt] = keycode;
+
+                bool inptt = false;
                 foreach (int[] t in ckeys[ncparts[partcnt]])
                 {
                     if (t.Length > ipartcnt)
@@ -301,13 +302,13 @@ namespace typing
                         Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
                         Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
 
-
                         if (spt.SequenceEqual(spinp))
                         {
+                            inptt = true;
                             if (t.Length == ipartcnt+1)
                             {
                                 partcnt++;
-                                if (partcnt >= ncparts.Length)
+                                if (partcnt == ncparts.Length)
                                 {
                                     break;
                                 }
@@ -329,7 +330,11 @@ namespace typing
                     }
 
                 }
-                Debug.Print("nowcnt:" + nowcnt.ToString() + "partcnt:" + partcnt.ToString() + "ipartcnt:" + ipartcnt.ToString() + "allparts:" + (ncparts.Length).ToString());
+                if (inptt == false)
+                {
+                    miscnt++;
+                    QAmiscnt.Text = miscnt.ToString();
+                }
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
                 Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
@@ -348,13 +353,13 @@ namespace typing
                         ipartcnt =0;
 
                         nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
-                        Debug.Print(string.Join(",", new List<string> { nowq["id"].ToString(), nowq["question"].ToString(), nowq["answer"].ToString(), nowq["title"].ToString(), nowq["filelocation"].ToString(), nowq["fileline"].ToString() }));
                         ncparts = splita(nowq["answer"].ToString());
-                        Debug.Print(string.Join(",", ncparts));
                         Qarea.Text = nowq["question"].ToString();
                         QAfilename.Text = nowq["filelocation"].ToString();
                         QAlinecnt.Text = nowq["fileline"].ToString();
+                        Qtitle.Text = nowq["title"].ToString();
                         AnsArea.Text = string.Join("", ncparts);
+                        QAnowcnt.Text = nowcnt.ToString();
 
                         int mik = 0;
                         foreach (string ch in ncparts)
@@ -372,8 +377,6 @@ namespace typing
                         }
                         inputpart = new int[mik];
                     }
-                    Qprogress.Maximum = allcnt;
-                    Qprogress.Value = nowcnt;
                     Aprogress.Maximum = allcnt;
                     Aprogress.Value = nowcnt;
                 }
