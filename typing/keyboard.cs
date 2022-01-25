@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Windows;
 using System.IO;
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace typing
@@ -99,7 +100,7 @@ namespace typing
         {
             Dictionary<string, int[][]> rtd = new Dictionary<string, int[][]>();
 
-            string[] filepaths = (@"").Split('|');
+            string[] filepaths = (@"A:\typingqa\key.ntkd").Split('|');
 
             StreamReader reader;
             foreach (string filePath in filepaths)
@@ -114,10 +115,17 @@ namespace typing
                     }
                     else //通常行の場合
                     {
+                        Debug.Print(fileline);
                         string[] c_p = fileline.Split(':');
                         string chars = c_p[0];
+                        Debug.Print(String.Join(",", c_p));
                         string[] props = c_p[1].Split(';');
-                        
+                        Debug.Print(String.Join(" ; ", props));
+
+                        if (rtd.ContainsKey(c_p[0]))
+                        {
+
+                        }
                     }
                 }
                 reader.Close();

@@ -69,7 +69,7 @@
                 <TextBlock Text="/s"/>
                 <Separator/>
                 <TextBlock Text="ミスタイプ"/>
-                <TextBlock x:Name="QAmisscnt" Text="-"/>
+                <TextBlock x:Name="QAmiscnt" Text="-"/>
                 <TextBlock Text="/"/>
                 <TextBlock x:Name="QAtypecnt" Text="-"/>
                 <Separator/>
