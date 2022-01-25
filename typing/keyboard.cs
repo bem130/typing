@@ -69,12 +69,30 @@ namespace typing
         }
         public bool passim(int keycode)
         {
-            List<int> a = new List<int>
+            List<int> rt = new List<int>{};
+            Dictionary<string, int[][]> dic = cparts();
+
+            Dictionary<string, int[][]> ckeys = cparts();
+            string[] ckeyskeys = new string[ckeys.Count];
+            ckeys.Keys.CopyTo(ckeyskeys, 0);
+
+            for (int i = 0; i<ckeys.Count; i++)
             {
-                34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,
-                142,144
-            };
-            return a.Contains(Math.Abs(keycode));
+                int[][] ch = ckeys[ckeyskeys[i]];
+                foreach (int[] ck in ch)
+                {
+                    foreach (int cka in ck)
+                    {
+                        if (rt.Contains(Math.Abs(cka)) == false)
+                        {
+                            rt.Add(Math.Abs(cka));
+                        }
+                    }
+                }
+            }
+
+
+            return rt.Contains(Math.Abs(keycode));
         }
 
         public Dictionary<string,int[][]> _cparts()
@@ -99,6 +117,7 @@ namespace typing
                         string[] c_p = fileline.Split(':');
                         string chars = c_p[0];
                         string[] props = c_p[1].Split(';');
+                        
                     }
                 }
                 reader.Close();
