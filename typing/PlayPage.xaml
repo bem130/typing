@@ -80,7 +80,7 @@
                 <TextBlock Text="line:"/>
                 <TextBlock x:Name="QAlinecnt" Text="--"/>
                 <Separator/>
-                <TextBlock Text="最後のキー:"/>
+                <TextBlock Text="キーコード:"/>
                 <TextBlock x:Name="Latestkey" Text="-"/>
             </StatusBar>
 
