@@ -13,6 +13,8 @@ namespace typing
 {
     internal class keyboard
     {
+        public Dictionary<string, int[][]> ckeys;
+        public string[] ckeyskeys;
         public string keycodes_to_string(int[] keycodes)
         {
             Dictionary<int, string> dic = keyname();
@@ -32,6 +34,34 @@ namespace typing
                 }
             }
             return rtt;
+        }
+        public string[] s_sort(string[] strl)
+        {
+            string[] rtl = new string[strl.Length];
+            int li = 0;
+            foreach (string tm in strl)
+            {
+                if (tm.Length > li)
+                {
+                    li = tm.Length;
+                }
+            }
+            Debug.Print(li.ToString());
+            uint nic = 0;
+            while (li >= 0)
+            {
+                foreach (string tm in strl)
+                {
+                    Debug.Print(tm);
+                    if (tm.Length == li)
+                    {
+                        rtl[nic] = tm;
+                        nic++;
+                    }
+                }
+                li--;
+            }
+            return rtl;
         }
 
         public Dictionary<int, string> keyname()
@@ -70,9 +100,7 @@ namespace typing
         public bool passim(int keycode)
         {
             List<int> rt = new List<int>{};
-            Dictionary<string, int[][]> dic = cparts();
 
-            Dictionary<string, int[][]> ckeys = cparts();
             string[] ckeyskeys = new string[ckeys.Count];
             ckeys.Keys.CopyTo(ckeyskeys, 0);
 
@@ -94,12 +122,26 @@ namespace typing
 
             return rt.Contains(Math.Abs(keycode));
         }
+        public void setcparts()
+        {
+            ckeys = cparts();
+
+            ckeyskeys = new string[ckeys.Count];
+            ckeys.Keys.CopyTo(ckeyskeys, 0);
+            ckeyskeys = s_sort(ckeyskeys);
+        }
 
         public Dictionary<string,int[][]> cparts()
         {
+            Debug.Print("keyboard file read");
             Dictionary<string, int[][]> rtd = new Dictionary<string, int[][]>();
 
             string[] filepaths = (Properties.Settings.Default.keyboard_dir).Split('|');
+
+            if (filepaths[0] == "")
+            {
+                return _cparts();
+            }
 
             StreamReader reader;
             foreach (string filePath in filepaths)
@@ -114,12 +156,12 @@ namespace typing
                     }
                     else //通常行の場合
                     {
-                        Debug.Print(fileline);
+                        //Debug.Print(fileline);
                         string[] c_p = fileline.Split(':');
                         string chars = c_p[0];
-                        Debug.Print(String.Join(",", c_p));
+                        //Debug.Print(String.Join(",", c_p));
                         string[] props = c_p[1].Split(';');
-                        Debug.Print(String.Join(" ; ", props));
+                        //Debug.Print(String.Join(" ; ", props));
 
                         int[][] il;
                         int ilc = 0;
@@ -145,7 +187,7 @@ namespace typing
                             il[ilc] = i;
                             ilc++;
                         }
-                        rtd.Add(c_p[0], il);
+                        rtd[c_p[0]] = il;
                     }
                 }
                 reader.Close();
@@ -226,116 +268,6 @@ namespace typing
                 {"7",new int[][] { new int[] { 41 } }},
                 {"8",new int[][] { new int[] { 42 } }},
                 {"9",new int[][] { new int[] { 43 } }},
-
-                {"ぎゃ",new int[][] { new int[] { 50,44 },new int[] { 50,68,44 },new int[] { 50,52,55,44 },new int[] { 50,52,67,44 } }},
-                {"ぎゅ",new int[][] { new int[] { 50,44 },new int[] { 50,68,44 },new int[] { 50,52,55,44 },new int[] { 50,52,67,44 } }},
-                {"ぎょ",new int[][] { new int[] { 50,44 },new int[] { 50,68,44 },new int[] { 50,52,55,44 },new int[] { 50,52,67,44 } }},
-
-                {"しゃ",new int[][] { new int[] { 62,68,44 } }},
-                {"しゅ",new int[][] { new int[] { 62,68,64 } }},
-                {"しょ",new int[][] { new int[] { 62,68,58 } }},
-
-                {"じゃ",new int[][] { new int[] { 53,44 },new int[] { 53,68,44 },new int[] { 69,52,55,44 },new int[] { 69,52,67,44 } }},
-                {"じゅ",new int[][] { new int[] { 53,64 },new int[] { 53,68,64 },new int[] { 69,52,55,64 },new int[] { 69,52,67,64 } }},
-                {"じぇ",new int[][] { new int[] { 53,48 },new int[] { 53,68,48 },new int[] { 69,52,55,48 },new int[] { 69,52,67,48 } }},
-                {"じょ",new int[][] { new int[] { 53,44 },new int[] { 53,68,58 },new int[] { 69,52,55,58 },new int[] { 69,52,67,58 } }},
-
-                {"ちゃ",new int[][] { new int[] { 69,68,44 },new int[] { 69,68,44 } }},
-                {"ちゅ",new int[][] { new int[] { 69,68,64 } }},
-                {"ちょ",new int[][] { new int[] { 69,68,58 } }},
-
-                {"ヴぁ",new int[][] { new int[] { 65,44 } }},
-
-                {"あ",new int[][] { new int[] { 44 } }},
-                {"い",new int[][] { new int[] { 52 } }},
-                {"う",new int[][] { new int[] { 64 } }},
-                {"え",new int[][] { new int[] { 48 } }},
-                {"お",new int[][] { new int[] { 58 } }},
-
-                {"か",new int[][] { new int[] { 54,44 } }},
-                {"き",new int[][] { new int[] { 54,52 } }},
-                {"く",new int[][] { new int[] { 54,64 } }},
-                {"け",new int[][] { new int[] { 54,48 } }},
-                {"こ",new int[][] { new int[] { 54,58 } }},
-
-                {"さ",new int[][] { new int[] { 62,44 } }},
-                {"し",new int[][] { new int[] { 62,52 }, new int[] { 62,51,52 } }},
-                {"す",new int[][] { new int[] { 62,64 } }},
-                {"せ",new int[][] { new int[] { 62,48 } }},
-                {"そ",new int[][] { new int[] { 62,58 } }},
-
-                {"た",new int[][] { new int[] { 63,44 } }},
-                {"ち",new int[][] { new int[] { 63,52 } }},
-                {"つ",new int[][] { new int[] { 63,64 } }},
-                {"て",new int[][] { new int[] { 63,48 } }},
-                {"と",new int[][] { new int[] { 63,58 } }},
-
-                {"な",new int[][] { new int[] { 57,44 } }},
-                {"に",new int[][] { new int[] { 57,52 } }},
-                {"ぬ",new int[][] { new int[] { 57,64 } }},
-                {"ね",new int[][] { new int[] { 57,48 } }},
-                {"の",new int[][] { new int[] { 57,58 } }},
-
-                {"は",new int[][] { new int[] { 51,44 } }},
-                {"ひ",new int[][] { new int[] { 51,52 } }},
-                {"ふ",new int[][] { new int[] { 51,64 },new int[] { 49,64 } }},
-                {"へ",new int[][] { new int[] { 51,48 } }},
-                {"ほ",new int[][] { new int[] { 51,58 } }},
-
-                {"ま",new int[][] { new int[] { 56,44 } }},
-                {"み",new int[][] { new int[] { 56,52 } }},
-                {"む",new int[][] { new int[] { 56,64 } }},
-                {"め",new int[][] { new int[] { 56,48 } }},
-                {"も",new int[][] { new int[] { 56,58 } }},
-
-                {"や",new int[][] { new int[] { 68,44 } }},
-                {"ゐ",new int[][] { new int[] { 66,68,52 } }},
-                {"ゆ",new int[][] { new int[] { 68,64 } }},
-                {"ゑ",new int[][] { new int[] { 66,68,48 } }},
-                {"よ",new int[][] { new int[] { 68,58 } }},
-
-                {"ら",new int[][] { new int[] { 61,44 } }},
-                {"り",new int[][] { new int[] { 61,52 } }},
-                {"る",new int[][] { new int[] { 61,64 } }},
-                {"れ",new int[][] { new int[] { 61,48 } }},
-                {"ろ",new int[][] { new int[] { 61,58 } }},
-
-                {"わ",new int[][] { new int[] { 66,44 } }},
-                {"を",new int[][] { new int[] { 66,58 } }},
-                {"ん",new int[][] { new int[] { 57,57 },new int[] { 67,57 } }},
-
-                {"が",new int[][] { new int[] { 50,44 } }},
-                {"ぎ",new int[][] { new int[] { 50, 52 } }},
-                {"ぐ",new int[][] { new int[] { 50, 64 } }},
-                {"げ",new int[][] { new int[] { 50, 48 } }},
-                {"ご",new int[][] { new int[] { 50, 58 } }},
-
-                {"ざ",new int[][] { new int[] { 69,44 } }},
-                {"じ",new int[][] { new int[] { 69,52 },new int[] { 53,52 } }},
-                {"ず",new int[][] { new int[] { 69,64 } }},
-                {"ぜ",new int[][] { new int[] { 69,48 } }},
-                {"ぞ",new int[][] { new int[] { 69,58 } }},
-
-                {"だ",new int[][] { new int[] { 47,44 } }},
-                {"ぢ",new int[][] { new int[] { 47,52 } }},
-                {"づ",new int[][] { new int[] { 47,64 } }},
-                {"で",new int[][] { new int[] { 47,48 } }},
-                {"ど",new int[][] { new int[] { 47,58 } }},
-
-                {"ば",new int[][] { new int[] { 45,44 } }},
-                {"び",new int[][] { new int[] { 45,52 } }},
-                {"ぶ",new int[][] { new int[] { 45,64 } }},
-                {"べ",new int[][] { new int[] { 45,48 } }},
-                {"ぼ",new int[][] { new int[] { 45,58 } }},
-
-                {"ぱ",new int[][] { new int[] { 59,44 } }},
-                {"ぴ",new int[][] { new int[] { 59,52 } }},
-                {"ぷ",new int[][] { new int[] { 59,64 } }},
-                {"ぺ",new int[][] { new int[] { 59,48 } }},
-                {"ぽ",new int[][] { new int[] { 59,58 } }},
-
-                {"、",new int[][] { new int[] { 142 } }},
-                {"。",new int[][] { new int[] { 144 } }},
             };
         }
     }
