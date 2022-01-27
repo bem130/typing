@@ -261,6 +261,7 @@ namespace typing
                     if (nowcnt > QAd.Rows.Count)
                     {
                         Aarea.Text = "finished";
+                        sendresult();
                         return;
                     }
                     nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
@@ -368,6 +369,7 @@ namespace typing
                     if (nowcnt > QAd.Rows.Count)
                     {
                         Aarea.Text = "finished";
+                        sendresult();
                         return;
                     }
                     if (nowcnt <= allcnt)
@@ -384,6 +386,7 @@ namespace typing
                             if (nowcnt > QAd.Rows.Count)
                             {
                                 Aarea.Text = "finished";
+                                sendresult();
                                 return;
                             }
                             nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
@@ -418,6 +421,11 @@ namespace typing
                     Aprogress.Value = nowcnt;
                 }
             }
+        }
+        public void sendresult()
+        {
+            var tpage = new ResultPage();
+            NavigationService.Navigate(tpage);
         }
         public string[] splita(string str)
         {
