@@ -58,5 +58,17 @@ namespace typing.Properties {
                 this["questions_dir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string keyboard_dir {
+            get {
+                return ((string)(this["keyboard_dir"]));
+            }
+            set {
+                this["keyboard_dir"] = value;
+            }
+        }
     }
 }

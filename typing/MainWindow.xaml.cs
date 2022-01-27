@@ -73,6 +73,10 @@ namespace typing
         {
             InitializeComponent();
 
+            NavigationCommands.BrowseBack.InputGestures.Clear();
+            NavigationCommands.BrowseForward.InputGestures.Clear();
+            NavigationCommands.Refresh.InputGestures.Clear();
+
             setscale();
             setcolortheme();
 

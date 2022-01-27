@@ -45,6 +45,7 @@ namespace typing
         int iqacnt;
         int miscnt;
         Dictionary<string, int[][]> ckeys;
+        string[] ckeyskeys;
         System.Diagnostics.Stopwatch sw;
 
         public PlayPage()
@@ -52,12 +53,15 @@ namespace typing
             keyb = new keyboard();
 
             InitializeComponent();
+
+
             setcolortheme();
-            ckeys = keyb.cparts();
+            keyb.setcparts();
+            ckeys = keyb.ckeys;
+            ckeyskeys = keyb.ckeyskeys;
             keylist = keyb.keyname();
             read_file();
             start();
-
             keyb._cparts();
 
 
@@ -133,29 +137,32 @@ namespace typing
                     }
                     else //問題行の場合
                     {
-                        if (fprop["type"] == "ja_word")
+                        if (fileline.Length > 0)
                         {
-                            string[] qaline = fileline.Split(fprop["split"][0]);
-                            questionid++;
-                            QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
-                        }
-                        if (fprop["type"] == "ja_sentence")
-                        {
-                            string[] qaline = fileline.Split(fprop["split"][0]);
-                            questionid++;
-                            QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
-                        }
-                        if (fprop["type"] == "ja-en_word")
-                        {
-                            string[] qaline = fileline.Split(fprop["split"][0]);
-                            questionid++;
-                            QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
-                        }
-                        if (fprop["type"] == "ja-en_sentence")
-                        {
-                            string[] qaline = fileline.Split(fprop["split"][0]);
-                            questionid++;
-                            QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                            if (fprop["type"] == "ja_word")
+                            {
+                                string[] qaline = fileline.Split(fprop["split"][0]);
+                                questionid++;
+                                QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
+                            }
+                            if (fprop["type"] == "ja_sentence")
+                            {
+                                string[] qaline = fileline.Split(fprop["split"][0]);
+                                questionid++;
+                                QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
+                            }
+                            if (fprop["type"] == "ja-en_word")
+                            {
+                                string[] qaline = fileline.Split(fprop["split"][0]);
+                                questionid++;
+                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                            }
+                            if (fprop["type"] == "ja-en_sentence")
+                            {
+                                string[] qaline = fileline.Split(fprop["split"][0]);
+                                questionid++;
+                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                            }
                         }
                     }
                 }
@@ -248,12 +255,26 @@ namespace typing
 
                 nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
                 ncparts = splita(nowq["answer"].ToString());
+                while (ncparts.Length < 1)
+                {
+                    nowcnt++;
+                    if (nowcnt > QAd.Rows.Count)
+                    {
+                        Aarea.Text = "finished";
+                        return;
+                    }
+                    nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
+                    ncparts = splita(nowq["answer"].ToString());
+                }
+                Debug.Print((ncparts.Length).ToString());
                 Qarea.Text = nowq["question"].ToString();
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
                 Qtitle.Text = nowq["title"].ToString();
                 AnsArea.Text = string.Join("", ncparts);
                 QAnowcnt.Text = nowcnt.ToString();
+
+
                 int mik = 0;
                 int imik;
                 foreach (string ch in ncparts)
@@ -270,7 +291,7 @@ namespace typing
                     mik += imik;
                 }
                 input_a = new int[mik];
-                imik = 0;
+                imik = 1;
                 foreach (int[] c in ckeys[ncparts[0]])
                 {
                     if (c.Length > imik)
@@ -291,49 +312,52 @@ namespace typing
 
                 inputpart[ipartcnt] = keycode;
 
-                bool inptt = false;
-                foreach (int[] t in ckeys[ncparts[partcnt]])
+                if (ncparts.Length > 0)
                 {
-                    if (t.Length > ipartcnt)
+                    bool inptt = false;
+                    foreach (int[] t in ckeys[ncparts[partcnt]])
                     {
-                        int[] spt = new int[ipartcnt+1];
-                        int[] spinp = new int[ipartcnt+1];
-                        Array.Copy(t, 0, spt, 0, ipartcnt+1);
-                        Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
-                        Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
-
-                        if (spt.SequenceEqual(spinp))
+                        if (t.Length > ipartcnt)
                         {
-                            inptt = true;
-                            if (t.Length == ipartcnt+1)
+                            int[] spt = new int[ipartcnt+1];
+                            int[] spinp = new int[ipartcnt+1];
+                            Array.Copy(t, 0, spt, 0, ipartcnt+1);
+                            Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
+                            Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
+
+                            if (spt.SequenceEqual(spinp))
                             {
-                                partcnt++;
-                                if (partcnt == ncparts.Length)
+                                inptt = true;
+                                if (t.Length == ipartcnt+1)
                                 {
+                                    partcnt++;
+                                    if (partcnt == ncparts.Length)
+                                    {
+                                        break;
+                                    }
+
+                                    int imik = 1;
+                                    foreach (int[] c in ckeys[ncparts[partcnt]])
+                                    {
+                                        if (c.Length > imik)
+                                        {
+                                            imik = c.Length;
+                                        }
+                                    }
+                                    inputpart = new int[imik];
+                                    ipartcnt = 0;
                                     break;
                                 }
-
-                                int imik = 0;
-                                foreach (int[] c in ckeys[ncparts[partcnt]])
-                                {
-                                    if (c.Length > imik)
-                                    {
-                                        imik = c.Length;
-                                    }
-                                }
-                                inputpart = new int[imik];
-                                ipartcnt = 0;
-                                break;
+                                ipartcnt++;
                             }
-                            ipartcnt++;
                         }
-                    }
 
-                }
-                if (inptt == false)
-                {
-                    miscnt++;
-                    QAmiscnt.Text = miscnt.ToString();
+                    }
+                    if (inptt == false)
+                    {
+                        miscnt++;
+                        QAmiscnt.Text = miscnt.ToString();
+                    }
                 }
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
@@ -353,15 +377,28 @@ namespace typing
                         ipartcnt =0;
 
                         nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
-                        ncparts = splita(nowq["answer"].ToString());
                         Qarea.Text = nowq["question"].ToString();
+                        while (ncparts.Length < 1)
+                        {
+                            nowcnt++;
+                            if (nowcnt > QAd.Rows.Count)
+                            {
+                                Aarea.Text = "finished";
+                                return;
+                            }
+                            nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
+                            ncparts = splita(nowq["answer"].ToString());
+                        }
+
+                        Debug.Print((ncparts.Length).ToString());
+                        ncparts = splita(nowq["answer"].ToString());
                         QAfilename.Text = nowq["filelocation"].ToString();
                         QAlinecnt.Text = nowq["fileline"].ToString();
                         Qtitle.Text = nowq["title"].ToString();
                         AnsArea.Text = string.Join("", ncparts);
                         QAnowcnt.Text = nowcnt.ToString();
 
-                        int mik = 0;
+                        int mik = 1;
                         foreach (string ch in ncparts)
                         {
                             int[][] tchk = ckeys[ch];
@@ -386,8 +423,6 @@ namespace typing
         {
             string[] rt = new string[str.Length];
             int lc = 0;
-            string[] ckeyskeys = new string[ckeys.Count];
-            ckeys.Keys.CopyTo(ckeyskeys, 0);
             while (str.Length > 0)
             {
                 for (int i=0;i<ckeys.Count;i++)

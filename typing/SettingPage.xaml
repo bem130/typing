@@ -33,6 +33,7 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -40,16 +41,22 @@
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
+            
             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="20" VerticalAlignment="Center">標準の問題フォルダ</TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="serchdir"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center">表示サイズ</TextBlock>
-            <Slider Grid.Row="1" Grid.Column="1" Width="200" VerticalAlignment="Center" x:Name="scale" Minimum="0.5" Maximum="1.5" IsSnapToTickEnabled="True" TickFrequency="0.01" SmallChange="0.05" LargeChange="0.1"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" x:Name="show_scale" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
+
+            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center">キーボードのフォルダ</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="keyboarddir"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">表示サイズ</TextBlock>
+            <Slider Grid.Row="2" Grid.Column="1" Width="200" VerticalAlignment="Center" x:Name="scale" Minimum="0.5" Maximum="1.5" IsSnapToTickEnabled="True" TickFrequency="0.01" SmallChange="0.05" LargeChange="0.1"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" x:Name="show_scale" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
                 <Run Text="{Binding ElementName=scale,Path=Value}"/>
                 <Run Text="倍"/>
             </TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">カラーテーマ</TextBlock>
-            <ComboBox Grid.Column="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="2" x:Name="colortheme" VerticalAlignment="Center" Width="250" SelectedValuePath="Key" DisplayMemberPath="Value" />
+            
+            <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center">カラーテーマ</TextBlock>
+            <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" x:Name="colortheme" VerticalAlignment="Center" Width="250" SelectedValuePath="Key" DisplayMemberPath="Value" />
         </Grid>
     </Grid>
 </Page>

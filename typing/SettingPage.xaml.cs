@@ -32,6 +32,7 @@ namespace typing
             };
             colortheme.SelectedValue = Properties.Settings.Default.colortheme;
             serchdir.Text = Properties.Settings.Default.questions_dir;
+            keyboarddir.Text = Properties.Settings.Default.keyboard_dir;
             scale.Value = Properties.Settings.Default.scale;
         }
 
@@ -53,6 +54,7 @@ namespace typing
         {
             Properties.Settings.Default.colortheme = colortheme.SelectedValue.ToString();
             Properties.Settings.Default.questions_dir = serchdir.Text;
+            Properties.Settings.Default.keyboard_dir = keyboarddir.Text;
             Properties.Settings.Default.scale = scale.Value;
             Properties.Settings.Default.Save();
             setscale();
