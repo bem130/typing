@@ -13,7 +13,6 @@ namespace typing
 {
     internal class keyboard
     {
-
         public string keycodes_to_string(int[] keycodes)
         {
             Dictionary<int, string> dic = keyname();
@@ -96,11 +95,11 @@ namespace typing
             return rt.Contains(Math.Abs(keycode));
         }
 
-        public Dictionary<string,int[][]> _cparts()
+        public Dictionary<string,int[][]> cparts()
         {
             Dictionary<string, int[][]> rtd = new Dictionary<string, int[][]>();
 
-            string[] filepaths = (@"A:\typingqa\key.ntkd").Split('|');
+            string[] filepaths = (Properties.Settings.Default.keyboard_dir).Split('|');
 
             StreamReader reader;
             foreach (string filePath in filepaths)
@@ -122,10 +121,31 @@ namespace typing
                         string[] props = c_p[1].Split(';');
                         Debug.Print(String.Join(" ; ", props));
 
+                        int[][] il;
+                        int ilc = 0;
                         if (rtd.ContainsKey(c_p[0]))
                         {
-
+                            il = new int[props.Length][];
                         }
+                        else
+                        {
+                            il = new int[props.Length][];
+                        }
+                        foreach (string prop in props)
+                        {
+                            string[] spp = prop.Split(',');
+
+                            int[] i = new int[spp.Length];
+                            int ic = 0;
+                            foreach (string s in spp)
+                            {
+                                i[ic] = int.Parse(s);
+                                ic++;
+                            }
+                            il[ilc] = i;
+                            ilc++;
+                        }
+                        rtd.Add(c_p[0], il);
                     }
                 }
                 reader.Close();
@@ -133,7 +153,7 @@ namespace typing
             return rtd;
         }
 
-        public Dictionary<string, int[][]> cparts()
+        public Dictionary<string, int[][]> _cparts()
         {
             return new Dictionary<string, int[][]>()
             {

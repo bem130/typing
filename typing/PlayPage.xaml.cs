@@ -52,12 +52,13 @@ namespace typing
             keyb = new keyboard();
 
             InitializeComponent();
+
+
             setcolortheme();
             ckeys = keyb.cparts();
             keylist = keyb.keyname();
             read_file();
             start();
-
             keyb._cparts();
 
 
@@ -248,12 +249,20 @@ namespace typing
 
                 nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
                 ncparts = splita(nowq["answer"].ToString());
+                while (ncparts.Length == 0)
+                {
+                    nowcnt++;
+                    nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
+                    ncparts = splita(nowq["answer"].ToString());
+                }
                 Qarea.Text = nowq["question"].ToString();
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
                 Qtitle.Text = nowq["title"].ToString();
                 AnsArea.Text = string.Join("", ncparts);
                 QAnowcnt.Text = nowcnt.ToString();
+
+
                 int mik = 0;
                 int imik;
                 foreach (string ch in ncparts)
@@ -353,8 +362,14 @@ namespace typing
                         ipartcnt =0;
 
                         nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
-                        ncparts = splita(nowq["answer"].ToString());
                         Qarea.Text = nowq["question"].ToString();
+                        while (ncparts.Length == 0)
+                        {
+                            nowcnt++;
+                            nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
+                            ncparts = splita(nowq["answer"].ToString());
+                        }
+                        ncparts = splita(nowq["answer"].ToString());
                         QAfilename.Text = nowq["filelocation"].ToString();
                         QAlinecnt.Text = nowq["fileline"].ToString();
                         Qtitle.Text = nowq["title"].ToString();
