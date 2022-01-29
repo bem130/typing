@@ -18,18 +18,40 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
         <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="ホーム" Foreground="{DynamicResource cButtonFontcolor}" Background="{DynamicResource cButtonBackground}"/>
-        <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="10" Value="{Binding Progress}" Grid.Row="2" Foreground="#FFBFBFBF" Background="White" BorderBrush="White"/>
-        <Grid Height="160" VerticalAlignment="Center">
+        <Grid Grid.Row="0" Margin="0,0,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="120"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Finished" FontSize="60" TextAlignment="Center" Grid.Row="0"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="120" Foreground="{DynamicResource cFontcolor}"/>
+            <TextBlock Text="お疲れ様でした" FontSize="60" TextAlignment="Center" Grid.Row="1"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="80" Foreground="{DynamicResource cFontcolor}"/>
+            <Grid Grid.Row="3" Margin="50,0,50,0" ShowGridLines="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">合計時間</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">問題数</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">タイプ数</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">ミスタイプ数</TextBlock>
+
+                <TextBlock x:Name="timev" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
+                <TextBlock x:Name="allcntv" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
+                <TextBlock x:Name="typecntv" Grid.Row="2" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
+                <TextBlock x:Name="miscntv" Grid.Row="3" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

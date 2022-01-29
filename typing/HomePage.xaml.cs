@@ -113,6 +113,7 @@ namespace typing
             }
         }
 
+        // https://resanaplaza.com/%E3%80%90c%E3%80%91%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E9%85%8D%E4%B8%8B%E3%81%AE%E5%85%A8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8B%E3%82%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E6%83%85%E5%A0%B1/
         // files serch
         static public IEnumerable<FileInfo> Files(string directory, string filter, SearchOption searchOption = SearchOption.AllDirectories)
         {

@@ -37,6 +37,7 @@ Reference sites:
    https://itsakura.com/
    https://baba-s.hatenablog.com/
    https://usefuledge.com/
+   https://resanaplaza.com/
      etc.
  [apologize] There may be license violation etc.
    because I'm not used to license etc.

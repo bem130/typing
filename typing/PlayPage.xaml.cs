@@ -40,6 +40,7 @@ namespace typing
         int partcnt;
         int ipartcnt;
         int typecnt;
+        double alltime;
         string[] ncparts;
         DataRow nowq;
         int iqacnt;
@@ -68,6 +69,34 @@ namespace typing
             var window = (MainWindow)Application.Current.MainWindow;
 
         }
+        public string sdic_to_string(Dictionary<string,string> dic)
+        {
+            string rt = "";
+            string[] dickeys = new string[dic.Count];
+            dic.Keys.CopyTo(dickeys, 0);
+            foreach (string key in dickeys)
+            {
+                rt += key + ":" + dic[key] + ";";
+            }
+            Debug.Print(rt);
+            return rt;
+        }
+        async void finished()
+        {
+            nowplay = false;
+            alltime = sw.Elapsed.TotalSeconds;
+            await Task.Delay(100);
+            Dictionary<string, string> senddata = new Dictionary<string, string>()
+            {
+                {"allcnt",allcnt.ToString()},
+                {"typecnt",typecnt.ToString()},
+                {"miscnt",miscnt.ToString()},
+                {"time",alltime.ToString()},
+            };
+            Application.Current.Properties["Result"] = sdic_to_string(senddata);
+            var tpage = new ResultPage();
+            NavigationService.Navigate(tpage);
+        }
         public void setcolortheme()
         {
             string dicPath = Properties.Settings.Default.colortheme;
@@ -81,7 +110,6 @@ namespace typing
 
             QAd = new DataTable("QAd");
             StreamReader reader;
-
 
             QAd.Columns.Add("id");
             QAd.Columns.Add("question");
@@ -205,7 +233,7 @@ namespace typing
         }
         async void viewsw()
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
             while (nowplay)
             {
                 await Task.Delay(100);
@@ -245,6 +273,7 @@ namespace typing
             QAallcnt.Text = allcnt.ToString();
             QAmiscnt.Text = miscnt.ToString();
             keyc(18);
+            kinput.Focus();
         }
         public void im(int keycode)
         {
@@ -255,6 +284,11 @@ namespace typing
                 partcnt = 0;
                 ipartcnt = 0;
 
+                nowplay = true;
+                sw = new System.Diagnostics.Stopwatch();
+                sw.Start();
+                viewsw();
+
                 nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
                 ncparts = splita(nowq["answer"].ToString());
                 while (ncparts.Length < 1)
@@ -262,8 +296,7 @@ namespace typing
                     nowcnt++;
                     if (nowcnt > QAd.Rows.Count)
                     {
-                        Aarea.Text = "finished";
-                        sendresult();
+                        finished();
                         return;
                     }
                     nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
@@ -370,8 +403,7 @@ namespace typing
                     nowcnt++;
                     if (nowcnt > QAd.Rows.Count)
                     {
-                        Aarea.Text = "finished";
-                        sendresult();
+                        finished();
                         return;
                     }
                     if (nowcnt <= allcnt)
@@ -387,8 +419,7 @@ namespace typing
                             nowcnt++;
                             if (nowcnt > QAd.Rows.Count)
                             {
-                                Aarea.Text = "finished";
-                                sendresult();
+                                finished();
                                 return;
                             }
                             nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
@@ -423,11 +454,6 @@ namespace typing
                     Aprogress.Value = nowcnt;
                 }
             }
-        }
-        public void sendresult()
-        {
-            var tpage = new ResultPage();
-            NavigationService.Navigate(tpage);
         }
         public string[] splita(string str)
         {
