@@ -26,6 +26,7 @@ namespace typing
 
         public TitlePage()
         {
+
             InitializeComponent();
             setcolortheme();
             ProgressBar.IsIndeterminate = true;

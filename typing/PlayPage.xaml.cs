@@ -207,7 +207,7 @@ namespace typing
             while (nowplay)
             {
                 await Task.Delay(100);
-                Qstopwatch.Text = sw.Elapsed.ToString();
+                Qstopwatch.Content = sw.Elapsed.ToString();
                 Qtypespeed.Text = (typecnt/sw.Elapsed.TotalSeconds).ToString();
             }
         }

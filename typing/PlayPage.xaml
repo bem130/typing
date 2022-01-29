@@ -30,7 +30,7 @@
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="35"/>
                     <RowDefinition Height="2*"/>
-                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="37"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="30"/>
@@ -42,7 +42,7 @@
                 
                 <TextBlock x:Name="Qtitle" Text="" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" TextAlignment="Center"/>
 
-                <TextBlock x:Name="Qstopwatch" Text="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" TextAlignment="Center"/>
+                <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37"/>
                 <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15"></ProgressBar>
 
 

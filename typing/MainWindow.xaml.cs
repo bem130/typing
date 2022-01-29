@@ -71,6 +71,9 @@ namespace typing
     {
         public MainWindow()
         {
+
+            new LogWindow(new List<Log>{ new Log(0, "start", "", DateTime.Now.ToString()) }).Show();
+
             InitializeComponent();
 
             NavigationCommands.BrowseBack.InputGestures.Clear();
@@ -79,6 +82,7 @@ namespace typing
 
             setscale();
             setcolortheme();
+
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
             this.Title = asm.GetName().Name;
@@ -124,6 +128,11 @@ namespace typing
                     frame.Source = uri;
                 }
             }
+        }
+
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
         }
 
         public void setcolortheme()
@@ -200,4 +209,5 @@ namespace typing
         }
 
     }
+
 }
