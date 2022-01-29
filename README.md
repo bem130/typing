@@ -10,10 +10,10 @@ now, developing the central part. so when the code update, I can't guarantee com
 
 ## Now
 JISキーボードに対応しています  
-ほとんどの平仮名とアルファベットに対応しました 
+キーボードのデータをファイルから読めるようになりました
  
 supporting JIS keyboard  
-supported most hiragana(Japanese) and alphabets  
+supported to read file data of keyboard
 
 ## plans
 私がJISキーボード以外のキーボードを理解できたら、そのキーボードも対応させたい (USキーボードに対応させたい)  
@@ -23,7 +23,7 @@ if I can understand keyboard other than JIS keyboard, it will support the keyboa
 if I can understand other lang, it will support the lang  
 
 ## How to use 
-coming soon (I haven't started writing)
+coming soon (When I start writing here?)
 
 ### type of question
 (1) ja_word  
