@@ -97,6 +97,9 @@ namespace typing
             var tpage = new ResultPage();
             NavigationService.Navigate(tpage);
         }
+        /// <summary>
+        /// カラーテーマの設定
+        /// </summary>
         public void setcolortheme()
         {
             string dicPath = Properties.Settings.Default.colortheme;
@@ -104,6 +107,9 @@ namespace typing
             dic.Source = new Uri(dicPath, UriKind.Relative);
             this.Resources.MergedDictionaries.Add(dic);
         }
+        /// <summary>
+        /// 問題ファイルの読み込み
+        /// </summary>
         private void read_file()
         {
             string[] filepaths = ((string)Application.Current.Properties["FilePaths"]).Split('|');
@@ -275,6 +281,11 @@ namespace typing
             keyc(18);
             kinput.Focus();
         }
+
+
+        /// <summary>
+        /// キーボード入力時の判定
+        /// </summary>
         public void im(int keycode)
         {
             string[] nowa;
@@ -478,6 +489,30 @@ namespace typing
             }
             Array.Resize(ref rt, lc);
             return rt;
+        }
+
+
+        /// <summary>
+        /// 効果音の再生
+        /// </summary>
+
+        private System.Media.SoundPlayer player = null;
+        string SoundFile = "HogeHoge.wav";
+
+        private void StopSound()
+        {
+            if (player != null)
+            {
+                player.Stop();
+                player.Dispose();
+                player = null;
+            }
+        }
+
+        private void PlaySound()
+        {
+            player = new System.Media.SoundPlayer(SoundFile);
+            player.Play();
         }
     }
 }
