@@ -16,6 +16,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Data;
 using System.Diagnostics;
+using System.Resources;
 
 namespace typing
 {
@@ -296,7 +297,7 @@ namespace typing
                 ipartcnt = 0;
 
                 nowplay = true;
-                sw = new System.Diagnostics.Stopwatch();
+                sw = new Stopwatch();
                 sw.Start();
                 viewsw();
 
@@ -313,7 +314,6 @@ namespace typing
                     nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
                     ncparts = splita(nowq["answer"].ToString());
                 }
-                Debug.Print((ncparts.Length).ToString());
                 Qarea.Text = nowq["question"].ToString();
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
@@ -370,7 +370,6 @@ namespace typing
                             int[] spinp = new int[ipartcnt+1];
                             Array.Copy(t, 0, spt, 0, ipartcnt+1);
                             Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
-                            Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
 
                             if (spt.SequenceEqual(spinp))
                             {
@@ -400,8 +399,14 @@ namespace typing
                         }
 
                     }
-                    if (inptt == false)
+                    if (inptt)
                     {
+
+                        PlaySound(Properties.Resources.type);
+                    }
+                    else
+                    {
+                        PlaySound(Properties.Resources.mis);
                         miscnt++;
                         QAmiscnt.Text = miscnt.ToString();
                     }
@@ -509,8 +514,25 @@ namespace typing
             }
         }
 
+        private void PlaySound(UnmanagedMemoryStream stream)
+        {
+            if (player != null)
+            {
+                player.Stop();
+                player.Dispose();
+                player = null;
+            }
+            player = new System.Media.SoundPlayer(stream);
+            player.Play();
+        }
         private void PlaySound(string path)
         {
+            if (player != null)
+            {
+                player.Stop();
+                player.Dispose();
+                player = null;
+            }
             player = new System.Media.SoundPlayer(path);
             player.Play();
         }
