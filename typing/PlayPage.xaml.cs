@@ -237,7 +237,7 @@ namespace typing
             await Task.Delay(50);
             KeyboardUI.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFB0ABA4");
         }
-        async void viewsw()
+        async void viewsw() // タイマーの表示
         {
             await Task.Delay(100);
             while (nowplay)
@@ -247,7 +247,7 @@ namespace typing
                 Qtypespeed.Text = (typecnt/sw.Elapsed.TotalSeconds).ToString();
             }
         }
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
         {
             Key key = e.Key;
             Key systemKey = e.SystemKey;
@@ -495,9 +495,9 @@ namespace typing
         /// <summary>
         /// 効果音の再生
         /// </summary>
+        // 参考 https://qiita.com/Oichan/items/b93e8e8ba8211b925d0a
 
         private System.Media.SoundPlayer player = null;
-        string SoundFile = "HogeHoge.wav";
 
         private void StopSound()
         {
@@ -509,9 +509,9 @@ namespace typing
             }
         }
 
-        private void PlaySound()
+        private void PlaySound(string path)
         {
-            player = new System.Media.SoundPlayer(SoundFile);
+            player = new System.Media.SoundPlayer(path);
             player.Play();
         }
     }
