@@ -3,7 +3,7 @@
 タイピングゲーム  
 typing game of desktop  
 
-![header-image](https://github.com/haruki1234/typing/blob/master/preview/typing.png "header")
+![header-image](https://raw.githubusercontent.com/haruki1234/typing/master/preview/typing.png "header")
 
 中心的な部分を開発している途中です。コードの更新時に、新しい方と古い方の間で互換性がある保障はできません。 - 2022年1月23日  
 now, developing the central part. so when the code update, I can't guarantee compatibility between new and old. - 2022 1/23  
