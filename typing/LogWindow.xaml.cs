@@ -21,14 +21,23 @@ namespace typing
     /// 
     public partial class LogWindow : Window
     {
+        List<Log> Logdatas;
         public LogWindow(List<Log> logdatas = null,string title = "LogWindow")
         {
             InitializeComponent();
             Title = title;
+            Logdatas = new List<Log>();
             if (logdatas != null)
             {
-                logView.ItemsSource = logdatas;
+                Logdatas = logdatas;
             }
+            logView.ItemsSource = Logdatas;
+        }
+        public void update(List<Log> logdatas = null, string title = "LogWindow")
+        {
+            Title = title;
+            Logdatas = logdatas;
+            logView.ItemsSource = Logdatas;
         }
     }
 }

@@ -65,6 +65,8 @@ namespace typing
             keyb._cparts();
 
 
+            var window = (MainWindow)Application.Current.MainWindow;
+
         }
         public void setcolortheme()
         {
