@@ -160,6 +160,7 @@ namespace typing
         /// 画面遷移前にFrameから発生するイベント
         /// デフォルトの処理をキャンセルし、アニメーションしながら画面遷移するようにします。
         /// </summary>
+        // 参考 https://www.fenet.jp/dotnet/column/tool/4951/
         private void Frame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             if (frame.Content != null && !_allowDirectNavigation)
