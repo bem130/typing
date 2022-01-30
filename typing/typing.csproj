@@ -110,6 +110,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="config.cs" />
     <Compile Include="keyboard.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogWindow.xaml.cs">
@@ -202,6 +203,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\type.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typing.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
