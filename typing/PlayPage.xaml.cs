@@ -401,7 +401,6 @@ namespace typing
                     }
                     if (inptt)
                     {
-
                         PlaySound(Properties.Resources.type);
                     }
                     else
