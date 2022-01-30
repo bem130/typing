@@ -20,8 +20,10 @@ namespace typing
     /// </summary>
     public partial class ResultPage : Page
     {
+        string date;
         public ResultPage()
         {
+            date = DateTime.Now.ToString();
             InitializeComponent();
             show();
         }
@@ -30,14 +32,67 @@ namespace typing
             var tpage = new HomePage();
             NavigationService.Navigate(tpage);
         }
+        private void copyr_text(object sender, RoutedEventArgs e)
+        {
+            string resdic = "`～～～～～～～～～～～～`\n" + "[" + date + "]\n" + sdic_to_string(calcr(get(),1),":","\n") + "`～～～～～～～～～～～～`";
+            Clipboard.SetData(DataFormats.Text, resdic);
+        }
+        public Dictionary<string,string> calcr(Dictionary<string, string> dic,int _case=0)
+        {
+
+            int allcnt = int.Parse(dic["allcnt"]);
+            int typecnt = int.Parse(dic["typecnt"]);
+            int miscnt = int.Parse(dic["miscnt"]);
+            double time = double.Parse(dic["time"]);
+
+            Dictionary<string, string> resdic = new Dictionary<string, string>();
+
+            if (_case == 0)
+            {
+                resdic = new Dictionary<string, string>()
+                {
+                    {"allcnt",dic["allcnt"]},
+                    {"typecnt",dic["typecnt"]},
+                    {"miscnt",dic["miscnt"]},
+                    {"time",cutnumber(double.Parse(dic["time"]),1000).ToString()},
+                    {"speed",cutnumber(((typecnt-miscnt)/time),1000).ToString()},
+                    {"rerate",cutnumber((((double)(typecnt-miscnt)/(double)(typecnt))*100),1000).ToString()},
+                };
+            }
+            else if (_case == 1) {
+                resdic = new Dictionary<string, string>()
+                {
+                    {"速さ　　　　",cutnumber(((typecnt-miscnt)/time),1000).ToString()+"/s"},
+                    {"正解率　　　",cutnumber((((double)(typecnt-miscnt)/(double)(typecnt))*100),1000).ToString()+"%"},
+                    {"合計時間　　",cutnumber(double.Parse(dic["time"]),1000).ToString()+"s"},
+                    {"問題数　　　",dic["allcnt"]},
+                    {"タイプ数　　",dic["typecnt"]},
+                    {"ミスタイプ数",dic["miscnt"]},
+                };
+            }
+            return resdic;
+        }
         public void show()
         {
-            Dictionary<string, string> dic = get();
+            Dictionary<string, string> resdic = calcr(get());
 
-            allcntv.Text = dic["allcnt"];
-            typecntv.Text = dic["typecnt"];
-            miscntv.Text = dic["miscnt"];
-            timev.Text = dic["time"];
+            allcntv.Text = resdic["allcnt"];
+            typecntv.Text = resdic["typecnt"];
+            miscntv.Text = resdic["miscnt"];
+            timev.Text = resdic["time"];
+            speedv.Text = resdic["speed"];
+            raratev.Text = resdic["rerate"];
+        }
+        public string sdic_to_string(Dictionary<string, string> dic,string j1 = ":",string j2 = ";")
+        {
+            string rt = "";
+            string[] dickeys = new string[dic.Count];
+            dic.Keys.CopyTo(dickeys, 0);
+            foreach (string key in dickeys)
+            {
+                rt += key + j1 + dic[key] + j2;
+            }
+            return rt;
         }
         public Dictionary<string,string> get()
         {
@@ -60,6 +115,10 @@ namespace typing
                 }
             }
             return dic;
+        }
+        private double cutnumber(double num, int len)
+        {
+            return ((double)((int)(num*len))/len);
         }
     }
 }

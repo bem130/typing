@@ -245,7 +245,7 @@ namespace typing
             {
                 await Task.Delay(100);
                 Qstopwatch.Content = sw.Elapsed.ToString();
-                Qtypespeed.Text = (typecnt/sw.Elapsed.TotalSeconds).ToString();
+                Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
             }
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
@@ -495,6 +495,10 @@ namespace typing
             return rt;
         }
 
+        private double cutnumber(double num,int len)
+        {
+            return ((double)((int)(num*len))/len);
+        }
 
         /// <summary>
         /// 効果音の再生
@@ -512,5 +516,6 @@ namespace typing
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(path);
             player.Play();
         }
+
     }
 }
