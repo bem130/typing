@@ -137,13 +137,13 @@ namespace typing
                 reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
                 Dictionary<string, string> fprop = new Dictionary<string, string>()
                 {
-                    {"split","◊"},
+                    {"split",","},
                     {"title","noTitle"},
                     {"type",""},
                 };
                 Dictionary<string, string> dfprop = new Dictionary<string, string>()
                 {
-                    {"split","◊"},
+                    {"split",","},
                     {"title","noTitle"},
                     {"type",""},
                 };
@@ -177,21 +177,156 @@ namespace typing
                     else if (fileline.StartsWith("[comment]")) //コメント行の場合
                     {
                     }
+                    else if (fileline.StartsWith("[comments]")) //複数コメント行の場合
+                    {
+                        do
+                        {
+                            fileline = reader.ReadLine();
+                            line++;
+                        }
+                        while (fileline.StartsWith("[/comments]") == false & reader.Peek() >= 0);
+                    }
                     else //問題行の場合
                     {
                         if (fileline.Length > 0)
                         {
-                            if (fprop["type"] == "ja_word")
                             {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                if (fprop["type"] == "ja_word")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+                                if (fprop["type"] == "ja_sentence")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+                                if (fprop["type"] == "en_word")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+                                if (fprop["type"] == "en_sentence")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
                             }
-                            if (fprop["type"] == "ja_sentence")
                             {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                if (fprop["type"] == "question_word")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+                                if (fprop["type"] == "question_sentence")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+                            }
+                            {
+                                if (fprop["type"] == "dec-dec_math-addition")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[0]+" + "+qaline[1], (double.Parse(qaline[0])+double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+                                if (fprop["type"] == "dec-dec_math-subtraction")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[0]+" - "+qaline[1], (double.Parse(qaline[0])-double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+                                if (fprop["type"] == "dec-dec_math-multiplication")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, qaline[0]+" × "+qaline[1], (double.Parse(qaline[0])*double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+                                if (fprop["type"] == "dec-dec_math-division")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    QAd.Rows.Add(questionid, (double.Parse(qaline[0])*double.Parse(qaline[1])).ToString()+" ÷ "+qaline[1], qaline[0].ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                }
+
+                                if (fprop["type"] == "dec-dec_math-addition_rm")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    int num = int.Parse(qaline[4]);
+                                    int min1 = int.Parse(qaline[0]);
+                                    int min2 = int.Parse(qaline[2]);
+                                    int max1 = int.Parse(qaline[1]);
+                                    int max2 = int.Parse(qaline[3]);
+                                    for (int c = 0; c<num; c++)
+                                    {
+                                        Random r = new Random(Environment.TickCount+questionid*5+line*5);
+                                        int num1 = r.Next(min1,max1);
+                                        int num2 = r.Next(min2,max2);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, num1.ToString()+" + "+num2.ToString(), (num1 + num2).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    }
+                                }
+                                if (fprop["type"] == "dec-dec_math-subtraction_rm")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    int num = int.Parse(qaline[4]);
+                                    int min1 = int.Parse(qaline[0]);
+                                    int min2 = int.Parse(qaline[2]);
+                                    int max1 = int.Parse(qaline[1]);
+                                    int max2 = int.Parse(qaline[3]);
+                                    for (int c = 0; c<num; c++)
+                                    {
+                                        Random r = new Random(Environment.TickCount+questionid*5+line*5);
+                                        int num1 = r.Next(min1, max1);
+                                        int num2 = r.Next(min2, max2);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, num1.ToString()+" - "+num2.ToString(), (num1 - num2).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    }
+                                }
+                                if (fprop["type"] == "dec-dec_math-multiplication_rm")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    int num = int.Parse(qaline[4]);
+                                    int min1 = int.Parse(qaline[0]);
+                                    int min2 = int.Parse(qaline[2]);
+                                    int max1 = int.Parse(qaline[1]);
+                                    int max2 = int.Parse(qaline[3]);
+                                    for (int c = 0; c<num; c++)
+                                    {
+                                        Random r = new Random(Environment.TickCount+questionid*5+line*5);
+                                        int num1 = r.Next(min1, max1);
+                                        int num2 = r.Next(min2, max2);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, num1.ToString()+" × "+num2.ToString(), (num1 * num2).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    }
+                                }
+                                if (fprop["type"] == "dec-dec_math-division_rm")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    int num = int.Parse(qaline[4]);
+                                    int min1 = int.Parse(qaline[0]);
+                                    int min2 = int.Parse(qaline[2]);
+                                    int max1 = int.Parse(qaline[1]);
+                                    int max2 = int.Parse(qaline[3]);
+                                    for (int c = 0; c<num; c++)
+                                    {
+                                        Random r = new Random(Environment.TickCount+questionid*5+line*5);
+                                        int num1 = r.Next(min1, max1);
+                                        int num2 = r.Next(min2, max2);
+                                        if (num2 != 0)
+                                        {
+                                            questionid++;
+                                            QAd.Rows.Add(questionid, (num1*num2).ToString()+" ÷ "+num2, num1.ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                        }
+                                    }
+                                }
                             }
                             if (fprop["type"] == "ja-en_word")
                             {
@@ -204,24 +339,6 @@ namespace typing
                                 string[] qaline = fileline.Split(fprop["split"][0]);
                                 questionid++;
                                 QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
-                            }
-                            if (fprop["type"] == "en-en_word")
-                            {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
-                            }
-                            if (fprop["type"] == "en-en_sentence")
-                            {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
-                            }
-                            if (fprop["type"] == "dec-dec_math-addition")
-                            {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[0]+"+"+qaline[1] , (double.Parse(qaline[0])+double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
                             }
                         }
                     }

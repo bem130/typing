@@ -150,9 +150,17 @@ namespace typing
                 while (reader.Peek() >= 0)
                 {
                     string fileline = reader.ReadLine();
-                    
+
                     if (fileline.StartsWith("[comment]")) //コメント行の場合
                     {
+                    }
+                    else if (fileline.StartsWith("[comments]")) //複数コメント行の場合
+                    {
+                        do
+                        {
+                            fileline = reader.ReadLine();
+                        }
+                        while (fileline.StartsWith("[/comments]") == false & reader.Peek() >= 0);
                     }
                     else //通常行の場合
                     {
