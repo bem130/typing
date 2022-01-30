@@ -501,39 +501,16 @@ namespace typing
         /// 効果音の再生
         /// </summary>
         // 参考 https://qiita.com/Oichan/items/b93e8e8ba8211b925d0a
-
-        private System.Media.SoundPlayer player = null;
-
-        private void StopSound()
-        {
-            if (player != null)
-            {
-                player.Stop();
-                player.Dispose();
-                player = null;
-            }
-        }
+        // 参考 http://xn--u9j207iixgbigp2p.xn--tckwe/archives/3383
 
         private void PlaySound(UnmanagedMemoryStream stream)
         {
-            if (player != null)
-            {
-                player.Stop();
-                player.Dispose();
-                player = null;
-            }
-            player = new System.Media.SoundPlayer(stream);
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(stream);
             player.Play();
         }
         private void PlaySound(string path)
         {
-            if (player != null)
-            {
-                player.Stop();
-                player.Dispose();
-                player = null;
-            }
-            player = new System.Media.SoundPlayer(path);
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(path);
             player.Play();
         }
     }
