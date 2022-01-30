@@ -40,14 +40,10 @@ coming soon
   
 #### \[questions typing] - Type the answer to the question  
   
-(1) ja-ja_word  
- 　日本語の単語の問題 - Japanese questions of words  
-(2) ja-ja_sentence  
-　日本語の文章題 - Japanese questions of sentences  
-(3) en-en_word  
-　英語の単語の問題 - English question of words  
-(4) en-en_sentence  
-　英語の文章題 - English question of sentences  
+(1) question_words  
+  単語の問題 - Questions of words  
+(2) question_sentences  
+　文章題 - Questions of sentences  
   
 #### \[math typing] - Type the calculate result of displayed numerical formula  
   
