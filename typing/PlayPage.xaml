@@ -23,7 +23,7 @@
                 <RowDefinition Height="100*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="230"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="22"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -33,7 +33,6 @@
                     <RowDefinition Height="37"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="3*"/>
-                    <RowDefinition Height="30"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="50"/>
@@ -45,16 +44,12 @@
                 <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37"/>
                 <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15"></ProgressBar>
 
-
-                <TextBlock x:Name="AnsArea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="6" FontSize="22"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center">
-                </TextBlock>
-
-                <TextBlock x:Name="Qarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="7" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="Qarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Run Text="スペースを押してスタート"/>
                 </TextBlock>
 
 
-                <TextBlock x:Name="Aarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="9" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="Aarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="8" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center">
                 </TextBlock>
             </Grid>
 
@@ -79,6 +74,8 @@
                 <TextBlock Text=";"/>
                 <TextBlock Text="line:"/>
                 <TextBlock x:Name="QAlinecnt" Text="--"/>
+                <TextBlock Text="type:"/>
+                <TextBlock x:Name="QAtype" Text="--"/>
                 <Separator/>
                 <TextBlock Text="キーコード:"/>
                 <TextBlock x:Name="Latestkey" Text="-"/>
