@@ -137,13 +137,13 @@ namespace typing
                 reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
                 Dictionary<string, string> fprop = new Dictionary<string, string>()
                 {
-                    {"split","◊"},
+                    {"split",","},
                     {"title","noTitle"},
                     {"type",""},
                 };
                 Dictionary<string, string> dfprop = new Dictionary<string, string>()
                 {
-                    {"split","◊"},
+                    {"split",","},
                     {"title","noTitle"},
                     {"type",""},
                 };
@@ -176,6 +176,15 @@ namespace typing
                     }
                     else if (fileline.StartsWith("[comment]")) //コメント行の場合
                     {
+                    }
+                    else if (fileline.StartsWith("[comments]")) //複数コメント行の場合
+                    {
+                        do
+                        {
+                            fileline = reader.ReadLine();
+                            line++;
+                        }
+                        while (fileline.StartsWith("[/comments]") == false & reader.Peek() >= 0);
                     }
                     else //問題行の場合
                     {
