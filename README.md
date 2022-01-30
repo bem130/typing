@@ -27,7 +27,7 @@ coming soon
 
 ### type of questions
   
-\[general typing] - Type the displayed strings  
+#### \[general typing] - Type the displayed strings  
   
 (1) ja_word  
  　日本語の単語 - Japanese words  
@@ -38,7 +38,7 @@ coming soon
 (4) en_sentence  
 　英語の文章 - English sentences  
   
-\[questions typing] - Type the answer to the question  
+#### \[questions typing] - Type the answer to the question  
   
 (1) ja-ja_word  
  　日本語の単語の問題 - Japanese questions of words  
@@ -49,7 +49,7 @@ coming soon
 (4) en-en_sentence  
 　英語の文章題 - English question of sentences  
   
-\[math typing] - Type the calculate result of displayed numerical formula  
+#### \[math typing] - Type the calculate result of displayed numerical formula  
   
 (1) dec-dec_math-addition  
  　10進数2つの足し算 - Addition of 2 decimal numbers  
