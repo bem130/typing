@@ -40,9 +40,9 @@ coming soon
   
 #### \[questions typing] - Type the answer to the question  
   
-(1) question_words  
+(1) question_word  
  　単語の問題 - Questions of words  
-(2) question_sentences  
+(2) question_sentence  
  　文章題 - Questions of sentences  
   
 #### \[math typing] - Type the calculate result of displayed numerical formula  
