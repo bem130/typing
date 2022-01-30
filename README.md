@@ -57,3 +57,5 @@ coming soon
 　10進数2つの引き算 - Subtraction of 2 decimal numbers  
 (3) dec-dec_math-multiplication  
 　10進数2つの掛け算 - Multiplication of 2 decimal numbers   
+(3) dec-dec_math-division  
+　10進数2つの割り算 - Division of 2 decimal numbers   
