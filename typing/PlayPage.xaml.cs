@@ -48,6 +48,8 @@ namespace typing
         int miscnt;
         Dictionary<string, int[][]> ckeys;
         string[] ckeyskeys;
+
+        List<string> ranss;
         System.Diagnostics.Stopwatch sw;
 
         public PlayPage()
@@ -84,9 +86,8 @@ namespace typing
         }
         async void finished()
         {
-            nowplay = false;
             alltime = sw.Elapsed.TotalSeconds;
-            await Task.Delay(100);
+            nowplay = false;
             Dictionary<string, string> senddata = new Dictionary<string, string>()
             {
                 {"allcnt",allcnt.ToString()},
@@ -113,6 +114,10 @@ namespace typing
         /// </summary>
         private void read_file()
         {
+            ranss = new List<string>()
+            {
+                ""
+            };
             string[] filepaths = ((string)Application.Current.Properties["FilePaths"]).Split('|');
 
             QAd = new DataTable("QAd");
@@ -121,7 +126,7 @@ namespace typing
             QAd.Columns.Add("id");
             QAd.Columns.Add("question");
             QAd.Columns.Add("answer");
-            QAd.Columns.Add("r_answer");
+            QAd.Columns.Add("w_answer");
             QAd.Columns.Add("title");
             QAd.Columns.Add("filelocation");
             QAd.Columns.Add("fileline");
@@ -180,13 +185,13 @@ namespace typing
                             {
                                 string[] qaline = fileline.Split(fprop["split"][0]);
                                 questionid++;
-                                QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
                             }
                             if (fprop["type"] == "ja_sentence")
                             {
                                 string[] qaline = fileline.Split(fprop["split"][0]);
                                 questionid++;
-                                QAd.Rows.Add(questionid, qaline[0], qaline[1], qaline[1], fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
                             }
                             if (fprop["type"] == "ja-en_word")
                             {
@@ -199,6 +204,24 @@ namespace typing
                                 string[] qaline = fileline.Split(fprop["split"][0]);
                                 questionid++;
                                 QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                            }
+                            if (fprop["type"] == "en-en_word")
+                            {
+                                string[] qaline = fileline.Split(fprop["split"][0]);
+                                questionid++;
+                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                            }
+                            if (fprop["type"] == "en-en_sentence")
+                            {
+                                string[] qaline = fileline.Split(fprop["split"][0]);
+                                questionid++;
+                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                            }
+                            if (fprop["type"] == "dec-dec_math-addition")
+                            {
+                                string[] qaline = fileline.Split(fprop["split"][0]);
+                                questionid++;
+                                QAd.Rows.Add(questionid, qaline[0]+"+"+qaline[1] , (double.Parse(qaline[0])+double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
                             }
                         }
                     }
@@ -245,7 +268,7 @@ namespace typing
             {
                 await Task.Delay(100);
                 Qstopwatch.Content = sw.Elapsed.ToString();
-                Qtypespeed.Text = (typecnt/sw.Elapsed.TotalSeconds).ToString();
+                Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
             }
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
@@ -318,8 +341,9 @@ namespace typing
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
                 Qtitle.Text = nowq["title"].ToString();
-                AnsArea.Text = string.Join("", ncparts);
+                QAtype.Text = nowq["type"].ToString();
                 QAnowcnt.Text = nowcnt.ToString();
+
 
 
                 int mik = 0;
@@ -446,7 +470,7 @@ namespace typing
                         QAfilename.Text = nowq["filelocation"].ToString();
                         QAlinecnt.Text = nowq["fileline"].ToString();
                         Qtitle.Text = nowq["title"].ToString();
-                        AnsArea.Text = string.Join("", ncparts);
+                        QAtype.Text = nowq["type"].ToString();
                         QAnowcnt.Text = nowcnt.ToString();
 
                         int mik = 1;
@@ -495,6 +519,10 @@ namespace typing
             return rt;
         }
 
+        private double cutnumber(double num,int len)
+        {
+            return ((double)((int)(num*len))/len);
+        }
 
         /// <summary>
         /// 効果音の再生
@@ -512,5 +540,6 @@ namespace typing
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(path);
             player.Play();
         }
+
     }
 }
