@@ -8,6 +8,13 @@
         mc:Ignorable="d"
         Title="Typing"
         Height="600" Width="1000" MinWidth="820" MinHeight="550">
+    <Window.Resources>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="colorthemes/default.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0"/>

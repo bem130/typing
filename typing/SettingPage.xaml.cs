@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Configuration;
 using System.Windows.Shapes;
 
 namespace typing
@@ -72,6 +73,5 @@ namespace typing
             window.MinHeight = dmsize[1]*scale;
             window.MinWidth = dmsize[0]*scale;
         }
-
     }
 }

@@ -16,6 +16,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Data;
 using System.Diagnostics;
+using System.Resources;
 
 namespace typing
 {
@@ -40,6 +41,7 @@ namespace typing
         int partcnt;
         int ipartcnt;
         int typecnt;
+        double alltime;
         string[] ncparts;
         DataRow nowq;
         int iqacnt;
@@ -65,7 +67,40 @@ namespace typing
             keyb._cparts();
 
 
+            var window = (MainWindow)Application.Current.MainWindow;
+
         }
+        public string sdic_to_string(Dictionary<string,string> dic)
+        {
+            string rt = "";
+            string[] dickeys = new string[dic.Count];
+            dic.Keys.CopyTo(dickeys, 0);
+            foreach (string key in dickeys)
+            {
+                rt += key + ":" + dic[key] + ";";
+            }
+            Debug.Print(rt);
+            return rt;
+        }
+        async void finished()
+        {
+            nowplay = false;
+            alltime = sw.Elapsed.TotalSeconds;
+            await Task.Delay(100);
+            Dictionary<string, string> senddata = new Dictionary<string, string>()
+            {
+                {"allcnt",allcnt.ToString()},
+                {"typecnt",typecnt.ToString()},
+                {"miscnt",miscnt.ToString()},
+                {"time",alltime.ToString()},
+            };
+            Application.Current.Properties["Result"] = sdic_to_string(senddata);
+            var tpage = new ResultPage();
+            NavigationService.Navigate(tpage);
+        }
+        /// <summary>
+        /// カラーテーマの設定
+        /// </summary>
         public void setcolortheme()
         {
             string dicPath = Properties.Settings.Default.colortheme;
@@ -73,13 +108,15 @@ namespace typing
             dic.Source = new Uri(dicPath, UriKind.Relative);
             this.Resources.MergedDictionaries.Add(dic);
         }
+        /// <summary>
+        /// 問題ファイルの読み込み
+        /// </summary>
         private void read_file()
         {
             string[] filepaths = ((string)Application.Current.Properties["FilePaths"]).Split('|');
 
             QAd = new DataTable("QAd");
             StreamReader reader;
-
 
             QAd.Columns.Add("id");
             QAd.Columns.Add("question");
@@ -201,17 +238,17 @@ namespace typing
             await Task.Delay(50);
             KeyboardUI.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFB0ABA4");
         }
-        async void viewsw()
+        async void viewsw() // タイマーの表示
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
             while (nowplay)
             {
                 await Task.Delay(100);
-                Qstopwatch.Text = sw.Elapsed.ToString();
+                Qstopwatch.Content = sw.Elapsed.ToString();
                 Qtypespeed.Text = (typecnt/sw.Elapsed.TotalSeconds).ToString();
             }
         }
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
         {
             Key key = e.Key;
             Key systemKey = e.SystemKey;
@@ -243,7 +280,13 @@ namespace typing
             QAallcnt.Text = allcnt.ToString();
             QAmiscnt.Text = miscnt.ToString();
             keyc(18);
+            kinput.Focus();
         }
+
+
+        /// <summary>
+        /// キーボード入力時の判定
+        /// </summary>
         public void im(int keycode)
         {
             string[] nowa;
@@ -253,6 +296,11 @@ namespace typing
                 partcnt = 0;
                 ipartcnt = 0;
 
+                nowplay = true;
+                sw = new Stopwatch();
+                sw.Start();
+                viewsw();
+
                 nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
                 ncparts = splita(nowq["answer"].ToString());
                 while (ncparts.Length < 1)
@@ -260,13 +308,12 @@ namespace typing
                     nowcnt++;
                     if (nowcnt > QAd.Rows.Count)
                     {
-                        Aarea.Text = "finished";
+                        finished();
                         return;
                     }
                     nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
                     ncparts = splita(nowq["answer"].ToString());
                 }
-                Debug.Print((ncparts.Length).ToString());
                 Qarea.Text = nowq["question"].ToString();
                 QAfilename.Text = nowq["filelocation"].ToString();
                 QAlinecnt.Text = nowq["fileline"].ToString();
@@ -323,7 +370,6 @@ namespace typing
                             int[] spinp = new int[ipartcnt+1];
                             Array.Copy(t, 0, spt, 0, ipartcnt+1);
                             Array.Copy(inputpart, 0, spinp, 0, ipartcnt+1);
-                            Debug.Print(" "+string.Join(",", spt)+";;"+string.Join(",", spinp));
 
                             if (spt.SequenceEqual(spinp))
                             {
@@ -353,8 +399,13 @@ namespace typing
                         }
 
                     }
-                    if (inptt == false)
+                    if (inptt)
                     {
+                        PlaySound(Properties.Resources.type);
+                    }
+                    else
+                    {
+                        PlaySound(Properties.Resources.mis);
                         miscnt++;
                         QAmiscnt.Text = miscnt.ToString();
                     }
@@ -367,7 +418,7 @@ namespace typing
                     nowcnt++;
                     if (nowcnt > QAd.Rows.Count)
                     {
-                        Aarea.Text = "finished";
+                        finished();
                         return;
                     }
                     if (nowcnt <= allcnt)
@@ -383,7 +434,7 @@ namespace typing
                             nowcnt++;
                             if (nowcnt > QAd.Rows.Count)
                             {
-                                Aarea.Text = "finished";
+                                finished();
                                 return;
                             }
                             nowq = QAd.Select("id='"+nowcnt.ToString()+"'")[0];
@@ -442,6 +493,24 @@ namespace typing
             }
             Array.Resize(ref rt, lc);
             return rt;
+        }
+
+
+        /// <summary>
+        /// 効果音の再生
+        /// </summary>
+        // 参考 https://qiita.com/Oichan/items/b93e8e8ba8211b925d0a
+        // 参考 http://xn--u9j207iixgbigp2p.xn--tckwe/archives/3383
+
+        private void PlaySound(UnmanagedMemoryStream stream)
+        {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(stream);
+            player.Play();
+        }
+        private void PlaySound(string path)
+        {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(path);
+            player.Play();
         }
     }
 }

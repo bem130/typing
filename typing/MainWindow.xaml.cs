@@ -37,6 +37,7 @@ Reference sites:
    https://itsakura.com/
    https://baba-s.hatenablog.com/
    https://usefuledge.com/
+   https://resanaplaza.com/
      etc.
  [apologize] There may be license violation etc.
    because I'm not used to license etc.
@@ -71,6 +72,7 @@ namespace typing
     {
         public MainWindow()
         {
+
             InitializeComponent();
 
             NavigationCommands.BrowseBack.InputGestures.Clear();
@@ -79,6 +81,7 @@ namespace typing
 
             setscale();
             setcolortheme();
+
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
             this.Title = asm.GetName().Name;
@@ -126,6 +129,11 @@ namespace typing
             }
         }
 
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+        }
+
         public void setcolortheme()
         {
             string dicPath = Properties.Settings.Default.colortheme;
@@ -152,6 +160,7 @@ namespace typing
         /// 画面遷移前にFrameから発生するイベント
         /// デフォルトの処理をキャンセルし、アニメーションしながら画面遷移するようにします。
         /// </summary>
+        // 参考 https://www.fenet.jp/dotnet/column/tool/4951/
         private void Frame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             if (frame.Content != null && !_allowDirectNavigation)
@@ -200,4 +209,5 @@ namespace typing
         }
 
     }
+
 }
