@@ -41,15 +41,15 @@
                 
                 <TextBlock x:Name="Qtitle" Text="" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" TextAlignment="Center"/>
 
-                <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37"/>
-                <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15"></ProgressBar>
+                <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37" Foreground="{DynamicResource cButtonFontcolor}" Background="{DynamicResource cBackground}"/>
+                <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15" Foreground="{DynamicResource cFontcolor}"></ProgressBar>
 
-                <TextBlock x:Name="Qarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="Qarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
                 <Run Text="スペースを押してスタート"/>
                 </TextBlock>
 
 
-                <TextBlock x:Name="Aarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="8" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="Aarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="8" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
                 </TextBlock>
             </Grid>
 

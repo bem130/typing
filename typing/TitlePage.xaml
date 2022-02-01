@@ -15,15 +15,16 @@
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
     </Page.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
-        <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="ホーム" Foreground="{DynamicResource cButtonFontcolor}" Background="{DynamicResource cButtonBackground}"/>
+        <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="ホーム" Style="{DynamicResource Button}" BorderThickness="1"/>
         <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="10" Value="{Binding Progress}" Grid.Row="2" Foreground="#FFBFBFBF" Background="White" BorderBrush="White"/>
         <Grid Height="160" VerticalAlignment="Center">
             <Grid.RowDefinitions>

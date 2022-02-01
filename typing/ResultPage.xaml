@@ -51,21 +51,21 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">合計時間(秒)</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">速さ(1秒あたり)</TextBlock>
-                        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">正解率(%)</TextBlock>
-                        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">問題数</TextBlock>
-                        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">タイプ数</TextBlock>
-                        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="25" HorizontalAlignment="Center">ミスタイプ数</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">合計時間(秒)</TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">速さ(1秒あたり)</TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">正解率(%)</TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">問題数</TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">タイプ数</TextBlock>
+                        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">ミスタイプ数</TextBlock>
 
-                        <TextBlock x:Name="timev" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
-                        <TextBlock x:Name="speedv" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
-                        <TextBlock x:Name="raratev" Grid.Row="2" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
-                        <TextBlock x:Name="allcntv" Grid.Row="3" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
-                        <TextBlock x:Name="typecntv" Grid.Row="4" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
-                        <TextBlock x:Name="miscntv" Grid.Row="5" Grid.Column="1" FontSize="25" HorizontalAlignment="Center">0</TextBlock>
+                        <TextBlock x:Name="timev" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
+                        <TextBlock x:Name="speedv" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
+                        <TextBlock x:Name="raratev" Grid.Row="2" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
+                        <TextBlock x:Name="allcntv" Grid.Row="3" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
+                        <TextBlock x:Name="typecntv" Grid.Row="4" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
+                        <TextBlock x:Name="miscntv" Grid.Row="5" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                     </Grid>
-                    <Button Click="copyr_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Grid.ColumnSpan="2" Content="結果をコピー (テキスト)"/>
+                    <Button Click="copyr_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Grid.ColumnSpan="2" Content="結果をコピー (テキスト)" Foreground="{DynamicResource cButtonFontcolor}" Background="{DynamicResource cButtonBackground}"/>
                 </Grid>
 
             </ScrollViewer>
