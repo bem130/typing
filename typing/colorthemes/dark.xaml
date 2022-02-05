@@ -5,6 +5,9 @@
     <!--colors-->
     <Brush x:Key="cTopbarBackground">#FF312F4B</Brush>
 
+    <Brush x:Key="cPbarBackground">#FF312F4B</Brush>
+    <Brush x:Key="cPbarForeground">#FF315F5B</Brush>
+
     <Brush x:Key="cPauseBackground">#DF8F1818</Brush>
     <Brush x:Key="cPauseFontcolor">#FF678888</Brush>
     
