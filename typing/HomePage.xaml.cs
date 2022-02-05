@@ -27,12 +27,20 @@ namespace typing
         public HomePage()
         {
             InitializeComponent();
+
+            //TextBlock a = title;
+            //var b = new Run(" Home Page");
+            //b.Foreground = new SolidColorBrush(Color.FromArgb(250,0,252,25));
+            //a.Inlines.Add(b);
+
             setcolortheme();
 
             serchdir.Text = Properties.Settings.Default.questions_dir;
 
             Menu.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
             makemenu();
+
+
         }
 
         public void setcolortheme()

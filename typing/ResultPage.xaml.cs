@@ -25,7 +25,15 @@ namespace typing
         {
             date = DateTime.Now.ToString();
             InitializeComponent();
+            setcolortheme();
             show();
+        }
+        public void setcolortheme()
+        {
+            string dicPath = Properties.Settings.Default.colortheme;
+            ResourceDictionary dic = new ResourceDictionary();
+            dic.Source = new Uri(dicPath, UriKind.Relative);
+            this.Resources.MergedDictionaries.Add(dic);
         }
         private void Go_home(object sender, RoutedEventArgs e)
         {
