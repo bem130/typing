@@ -5,7 +5,8 @@ typing game of desktop
 
 ![header-image](https://raw.githubusercontent.com/haruki1234/typing/master/preview/typing.png "header")
 
-https://raw.githubusercontent.com/haruki1234/typing/master/preview/typing.mp4
+https://user-images.githubusercontent.com/79097169/152627479-3dae6fad-f103-4c76-b72e-4f8efd43e253.mp4
+
 
 
 中心的な部分を開発している途中です。コードの更新時に、新しい方と古い方の間で互換性がある保障はできません。 - 2022年1月23日  
@@ -42,10 +43,6 @@ coming soon
 　英語の文章 - English sentences  
   
 #### \[questions typing] - Type the answer to the question  
-
-https://user-images.githubusercontent.com/79097169/152627479-3dae6fad-f103-4c76-b72e-4f8efd43e253.mp4
-
-
   
 (1) question_word  
  　単語の問題 - Questions of words  
