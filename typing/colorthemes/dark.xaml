@@ -10,7 +10,7 @@
 
     <Brush x:Key="cPauseBackground">#DF8F1818</Brush>
     <Brush x:Key="cPauseFontcolor">#FF678888</Brush>
-    
+
     <Brush x:Key="cBackground">#FF050215</Brush>
     <Brush x:Key="cFontcolor">#FFC5CFCB</Brush>
     <Brush x:Key="cFrameBackground">#FF151225</Brush>
@@ -18,7 +18,7 @@
     <Brush x:Key="cButtonBackground">#FF220225</Brush>
     <Brush x:Key="cButtonFontcolor">#FAD5DFDB</Brush>
     <Brush x:Key="cButtonBrush">#FF522E22</Brush>
-    
+
     <Brush x:Key="coButtonBackground">#FF271235</Brush>
     <Brush x:Key="coButtonFontcolor">#FFD5DFDB</Brush>
     <Brush x:Key="coButtonBrush">#FF322F22</Brush>
@@ -26,5 +26,5 @@
     <Brush x:Key="cpButtonBackground">#FF423255</Brush>
     <Brush x:Key="cpButtonFontcolor">#FFB59F8B</Brush>
     <Brush x:Key="cpButtonBrush">#FF522E22</Brush>
-    
+
 </ResourceDictionary>

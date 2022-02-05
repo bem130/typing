@@ -30,6 +30,7 @@ namespace typing
             {
                 { "colorthemes/default.xaml", "default" },
                 { "colorthemes/dark.xaml", "dark" },
+                { "colorthemes/yellow.xaml", "yellow" },
             };
             colortheme.SelectedValue = Properties.Settings.Default.colortheme;
             serchdir.Text = Properties.Settings.Default.questions_dir;

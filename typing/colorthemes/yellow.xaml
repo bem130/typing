@@ -3,27 +3,27 @@
                     xmlns:local="clr-namespace:typing">
 
     <!--colors-->
-    <Brush x:Key="cTopbarBackground">#EFE7D8D8</Brush>
+    <Brush x:Key="cTopbarBackground">#EFE6B35B</Brush>
 
     <Brush x:Key="cPbarBackground">#FFE1EFFB</Brush>
     <Brush x:Key="cPbarForeground">#FF516F9B</Brush>
 
-    <Brush x:Key="cPauseBackground">#DFFF3848</Brush>
-    <Brush x:Key="cPauseFontcolor">#FF000000</Brush>
+    <Brush x:Key="cPauseBackground">#DFFFCB5C</Brush>
+    <Brush x:Key="cPauseFontcolor">#FF32260B</Brush>
 
-    <Brush x:Key="cBackground">#FAD5DFDB</Brush>
-    <Brush x:Key="cFontcolor">#FF000000</Brush>
-    <Brush x:Key="cFrameBackground">#FFEBFFF9</Brush>
+    <Brush x:Key="cBackground">#FFFEFB9A</Brush>
+    <Brush x:Key="cFontcolor">#292923</Brush>
+    <Brush x:Key="cFrameBackground">#FFFEFB8A</Brush>
 
-    <Brush x:Key="cButtonBackground">#FFD5DFEB</Brush>
+    <Brush x:Key="cButtonBackground">#FFF7C297</Brush>
     <Brush x:Key="cButtonFontcolor">#FF000000</Brush>
     <Brush x:Key="cButtonBrush">#FF858A9B</Brush>
-    
-    <Brush x:Key="coButtonBackground">#FFA5DFEB</Brush>
+
+    <Brush x:Key="coButtonBackground">#FFf7B287</Brush>
     <Brush x:Key="coButtonFontcolor">#FF760000</Brush>
     <Brush x:Key="coButtonBrush">#FF858ABB</Brush>
 
-    <Brush x:Key="cpButtonBackground">#FFE5DFEB</Brush>
+    <Brush x:Key="cpButtonBackground">#FFE7D297</Brush>
     <Brush x:Key="cpButtonFontcolor">#FFB59F8B</Brush>
     <Brush x:Key="cpButtonBrush">#FF522E22</Brush>
 
