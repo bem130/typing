@@ -3,8 +3,6 @@
 タイピングゲーム  
 typing game of desktop  
 
-![header-image](https://raw.githubusercontent.com/haruki1234/typing/master/preview/typing.png "header")
-
 https://user-images.githubusercontent.com/79097169/152627479-3dae6fad-f103-4c76-b72e-4f8efd43e253.mp4
 
 
