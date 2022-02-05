@@ -3,52 +3,25 @@
                     xmlns:local="clr-namespace:typing">
 
     <!--colors-->
+    <Brush x:Key="cTopbarBackground">#FF312F4B</Brush>
+
+    <Brush x:Key="cPauseBackground">#DF8F1818</Brush>
+    <Brush x:Key="cPauseFontcolor">#FF678888</Brush>
+    
     <Brush x:Key="cBackground">#FF050215</Brush>
     <Brush x:Key="cFontcolor">#FFC5CFCB</Brush>
-    <Brush x:Key="cButtonBackground">#FF223265</Brush>
-    <Brush x:Key="cButtonFontcolor">#FFD5DFDB</Brush>
     <Brush x:Key="cFrameBackground">#FF151225</Brush>
 
+    <Brush x:Key="cButtonBackground">#FF220225</Brush>
+    <Brush x:Key="cButtonFontcolor">#FAD5DFDB</Brush>
+    <Brush x:Key="cButtonBrush">#FF522E22</Brush>
+    
+    <Brush x:Key="coButtonBackground">#FF271235</Brush>
+    <Brush x:Key="coButtonFontcolor">#FFD5DFDB</Brush>
+    <Brush x:Key="coButtonBrush">#FF322F22</Brush>
 
-
-    <!--default button-->
-    <!--参考 https://qiita.com/tera1707/items/4a2acd893f6098737987 -->
-    <Style x:Key="Button" TargetType="Button">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Background" Value="#CDD2D4"/>
-        <Setter Property="Padding" Value="1"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="BorderBrush" Value="#ADD2D4"/>
-        <Setter Property=" BorderThickness" Value="1"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" >
-                        <ContentPresenter x:Name="contentPresenter" RecognizesAccessKey="True" Focusable="False" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefaulted" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#CDD2D4"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="#CDC2D4"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FDD2D4"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="#C5D9E4"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#CDD2D4"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="#CAD9E4"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#DD02D4"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#CDD2D4"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers></Style.Triggers>
-    </Style>
-
+    <Brush x:Key="cpButtonBackground">#FF423255</Brush>
+    <Brush x:Key="cpButtonFontcolor">#FFB59F8B</Brush>
+    <Brush x:Key="cpButtonBrush">#FF522E22</Brush>
+    
 </ResourceDictionary>

@@ -4,50 +4,25 @@
 
 
     <!--colors-->
+    <Brush x:Key="cTopbarBackground">#EFE7D8D8</Brush>
+
+    <Brush x:Key="cPauseBackground">#DFFF3848</Brush>
+    <Brush x:Key="cPauseFontcolor">#FF000000</Brush>
+
     <Brush x:Key="cBackground">#FAD5DFDB</Brush>
     <Brush x:Key="cFontcolor">#FF000000</Brush>
-    <Brush x:Key="cButtonBackground">#FFD5DFEB</Brush>
-    <Brush x:Key="cButtonFontcolor">#FF000000</Brush>
     <Brush x:Key="cFrameBackground">#FFEBFFF9</Brush>
 
-    <!--default button-->
-    <!--参考 https://qiita.com/tera1707/items/4a2acd893f6098737987 -->
-    <Style x:Key="Button" TargetType="Button">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Background" Value="#CDD2D4"/>
-        <Setter Property="Padding" Value="1"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="BorderBrush" Value="#ADD2D4"/>
-        <Setter Property=" BorderThickness" Value="1"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" >
-                        <ContentPresenter x:Name="contentPresenter" RecognizesAccessKey="True" Focusable="False" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefaulted" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#CDD2D4"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="#CDC2D4"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FDD2D4"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="#C5D9E4"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#CDD2D4"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="#CAD9E4"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#DD02D4"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#CDD2D4"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers></Style.Triggers>
-    </Style>
+    <Brush x:Key="cButtonBackground">#FFD5DFEB</Brush>
+    <Brush x:Key="cButtonFontcolor">#FF000000</Brush>
+    <Brush x:Key="cButtonBrush">#FF858A9B</Brush>
     
+    <Brush x:Key="coButtonBackground">#FFA5DFEB</Brush>
+    <Brush x:Key="coButtonFontcolor">#FF760000</Brush>
+    <Brush x:Key="coButtonBrush">#FF858ABB</Brush>
+
+    <Brush x:Key="cpButtonBackground">#FFE5DFEB</Brush>
+    <Brush x:Key="cpButtonFontcolor">#FFB59F8B</Brush>
+    <Brush x:Key="cpButtonBrush">#FF522E22</Brush>
+
 </ResourceDictionary>

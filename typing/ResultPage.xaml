@@ -11,6 +11,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="elements.xaml"/>
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -21,7 +22,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="ホーム" Foreground="{DynamicResource cButtonFontcolor}" Background="{DynamicResource cButtonBackground}"/>
+        <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="ホーム" Style="{DynamicResource Button}"/>
         <Grid Grid.Row="0" Margin="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -65,7 +66,7 @@
                         <TextBlock x:Name="typecntv" Grid.Row="4" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                         <TextBlock x:Name="miscntv" Grid.Row="5" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                     </Grid>
-                    <Button Click="copyr_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Grid.ColumnSpan="2" Content="結果をコピー (テキスト)" Foreground="{DynamicResource cButtonFontcolor}" Background="{DynamicResource cButtonBackground}"/>
+                    <Button Click="copyr_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Grid.ColumnSpan="2" Content="結果をコピー (テキスト)" Style="{DynamicResource Button}"/>
                 </Grid>
 
             </ScrollViewer>

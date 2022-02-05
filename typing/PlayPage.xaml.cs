@@ -29,8 +29,7 @@ namespace typing
         DataTable QAd;
 
         bool nowplay;
-
-        string type;
+        bool nowpause;
 
         Dictionary<int, string> keylist;
 
@@ -44,7 +43,6 @@ namespace typing
         double alltime;
         string[] ncparts;
         DataRow nowq;
-        int iqacnt;
         int miscnt;
         Dictionary<string, int[][]> ckeys;
         string[] ckeyskeys;
@@ -58,6 +56,7 @@ namespace typing
 
             InitializeComponent();
 
+            nowpause = false;
 
             setcolortheme();
             keyb.setcparts();
@@ -84,7 +83,7 @@ namespace typing
             Debug.Print(rt);
             return rt;
         }
-        async void finished()
+        void finished()
         {
             alltime = sw.Elapsed.TotalSeconds;
             nowplay = false;
@@ -403,9 +402,25 @@ namespace typing
                 Keycode *= -1;
             }
             Latestkey.Text = Keycode.ToString();
-            im(Keycode);
-        }
 
+            if (nowpause == false)
+            {
+                if (Keycode == 13 & nowplay)
+                {
+                    pause();
+                }
+                im(Keycode);
+                kinput.Focus();
+            }
+            else
+            {
+                if (Keycode == 18 & nowplay)
+                {
+                    resume();
+                }
+            }
+
+        }
 
         private void Keyboardkey_Click(object sender, RoutedEventArgs e)
         {
@@ -413,6 +428,7 @@ namespace typing
 
         public void start()
         {
+            PauseMenu.Visibility = Visibility.Hidden;
             allcnt = QAd.Rows.Count;
             nowcnt = 0;
             miscnt = 0;
@@ -658,5 +674,36 @@ namespace typing
             player.Play();
         }
 
+        /// <summary>
+        /// 一時停止
+        /// </summary>
+        private void Pause_button(object sender, RoutedEventArgs e)
+        {
+            pause();
+            kinput.Focus();
+        }
+        private void Resume_button(object sender, RoutedEventArgs e)
+        {
+            resume();
+            kinput.Focus();
+        }
+        private void pause()
+        {
+            sw.Stop();
+            nowpause = true;
+            PauseMenu.Visibility = Visibility.Visible;
+        }
+        private void resume()
+        {
+            PauseMenu.Visibility = Visibility.Hidden;
+            nowpause = false;
+            kinput.Focus();
+            sw.Start();
+        }
+
+        private void Retire_button(object sender, RoutedEventArgs e)
+        {
+            finished();
+        }
     }
 }

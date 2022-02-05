@@ -11,12 +11,35 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="elements.xaml"/>
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
+        <GroupBox x:Name="PauseMenu" Panel.ZIndex="1" Visibility="Visible" BorderThickness="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Background="{DynamicResource cPauseBackground}" Margin="50,100,50,100">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="85"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="pause" FontSize="65" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cPauseFontcolor}"/>
+                    <Button Grid.Row="2" x:Name="resume_button" Content="resume [Space]" FontSize="30" Width="250" Style="{DynamicResource Button}" Click="Resume_button"/>
+                    <Button Grid.Row="4" x:Name="retire_button" Content="retire" FontSize="30" Width="250" Style="{DynamicResource Button}" Click="Retire_button"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -38,10 +61,11 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
-                
+
+
                 <TextBlock x:Name="Qtitle" Text="" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" TextAlignment="Center"/>
 
-                <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37" Foreground="{DynamicResource cButtonFontcolor}" Background="{DynamicResource cBackground}"/>
+                <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37" Style="{DynamicResource Button}" Click="Pause_button"/>
                 <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15" Foreground="{DynamicResource cFontcolor}"></ProgressBar>
 
                 <TextBlock x:Name="Qarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
@@ -80,7 +104,6 @@
                 <TextBlock Text="キーコード:"/>
                 <TextBlock x:Name="Latestkey" Text="-"/>
             </StatusBar>
-
 
             <Border x:Name="KeyboardUI" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="220" Padding="10,10,10,10" Grid.Row="3" VerticalAlignment="Center" Width="630" CornerRadius="10" Background="#FFB0ABA4">
                 <Grid  Height="200" Width="600" Loaded="keyarea_load">

@@ -12,6 +12,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="elements.xaml"/>
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -25,7 +26,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Typing - Home" Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="#E5E7D8D8" FontFamily="Noto Sans Light,Noto Sans JP"/>
+        <TextBlock x:Name="title" Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cTopbarBackground}" FontFamily="Noto Sans Light,Noto Sans JP">Typing - Home</TextBlock>
         <Button Click="Go_title" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Style="{DynamicResource Button}">タイトル</Button>
         <Button Click="Go_setting" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Style="{DynamicResource Button}">設定</Button>
         <Grid Grid.Row="1" Margin="76,20,76,20">
@@ -47,7 +48,7 @@
                 <TextBlock Grid.Column="0" Text="問題のあるフォルダを選択"/>
             </Grid>
 
-            <ListView Grid.Row="1" x:Name="Menu" Foreground="{DynamicResource cButtonFontcolor}" Background="{DynamicResource cFrameBackground}">
+            <ListView Grid.Row="1" x:Name="Menu" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cFrameBackground}">
             </ListView>
 
             <Button Grid.Row="2" Content="スタート" Click="start" FontSize="12" Style="{DynamicResource Button}"/>
