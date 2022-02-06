@@ -12,6 +12,7 @@
     <Brush x:Key="cPauseFontcolor">#FF678888</Brush>
 
     <Brush x:Key="cBackground">#FF050215</Brush>
+
     <Brush x:Key="cFontcolor">#FFC5CFCB</Brush>
     <Brush x:Key="cFrameBackground">#FF151225</Brush>
 

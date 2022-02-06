@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:typing">
 
     <!--colors-->
-    <Brush x:Key="cTopbarBackground">#EFE6B35B</Brush>
+    <Brush x:Key="cTopbarBackground">#EFF6B36B</Brush>
 
     <Brush x:Key="cPbarBackground">#FFE1EFFB</Brush>
     <Brush x:Key="cPbarForeground">#FF516F9B</Brush>
@@ -15,7 +15,7 @@
     <Brush x:Key="cFontcolor">#292923</Brush>
     <Brush x:Key="cFrameBackground">#FFFEFB8A</Brush>
 
-    <Brush x:Key="cButtonBackground">#FFF7C297</Brush>
+    <Brush x:Key="cButtonBackground">#FFFEDB8A</Brush>
     <Brush x:Key="cButtonFontcolor">#FF000000</Brush>
     <Brush x:Key="cButtonBrush">#FF858A9B</Brush>
 
