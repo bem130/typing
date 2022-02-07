@@ -18,7 +18,7 @@
     </Page.Resources>
 
     <Grid>
-        <GroupBox x:Name="PauseMenu" Panel.ZIndex="1" Visibility="Visible" BorderThickness="0">
+        <GroupBox x:Name="PauseMenu" Panel.ZIndex="1" Visibility="Hidden" BorderThickness="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10"/>
@@ -62,11 +62,10 @@
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
 
-
-                <TextBlock x:Name="Qtitle" Text="" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" TextAlignment="Center"/>
+                <TextBlock x:Name="Qtitle" Text="" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" TextAlignment="Center" Foreground="{DynamicResource cFontcolor}"/>
 
                 <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37" Style="{DynamicResource Button}" Click="Pause_button"/>
-                <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15" Foreground="{DynamicResource cFontcolor}"></ProgressBar>
+                <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15" Background="{DynamicResource cPbarBackground}" Foreground="{DynamicResource cPbarForeground}"></ProgressBar>
 
                 <TextBlock x:Name="Qarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
                 <Run Text="スペースを押してスタート"/>
