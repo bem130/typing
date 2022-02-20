@@ -46,13 +46,8 @@ namespace typing
             this.Resources.MergedDictionaries.Add(dic);
         }
 
-        private void Go_home(object sender, RoutedEventArgs e)
-        {
-            var tpage = new HomePage();
-            NavigationService.Navigate(tpage);
-        }
 
-        private void save_data(object sender, RoutedEventArgs e)
+        private void save()
         {
             Properties.Settings.Default.colortheme = colortheme.SelectedValue.ToString();
             Properties.Settings.Default.questions_dir = serchdir.Text;
@@ -61,6 +56,34 @@ namespace typing
             Properties.Settings.Default.Save();
             setscale();
             setcolortheme();
+        }
+        private void save(object sender, RoutedEventArgs e) {save();}
+        private void save_Go_home(object sender, RoutedEventArgs e)
+        {
+            save();
+            setscale();
+            setcolortheme();
+            var tpage = new HomePage();
+            NavigationService.Navigate(tpage);
+        }
+        private void upgrade(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Upgrade();
+
+            colortheme.SelectedValue = Properties.Settings.Default.colortheme;
+            serchdir.Text = Properties.Settings.Default.questions_dir;
+            keyboarddir.Text = Properties.Settings.Default.keyboard_dir;
+            scale.Value = Properties.Settings.Default.scale;
+        }
+
+        private void cancel(object sender, RoutedEventArgs e)
+        {
+            setcolortheme();
+
+            colortheme.SelectedValue = Properties.Settings.Default.colortheme;
+            serchdir.Text = Properties.Settings.Default.questions_dir;
+            keyboarddir.Text = Properties.Settings.Default.keyboard_dir;
+            scale.Value = Properties.Settings.Default.scale;
         }
 
         public void setscale()
