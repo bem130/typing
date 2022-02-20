@@ -30,7 +30,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="80"/>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Text="お疲れ様でした" FontSize="60" TextAlignment="Center" Grid.Row="1"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="80" Foreground="{DynamicResource cFontcolor}"/>
