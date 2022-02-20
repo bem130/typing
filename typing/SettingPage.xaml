@@ -22,13 +22,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition />
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="23"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="{DynamicResource cTopbarBackground}" Foreground="{DynamicResource cFontcolor}" FontFamily="Noto Sans Light,Noto Sans JP">Typing - Setting</TextBlock>
-        <Button Click="save_data" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Style="{DynamicResource Button}">保存</Button>
-        <Button Click="Go_home" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Style="{DynamicResource Button}">ホーム</Button>
+        <Button Click="upgrade" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Style="{DynamicResource Button}">設定を引継ぎ</Button>
+        <Button Click="cancel" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Style="{DynamicResource Button}">変更を破棄</Button>
+        <Button Click="save" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="4" Style="{DynamicResource Button}">保存</Button>
+        <Button Click="save_Go_home" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="5" Style="{DynamicResource Button}">保存してホーム</Button>
         <Grid Grid.Row="1" Margin="76,20,76,0" ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -39,18 +43,18 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">標準の問題フォルダ</TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="serchdir"/>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">キーボードのフォルダ</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">キーボードのファイル</TextBlock>
             <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="keyboarddir"/>
 
             <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">表示サイズ</TextBlock>
-            <Slider Grid.Row="2" Grid.Column="1" Width="200" VerticalAlignment="Center" x:Name="scale" Minimum="0.5" Maximum="1.5" IsSnapToTickEnabled="True" TickFrequency="0.01" SmallChange="0.05" LargeChange="0.1"/>
+            <Slider Grid.Row="2" Grid.Column="1" Width="200" VerticalAlignment="Center" x:Name="scale" Minimum="0.5" Maximum="1.7" IsSnapToTickEnabled="True" TickFrequency="0.01" SmallChange="0.05" LargeChange="0.1"/>
             <TextBlock Grid.Row="2" Grid.Column="2" x:Name="show_scale" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
                 <Run Text="{Binding ElementName=scale,Path=Value}"/>
                 <Run Text="倍"/>
