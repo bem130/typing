@@ -35,6 +35,11 @@ namespace typing
             dic.Source = new Uri(dicPath, UriKind.Relative);
             this.Resources.MergedDictionaries.Add(dic);
         }
+        private void retry(object sender, RoutedEventArgs e)
+        {
+            var tpage = new PlayPage();
+            NavigationService.Navigate(tpage);
+        }
         private void Go_home(object sender, RoutedEventArgs e)
         {
             var tpage = new HomePage();

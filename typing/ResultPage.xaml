@@ -20,9 +20,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="ホーム" Style="{DynamicResource Button}"/>
+        <Button Click="retry" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="リトライ" Style="{DynamicResource Button}"/>
+        <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Content="ホーム" Style="{DynamicResource Button}"/>
         <Grid Grid.Row="0" Margin="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
