@@ -418,12 +418,16 @@ namespace typing
         }
         async void viewsw() // タイマーの表示
         {
-            await Task.Delay(100);
+            await Task.Delay(10);
             while (nowplay)
             {
-                await Task.Delay(100);
+                if (!nowpause)
+                {
+                    kinput.Focus();
+                }
                 Qstopwatch.Content = sw.Elapsed.ToString();
                 Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
+                await Task.Delay(100);
             }
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
