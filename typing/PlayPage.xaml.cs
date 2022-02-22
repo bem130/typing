@@ -489,7 +489,7 @@ namespace typing
         public void im(int keycode)
         {
             string[] nowa;
-            if (nowcnt == 0 & keycode == 18)
+            if (nowcnt == 0 & (keycode == 18 | keycode == 6))
             {
                 nowcnt++;
                 partcnt = 0;
@@ -605,6 +605,7 @@ namespace typing
                     }
                     else
                     {
+                        inputpart[ipartcnt] = 0;
                         PlaySound(Properties.Resources.mis);
                         miscnt++;
                         QAmiscnt.Text = miscnt.ToString();
