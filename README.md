@@ -17,6 +17,19 @@ JISキーボードに対応しています
 supporting JIS keyboard  
 supported to read file data of keyboard
 
+## loading files
+
+| file type | filename extension |
+| -- | -- |
+| keyboard | .ntkd |  
+| questions file | .ntd |  
+
+拡張子が「.ntd」のファイルだけアプリのメニューに表示されます  
+キーボードのファイルの拡張子は「.ntkd」ということにしましたが、今はほかの拡張子でも使えます  
+
+display only the file about filename extension is ".ntd" in menu of this app  
+i decided filename extension of keyboard is ".ntkd" but, you can use other filename extension now  
+
 ## plans
 私がJISキーボード以外のキーボードを理解できたら、そのキーボードも対応させたい (USキーボードに対応させたい)  
 私が他の言語を理解できたら、その言語も対応させたい  
