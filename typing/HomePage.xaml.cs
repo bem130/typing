@@ -40,7 +40,6 @@ namespace typing
             Menu.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
             makemenu();
 
-
         }
 
         public void setcolortheme()

@@ -29,6 +29,9 @@ namespace typing
         keyboard keyb;
         DataTable QAd;
 
+        int bftkey;
+        int keyf;
+
         bool nowplay;
         bool nowpause;
 
@@ -64,6 +67,8 @@ namespace typing
             ckeys = keyb.ckeys;
             ckeyskeys = keyb.ckeyskeys;
             keylist = keyb.keyname();
+            bftkey = 0;
+            keyf = 0;
             read_file();
             start();
 
@@ -90,7 +95,6 @@ namespace typing
             {
                 rt += key + ":" + dic[key] + ";";
             }
-            Debug.Print(rt);
             return rt;
         }
         void finished()
@@ -183,6 +187,9 @@ namespace typing
                                 }
                             }
                         }
+                    }
+                    else if (fileline=="") //空白行の場合
+                    {
                     }
                     else if (fileline.StartsWith("[comment]")) //コメント行の場合
                     {
@@ -385,30 +392,36 @@ namespace typing
             }
             foreach (DataRow tr in QAd.Rows)
             {
-                Debug.Print(string.Join(",", new List<string> { tr["id"].ToString(), tr["question"].ToString(), tr["answer"].ToString(), tr["title"].ToString(), tr["filelocation"].ToString(), tr["fileline"].ToString(), tr["type"].ToString() }));
                 ncparts = splita(tr["answer"].ToString());
-                Debug.Print("  "+string.Join(",", ncparts));
             }
         }
         private void keyarea_load(object sender, RoutedEventArgs e)
         {
             kinput.Focus();
         }
-        private void keyc(int keyname_)
+        async private void keyc(int keyname_)
         {
-            if (keyname_ < 0)
+            if (FindName("kb"+Math.Abs(keyname_).ToString()) == null)
             {
-                ((Border)FindName(keyb.keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+                return;
             }
-            //((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            ((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            //((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            int nkeyf = keyf;
+            await Task.Delay(500);
+            if (nkeyf==keyf)
+            {
+                keybr(bftkey);
+            }
         }
         private void keybr(int keyname_)
         {
-            if (keyname_ < 0)
+            if (FindName("kb"+Math.Abs(keyname_).ToString()) == null)
             {
-                ((Border)FindName(keyb.keyname()[116])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+                return;
             }
-            //((Border)FindName(keyb.keyname()[keyname_])).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+            ((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
+            //((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
         }
         async void missback()
         {
@@ -418,12 +431,16 @@ namespace typing
         }
         async void viewsw() // タイマーの表示
         {
-            await Task.Delay(100);
+            await Task.Delay(10);
             while (nowplay)
             {
-                await Task.Delay(100);
+                if (!nowpause)
+                {
+                    kinput.Focus();
+                }
                 Qstopwatch.Content = sw.Elapsed.ToString();
                 Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
+                await Task.Delay(100);
             }
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
@@ -478,14 +495,18 @@ namespace typing
             kinput.Focus();
         }
 
-
         /// <summary>
         /// キーボード入力時の判定
         /// </summary>
         public void im(int keycode)
         {
+            Random r = new Random(Environment.TickCount+keycode);
+            keyf = r.Next(0,100)+keycode*100;
+            keybr(bftkey);
+            bftkey = keycode;
+
             string[] nowa;
-            if (nowcnt == 0 & keycode == 18)
+            if (nowcnt == 0 & (keycode == 18 | keycode == 6))
             {
                 nowcnt++;
                 partcnt = 0;
@@ -547,6 +568,7 @@ namespace typing
             else if (nowcnt>0 & keyb.passim(keycode))
             {
 
+                keyc(keycode);
                 typecnt++;
                 QAtypecnt.Text = typecnt.ToString();
                 nowa = new string[partcnt];
@@ -601,6 +623,7 @@ namespace typing
                     }
                     else
                     {
+                        inputpart[ipartcnt] = 0;
                         PlaySound(Properties.Resources.mis);
                         miscnt++;
                         QAmiscnt.Text = miscnt.ToString();
@@ -637,7 +660,6 @@ namespace typing
                             ncparts = splita(nowq["answer"].ToString());
                         }
 
-                        Debug.Print((ncparts.Length).ToString());
                         ncparts = splita(nowq["answer"].ToString());
                         QAfilename.Text = nowq["filelocation"].ToString();
                         QAlinecnt.Text = nowq["fileline"].ToString();
@@ -645,7 +667,6 @@ namespace typing
                         QAtype.Text = nowq["type"].ToString();
                         QAnowcnt.Text = nowcnt.ToString();
 
-                        Debug.Print(string.Join("", ncparts));
 
                         int mik = 1;
                         foreach (string ch in ncparts)
