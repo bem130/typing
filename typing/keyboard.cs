@@ -151,7 +151,11 @@ namespace typing
                 {
                     string fileline = reader.ReadLine();
 
-                    if (fileline.StartsWith("[comment]")) //コメント行の場合
+
+                    if (fileline=="") //空白行の場合
+                    {
+                    }
+                    else if (fileline.StartsWith("[comment]")) //コメント行の場合
                     {
                     }
                     else if (fileline.StartsWith("[comments]")) //複数コメント行の場合
