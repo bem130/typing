@@ -1,0 +1,13 @@
+[comment] Sample Questions file
+[comment] 1/31 2022 update : haruki1234
+[set]title:sample;explain:sample file for Neknaj-Typing;type:en_word;split:,;
+apple
+[set]type:en_sentence;
+This is an apple. so What?
+[set]type:ja_word;
+林檎,りんご
+[set]type:ja_sentence;
+これは林檎です。それで？,これはりんごです。それで？
+[set]type:question_sentence;
+これはりんごです。それで？,This is an apple. so What?
+This is an apple. so What?,これはりんごです。それで？
