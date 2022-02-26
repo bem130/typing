@@ -30,6 +30,7 @@ namespace typing
         DataTable QAd;
 
         int bftkey;
+        int keyf;
 
         bool nowplay;
         bool nowpause;
@@ -67,6 +68,7 @@ namespace typing
             ckeyskeys = keyb.ckeyskeys;
             keylist = keyb.keyname();
             bftkey = 0;
+            keyf = 0;
             read_file();
             start();
 
@@ -397,7 +399,7 @@ namespace typing
         {
             kinput.Focus();
         }
-        private void keyc(int keyname_)
+        async private void keyc(int keyname_)
         {
             if (FindName("kb"+Math.Abs(keyname_).ToString()) == null)
             {
@@ -405,8 +407,14 @@ namespace typing
             }
             ((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
             //((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
+            int nkeyf = keyf;
+            await Task.Delay(500);
+            if (nkeyf==keyf)
+            {
+                keybr(bftkey);
+            }
         }
-        public void keybr(int keyname_)
+        private void keybr(int keyname_)
         {
             if (FindName("kb"+Math.Abs(keyname_).ToString()) == null)
             {
@@ -437,7 +445,6 @@ namespace typing
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
         {
-
             Key key = e.Key;
             Key systemKey = e.SystemKey;
             KeyStates keyStates = e.KeyStates;
@@ -493,6 +500,8 @@ namespace typing
         /// </summary>
         public void im(int keycode)
         {
+            Random r = new Random(Environment.TickCount+keycode);
+            keyf = r.Next(0,100)+keycode*100;
             keybr(bftkey);
             bftkey = keycode;
 
