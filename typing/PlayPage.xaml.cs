@@ -739,9 +739,10 @@ namespace typing
         /// <summary>
         /// 一時停止
         /// </summary>
-        private void Pause_button(object sender, RoutedEventArgs e)
+        async private void Pause_button(object sender, RoutedEventArgs e)
         {
             pause();
+            await Task.Delay(10);
             kinput.Focus();
         }
         private void Resume_button(object sender, RoutedEventArgs e)
