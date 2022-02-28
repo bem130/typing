@@ -1,11 +1,9 @@
 # typing
 
 タイピングゲーム  
-typing game of desktop  
+typing game  
 
-https://user-images.githubusercontent.com/79097169/152627479-3dae6fad-f103-4c76-b72e-4f8efd43e253.mp4
-
-
+[Downloads](https://github.com/haruki1234/typing/releases)
 
 中心的な部分を開発している途中です。コードの更新時に、新しい方と古い方の間で互換性がある保障はできません。 - 2022年1月23日  
 now, developing the central part. so when the code update, I can't guarantee compatibility between new and old. - 2022 1/23  
