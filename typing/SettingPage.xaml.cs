@@ -21,8 +21,12 @@ namespace typing
     /// </summary>
     public partial class SettingPage : Page
     {
+        MainWindow mainwindow;
         public SettingPage()
         {
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText("Open Setting", "add");
+
             InitializeComponent();
             setcolortheme();
 

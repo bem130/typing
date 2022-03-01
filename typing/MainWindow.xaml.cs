@@ -70,8 +70,12 @@ namespace typing
     /// </summary>
     public partial class MainWindow : Window
     {
+        LogWindow logwindow;
         public MainWindow()
         {
+            logwindow = new LogWindow();
+            setText("Open MainWindow", "add");
+            setText("Open LogWindow", "add");
 
             InitializeComponent();
 
@@ -81,6 +85,7 @@ namespace typing
 
             setscale();
             setcolortheme();
+
 
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
@@ -130,9 +135,38 @@ namespace typing
         }
 
 
+        public void setText(string t, string mode = "set")
+        {
+            logwindow.setText(t,mode);
+        }
+
+        void MainWindow_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            var key = e.Key;
+            int keycode = ((int)key);
+
+            Debug.Print(keycode.ToString());
+
+            ModifierKeys modifierKeys = Keyboard.Modifiers;
+            if ((modifierKeys & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                switch (keycode)
+                {
+                    case 44:
+                        logwindow.Show();
+                        break;
+                    case 45:
+                        logwindow.Hide();
+                        break;
+                }
+            }
         }
+
 
         public void setcolortheme()
         {

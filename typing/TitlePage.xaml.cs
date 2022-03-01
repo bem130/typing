@@ -23,9 +23,13 @@ namespace typing
     public partial class TitlePage : Page
     {
         bool cpage = false;
+        MainWindow mainwindow;
 
         public TitlePage()
         {
+
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText("Open Title","add");
 
             InitializeComponent();
             setcolortheme();
@@ -47,6 +51,7 @@ namespace typing
                     NavigationService.Navigate(tpage);
                 }
             };
+
         }
 
         private void Go_home(object sender, RoutedEventArgs e)

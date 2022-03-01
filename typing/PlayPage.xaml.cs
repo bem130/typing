@@ -26,6 +26,8 @@ namespace typing
     /// </summary>
     public partial class PlayPage : Page
     {
+        MainWindow mainwindow;
+
         keyboard keyb;
         DataTable QAd;
 
@@ -56,11 +58,14 @@ namespace typing
 
         public PlayPage()
         {
-            keyb = new keyboard();
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText("Open PlayPage", "add");
 
             InitializeComponent();
 
             nowpause = false;
+
+            keyb = new keyboard();
 
             setcolortheme();
             keyb.setcparts();
@@ -449,9 +454,9 @@ namespace typing
             Key systemKey = e.SystemKey;
             KeyStates keyStates = e.KeyStates;
             bool isRepeat = e.IsRepeat;
-            ModifierKeys modifierKeys = Keyboard.Modifiers;
             string Keyname = key.ToString();
             int Keycode = ((int)key);
+            ModifierKeys modifierKeys = Keyboard.Modifiers;
             if ((modifierKeys & ModifierKeys.Shift) != ModifierKeys.None)
             {
                 Keyname += "_S";

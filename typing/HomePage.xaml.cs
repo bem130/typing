@@ -24,8 +24,12 @@ namespace typing
     /// </summary>
     public partial class HomePage : Page
     {
+        MainWindow mainwindow;
         public HomePage()
         {
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText("Open Home", "add");
+
             InitializeComponent();
 
             //TextBlock a = title;

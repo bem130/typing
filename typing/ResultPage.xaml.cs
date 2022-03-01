@@ -24,12 +24,18 @@ namespace typing
     /// </summary>
     public partial class ResultPage : Page
     {
+        MainWindow mainwindow;
+
+
         string date;
 
         string aname;
         string aversion;
         public ResultPage()
         {
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText("Open Result", "add");
+
             date = DateTime.Now.ToString();
             InitializeComponent();
             setcolortheme();
