@@ -71,7 +71,6 @@
                         <TextBlock x:Name="miscntv" Grid.Row="5" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                     </Grid>
                     <Button Click="post_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Grid.ColumnSpan="2" Content="結果をポスト (テキスト)" Style="{DynamicResource Button}"/>
-                    <Button Click="post_embed" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Grid.ColumnSpan="2" Content="結果をポスト (埋め込み)" Style="{DynamicResource Button}"/>
                     <Button Click="copyr_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Grid.ColumnSpan="2" Content="結果をコピー (テキスト)" Style="{DynamicResource Button}"/>
                 </Grid>
 

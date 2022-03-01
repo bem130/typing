@@ -170,5 +170,6 @@ namespace typing
                 }
             }
         }
+        private void post_text(object sender, RoutedEventArgs e) { post_text(); }
     }
 }
