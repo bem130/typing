@@ -21,21 +21,24 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="35"/>
             <RowDefinition />
             <RowDefinition Height="25"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="title" Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cTopbarBackground}" FontFamily="Noto Sans Light,Noto Sans JP">Typing - Home</TextBlock>
-        <Button Click="Go_title" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Style="{DynamicResource Button}">タイトル</Button>
-        <Button Click="Go_setting" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Style="{DynamicResource Button}">設定</Button>
-        <Grid Grid.Row="1" Margin="76,20,76,20">
+        <TextBlock x:Name="messagea" Grid.Row="1" FontSize="24" TextAlignment="left" Height="30" Padding="0,3,0,0" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}" FontFamily="Noto Sans Light,Noto Sans JP" HorizontalAlignment="Center">Hi!</TextBlock>
+
+        <Button Click="Go_title" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="4" Style="{DynamicResource Button}">タイトル</Button>
+        <Button Click="Go_setting" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Style="{DynamicResource Button}">設定</Button>
+        <Grid Grid.Row="2" Margin="76,10,76,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition/>
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
-            <Grid Background="White">
+            <Grid Background="White" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>

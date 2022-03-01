@@ -40,6 +40,17 @@ namespace typing
             Menu.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
             makemenu();
 
+            string username;
+            if (Properties.Settings.Default.username == "")
+            {
+                username = "ゲスト";
+            }
+            else
+            {
+                username = Properties.Settings.Default.username;
+            }
+            Application.Current.Properties["UserName"] = username;
+            messagea.Text = username+"さん "+"こんにちは!";
         }
 
         public void setcolortheme()
@@ -98,7 +109,6 @@ namespace typing
             }
 
             Application.Current.Properties["FilePaths"] = string.Join("|", menupath);
-            Debug.Print("filepaths " + Application.Current.Properties["FilePaths"]);
             var tpage = new PlayPage();
             NavigationService.Navigate(tpage);
         }

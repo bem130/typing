@@ -46,13 +46,13 @@ namespace typing
                     li = tm.Length;
                 }
             }
-            Debug.Print(li.ToString());
+            //Debug.Print(li.ToString());
             uint nic = 0;
             while (li >= 0)
             {
                 foreach (string tm in strl)
                 {
-                    Debug.Print(tm);
+                    //Debug.Print(tm);
                     if (tm.Length == li)
                     {
                         rtl[nic] = tm;
