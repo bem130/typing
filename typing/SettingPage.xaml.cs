@@ -32,10 +32,7 @@ namespace typing
                 { "colorthemes/dark.xaml", "dark" },
                 { "colorthemes/yellow.xaml", "yellow" },
             };
-            colortheme.SelectedValue = Properties.Settings.Default.colortheme;
-            serchdir.Text = Properties.Settings.Default.questions_dir;
-            keyboarddir.Text = Properties.Settings.Default.keyboard_dir;
-            scale.Value = Properties.Settings.Default.scale;
+            show_setting();
         }
 
         public void setcolortheme()
@@ -46,13 +43,26 @@ namespace typing
             this.Resources.MergedDictionaries.Add(dic);
         }
 
+        public void show_setting()
+        {
+            username.Text = Properties.Settings.Default.username;
+            colortheme.SelectedValue = Properties.Settings.Default.colortheme;
+            serchdir.Text = Properties.Settings.Default.questions_dir;
+            keyboarddir.Text = Properties.Settings.Default.keyboard_dir;
+            scale.Value = Properties.Settings.Default.scale;
+            posturl.Text = Properties.Settings.Default.posturl;
+        }
+
 
         private void save()
         {
+            Properties.Settings.Default.username = username.Text;
             Properties.Settings.Default.colortheme = colortheme.SelectedValue.ToString();
             Properties.Settings.Default.questions_dir = serchdir.Text;
             Properties.Settings.Default.keyboard_dir = keyboarddir.Text;
             Properties.Settings.Default.scale = scale.Value;
+            Properties.Settings.Default.posturl = posturl.Text;
+
             Properties.Settings.Default.Save();
             setscale();
             setcolortheme();
@@ -66,24 +76,19 @@ namespace typing
             var tpage = new HomePage();
             NavigationService.Navigate(tpage);
         }
-        private void upgrade(object sender, RoutedEventArgs e)
+        private void upgrade()
         {
             Properties.Settings.Default.Upgrade();
 
-            colortheme.SelectedValue = Properties.Settings.Default.colortheme;
-            serchdir.Text = Properties.Settings.Default.questions_dir;
-            keyboarddir.Text = Properties.Settings.Default.keyboard_dir;
-            scale.Value = Properties.Settings.Default.scale;
+            show_setting();
         }
+        private void upgrade(object sender, RoutedEventArgs e) { upgrade(); }
 
         private void cancel(object sender, RoutedEventArgs e)
         {
             setcolortheme();
 
-            colortheme.SelectedValue = Properties.Settings.Default.colortheme;
-            serchdir.Text = Properties.Settings.Default.questions_dir;
-            keyboarddir.Text = Properties.Settings.Default.keyboard_dir;
-            scale.Value = Properties.Settings.Default.scale;
+            show_setting();
         }
 
         public void setscale()

@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Web;
+using System.Net;
+using System.Net.Http;
+using System.Diagnostics;
 
 namespace typing
 {
@@ -21,11 +25,19 @@ namespace typing
     public partial class ResultPage : Page
     {
         string date;
+
+        string aname;
+        string aversion;
         public ResultPage()
         {
             date = DateTime.Now.ToString();
             InitializeComponent();
             setcolortheme();
+
+            System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
+            aname = asm.GetName().Name;
+            aversion = asm.GetName().Version.ToString();
+
             show();
         }
         public void setcolortheme()
@@ -45,11 +57,12 @@ namespace typing
             var tpage = new HomePage();
             NavigationService.Navigate(tpage);
         }
-        private void copyr_text(object sender, RoutedEventArgs e)
+        private void copyr_text()
         {
-            string resdic = "`～～～～～～～～～～～～`\n" + "[" + date + "]\n" + sdic_to_string(calcr(get(),1),":","\n") + "`～～～～～～～～～～～～`";
+            string resdic = aname+" v"+aversion+"\n"+"`～～～～～～～～～～～～` \n"+"["+date+"]\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
             Clipboard.SetData(DataFormats.Text, resdic);
         }
+        private void copyr_text(object sender, RoutedEventArgs e) {copyr_text();}
         public Dictionary<string,string> calcr(Dictionary<string, string> dic,int _case=0)
         {
 
@@ -133,5 +146,30 @@ namespace typing
         {
             return ((double)((int)(num*len))/len);
         }
+
+        async public void post()
+        {
+            string resdic = "`～～～～～～～～～～～～` \n"+"["+date+"]\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
+
+            var parameters = new Dictionary<string, string>()
+            {
+                { "username", (string)Application.Current.Properties["UserName"] + " - " + aname+" v"+aversion},
+                { "content", resdic },
+            };
+            var content = new FormUrlEncodedContent(parameters);
+
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    var response = await client.PostAsync(Properties.Settings.Default.posturl, content);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Send fails");
+                }
+            }
+        }
+        private void post(object sender, RoutedEventArgs e) { post(); }
     }
 }

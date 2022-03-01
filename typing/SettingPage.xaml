@@ -33,35 +33,48 @@
         <Button Click="cancel" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Style="{DynamicResource Button}">変更を破棄</Button>
         <Button Click="save" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="4" Style="{DynamicResource Button}">保存</Button>
         <Button Click="save_Go_home" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="5" Style="{DynamicResource Button}">保存してホーム</Button>
-        <Grid Grid.Row="1" Margin="76,20,76,0" ShowGridLines="False">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="220"/>
-                <ColumnDefinition Width="50"/>
-            </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">標準の問題フォルダ</TextBlock>
-            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="serchdir"/>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Margin="76,20,76,0">
+            <Grid ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">キーボードのファイル</TextBlock>
-            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="keyboarddir"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">ユーザー名</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="username"/>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">表示サイズ</TextBlock>
-            <Slider Grid.Row="2" Grid.Column="1" Width="200" VerticalAlignment="Center" x:Name="scale" Minimum="0.5" Maximum="1.7" IsSnapToTickEnabled="True" TickFrequency="0.01" SmallChange="0.05" LargeChange="0.1"/>
-            <TextBlock Grid.Row="2" Grid.Column="2" x:Name="show_scale" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
+                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">標準の問題フォルダ</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="serchdir"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">キーボードのファイル</TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="keyboarddir"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">表示サイズ</TextBlock>
+                <Slider Grid.Row="3" Grid.Column="1" Width="200" VerticalAlignment="Center" x:Name="scale" Minimum="0.5" Maximum="1.7" IsSnapToTickEnabled="True" TickFrequency="0.01" SmallChange="0.05" LargeChange="0.1"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" x:Name="show_scale" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
                 <Run Text="{Binding ElementName=scale,Path=Value}"/>
                 <Run Text="倍"/>
-            </TextBlock>
+                </TextBlock>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">カラーテーマ</TextBlock>
-            <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" x:Name="colortheme" VerticalAlignment="Center" Width="250" SelectedValuePath="Key" DisplayMemberPath="Value" />
-        </Grid>
+                <TextBlock Grid.Row="4" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">カラーテーマ</TextBlock>
+                <ComboBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" x:Name="colortheme" VerticalAlignment="Center" Width="250" SelectedValuePath="Key" DisplayMemberPath="Value" />
+
+
+                <TextBlock Grid.Row="5" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">POSTするURL</TextBlock>
+                <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="posturl"/>
+
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

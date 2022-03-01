@@ -40,6 +40,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="230"/>
                         <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Margin="50,0,50,0" ShowGridLines="True">
                         <Grid.RowDefinitions>
@@ -68,7 +69,8 @@
                         <TextBlock x:Name="typecntv" Grid.Row="4" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                         <TextBlock x:Name="miscntv" Grid.Row="5" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                     </Grid>
-                    <Button Click="copyr_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Grid.ColumnSpan="2" Content="結果をコピー (テキスト)" Style="{DynamicResource Button}"/>
+                    <Button Click="post" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Grid.ColumnSpan="2" Content="結果をポスト (テキスト)" Style="{DynamicResource Button}"/>
+                    <Button Click="copyr_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Grid.ColumnSpan="2" Content="結果をコピー (テキスト)" Style="{DynamicResource Button}"/>
                 </Grid>
 
             </ScrollViewer>
