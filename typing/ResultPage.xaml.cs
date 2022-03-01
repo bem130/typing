@@ -147,7 +147,7 @@ namespace typing
             return ((double)((int)(num*len))/len);
         }
 
-        async public void post()
+        async public void post_text() // 参考 https://qiita.com/rawr/items/f78a3830d894042f891b
         {
             string resdic = "`～～～～～～～～～～～～` \n"+"["+date+"]\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
 
@@ -170,6 +170,5 @@ namespace typing
                 }
             }
         }
-        private void post(object sender, RoutedEventArgs e) { post(); }
     }
 }
