@@ -28,7 +28,7 @@ namespace typing
         public HomePage()
         {
             mainwindow = (MainWindow)Application.Current.MainWindow;
-            mainwindow.setText("Open Home", "add");
+            mainwindow.setText(0,"Open Home");
 
             InitializeComponent();
 

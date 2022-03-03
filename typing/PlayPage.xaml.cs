@@ -59,7 +59,7 @@ namespace typing
         public PlayPage()
         {
             mainwindow = (MainWindow)Application.Current.MainWindow;
-            mainwindow.setText("Open PlayPage", "add");
+            mainwindow.setText(0,"Open PlayPage");
 
             InitializeComponent();
 

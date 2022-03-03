@@ -74,8 +74,8 @@ namespace typing
         public MainWindow()
         {
             logwindow = new LogWindow();
-            setText("Open MainWindow", "add");
-            setText("Open LogWindow", "add");
+            setText(0,"Open MainWindow");
+            setText(0,"Open LogWindow");
 
             InitializeComponent();
 
@@ -135,9 +135,9 @@ namespace typing
         }
 
 
-        public void setText(string t, string mode = "set")
+        public void setText(int s,string t, string mode = "push")
         {
-            logwindow.setText(t,mode);
+            logwindow.setText(s,t,mode);
         }
 
         void MainWindow_Closed(object sender, EventArgs e)
@@ -174,6 +174,10 @@ namespace typing
             ResourceDictionary dic = new ResourceDictionary();
             dic.Source = new Uri(dicPath, UriKind.Relative);
             this.Resources.MergedDictionaries.Add(dic);
+        }
+        public void call_setcolortheme_logwindow()
+        {
+            logwindow.setcolortheme();
         }
 
         public void setscale()

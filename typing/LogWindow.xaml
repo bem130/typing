@@ -5,11 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:typing"
         mc:Ignorable="d"
-        Title="LogWindow" Height="450" Width="800"
+        Title="typing - log" Height="350" Width="400"
         PreviewKeyDown="Window_PreviewKeyDown"
-        Closing="LogWindow_Closing">
-    <Grid>
-        <TextBlock x:Name="text" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        Closing="LogWindow_Closing"
+        Background="{DynamicResource cBackground}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="elements.xaml"/>
+                <ResourceDictionary Source="colorthemes/default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
+    <Grid>
+
+        <ListView Grid.Row="1" x:Name="Logs" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cFrameBackground}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="status" DisplayMemberBinding="{Binding status}"></GridViewColumn>
+                    <GridViewColumn Header="datetime" DisplayMemberBinding="{Binding datetime}"></GridViewColumn>
+                    <GridViewColumn Header="contents" DisplayMemberBinding="{Binding contents}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <TextBlock x:Name="text" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="115,103,0,0"/>
+        
     </Grid>
 </Window>

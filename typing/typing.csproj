@@ -135,7 +135,6 @@
     </Compile>
     <Compile Include="config.cs" />
     <Compile Include="keyboard.cs" />
-    <Compile Include="Log.cs" />
     <Compile Include="LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>

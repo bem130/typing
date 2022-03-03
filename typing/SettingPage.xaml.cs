@@ -25,7 +25,7 @@ namespace typing
         public SettingPage()
         {
             mainwindow = (MainWindow)Application.Current.MainWindow;
-            mainwindow.setText("Open Setting", "add");
+            mainwindow.setText(0,"Open Setting");
 
             InitializeComponent();
             setcolortheme();
@@ -70,6 +70,7 @@ namespace typing
             Properties.Settings.Default.Save();
             setscale();
             setcolortheme();
+            mainwindow.call_setcolortheme_logwindow();
         }
         private void save(object sender, RoutedEventArgs e) {save();}
         private void save_Go_home(object sender, RoutedEventArgs e)

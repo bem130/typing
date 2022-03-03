@@ -34,7 +34,7 @@ namespace typing
         public ResultPage()
         {
             mainwindow = (MainWindow)Application.Current.MainWindow;
-            mainwindow.setText("Open Result", "add");
+            mainwindow.setText(0,"Open Result");
 
             date = DateTime.Now.ToString();
             InitializeComponent();
@@ -67,6 +67,7 @@ namespace typing
         {
             string resdic = aname+" v"+aversion+"\n"+"`～～～～～～～～～～～～` \n"+"["+date+"]\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
             Clipboard.SetData(DataFormats.Text, resdic);
+            mainwindow.setText(0, "copy result");
         }
         private void copyr_text(object sender, RoutedEventArgs e) {copyr_text();}
         public Dictionary<string,string> calcr(Dictionary<string, string> dic,int _case=0)
@@ -169,10 +170,11 @@ namespace typing
                 try
                 {
                     var response = await client.PostAsync(Properties.Settings.Default.posturl, content);
+                    mainwindow.setText(0, "Post result");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Send fails");
+                    mainwindow.setText(2, "Fail post : " + ex.Message);
                 }
             }
         }

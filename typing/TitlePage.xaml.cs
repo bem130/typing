@@ -29,7 +29,7 @@ namespace typing
         {
 
             mainwindow = (MainWindow)Application.Current.MainWindow;
-            mainwindow.setText("Open Title","add");
+            mainwindow.setText(0,"Open Title");
 
             InitializeComponent();
             setcolortheme();

@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Input;
+using System.Diagnostics;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Diagnostics;
-using System.Windows.Shapes;
+using System.Linq;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace typing
 {
@@ -20,26 +15,37 @@ namespace typing
     /// </summary>
     public partial class LogWindow : Window
     {
+        private ObservableCollection<LogData> logs = new ObservableCollection<LogData>();
         public LogWindow()
         {
             InitializeComponent();
+            setcolortheme();
+            Logs.ItemsSource = logs;
         }
 
-        public void setText(string t,string mode="set")
+        public void setText(int status,string contents,string mode="push")
         {
             if (mode=="set")
             {
-                text.Text = t;
+                logs = new ObservableCollection<LogData>() { new LogData() { status=status.ToString(), contents=contents } };
             }
             if (mode=="add")
             {
-                text.Text += t + "\n";
+                logs.Add(new LogData() { status=status.ToString() ,contents=contents });
             }
             if (mode=="push")
             {
-                text.Text = t + "\n" + text.Text;
+                logs.Insert(0,new LogData() { status=status.ToString(), contents=contents });
             }
         }
+        public void setcolortheme()
+        {
+            string dicPath = Properties.Settings.Default.colortheme;
+            ResourceDictionary dic = new ResourceDictionary();
+            dic.Source = new Uri(dicPath, UriKind.Relative);
+            this.Resources.MergedDictionaries.Add(dic);
+        }
+
 
         protected virtual void LogWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -64,11 +70,14 @@ namespace typing
                     case 45:
                         this.Hide();
                         break;
-                    case 46:
-                        this.UpdateLayout();
-                        break;
                 }
             }
         }
+    }
+    public class LogData
+    {
+        public string status { get; set; }
+        public DateTime datetime { get; set; } = DateTime.Now;
+        public string contents { get; set; }
     }
 }
