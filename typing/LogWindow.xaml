@@ -20,15 +20,14 @@
 
     <Grid>
 
-        <ListView Grid.Row="1" x:Name="Logs" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cBackground}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="status" DisplayMemberBinding="{Binding status}" Width="35"></GridViewColumn>
-                    <GridViewColumn Header="datetime" DisplayMemberBinding="{Binding datetime}" Width="110"></GridViewColumn>
-                    <GridViewColumn Header="contents" DisplayMemberBinding="{Binding contents}" Width="320"></GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" x:Name="Logs" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cBackground}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="status" Binding="{Binding status}"></DataGridTextColumn>
+                <DataGridTextColumn Header="datetime" Binding="{Binding Path=datetime, StringFormat=yyyy/MM/dd}"></DataGridTextColumn>
+                <DataGridTextColumn Header="contents" Binding="{Binding contents}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
         
         
     </Grid>
