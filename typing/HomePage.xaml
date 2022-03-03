@@ -78,7 +78,7 @@
                 <TextBlock Grid.Column="0" Text="問題のあるフォルダを選択"/>
             </Grid>
 
-            <ListView Grid.Row="1" x:Name="Menu" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cFrameBackground}">
+            <ListView Grid.Row="1" x:Name="Menu" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cFrameBackground}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
             </ListView>
 
             <Button Grid.Row="2" Content="スタート" Click="start" FontSize="12" Style="{DynamicResource Button}"/>

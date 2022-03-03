@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:typing"
         mc:Ignorable="d"
-        Title="typing - log" Height="350" Width="400"
+        Title="typing - log" Height="350" Width="500"
         PreviewKeyDown="Window_PreviewKeyDown"
         Closing="LogWindow_Closing"
         Background="{DynamicResource cBackground}">
@@ -20,17 +20,16 @@
 
     <Grid>
 
-        <ListView Grid.Row="1" x:Name="Logs" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cFrameBackground}">
+        <ListView Grid.Row="1" x:Name="Logs" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cBackground}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="status" DisplayMemberBinding="{Binding status}"></GridViewColumn>
-                    <GridViewColumn Header="datetime" DisplayMemberBinding="{Binding datetime}"></GridViewColumn>
-                    <GridViewColumn Header="contents" DisplayMemberBinding="{Binding contents}"></GridViewColumn>
+                    <GridViewColumn Header="status" DisplayMemberBinding="{Binding status}" Width="35"></GridViewColumn>
+                    <GridViewColumn Header="datetime" DisplayMemberBinding="{Binding datetime}" Width="110"></GridViewColumn>
+                    <GridViewColumn Header="contents" DisplayMemberBinding="{Binding contents}" Width="320"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
         
-        <TextBlock x:Name="text" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="115,103,0,0"/>
         
     </Grid>
 </Window>

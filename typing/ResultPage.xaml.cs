@@ -174,7 +174,7 @@ namespace typing
                 }
                 catch (Exception ex)
                 {
-                    mainwindow.setText(2, "Fail post : " + ex.Message);
+                    mainwindow.setText(2, "Failed posting : " + ex.Message);
                 }
             }
         }

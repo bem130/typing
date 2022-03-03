@@ -13,6 +13,15 @@ namespace typing
 {
     internal class keyboard
     {
+        MainWindow mainwindow;
+
+
+        public keyboard()
+        {
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText(0, "Read keyboard");
+        }
+
         public Dictionary<string, int[][]> ckeys;
         public string[] ckeyskeys;
         public string keycodes_to_string(int[] keycodes)
@@ -133,7 +142,6 @@ namespace typing
 
         public Dictionary<string,int[][]> cparts()
         {
-            Debug.Print("keyboard file read");
             Dictionary<string, int[][]> rtd = new Dictionary<string, int[][]>();
 
             string[] filepaths = (Properties.Settings.Default.keyboard_dir).Split('|');
@@ -143,66 +151,77 @@ namespace typing
                 return _cparts();
             }
 
-            StreamReader reader;
+            StreamReader reader = null;
             foreach (string filePath in filepaths)
             {
-                reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
-                while (reader.Peek() >= 0)
+                try
                 {
-                    string fileline = reader.ReadLine();
-
-
-                    if (fileline=="") //空白行の場合
-                    {
-                    }
-                    else if (fileline.StartsWith("[comment]")) //コメント行の場合
-                    {
-                    }
-                    else if (fileline.StartsWith("[comments]")) //複数コメント行の場合
-                    {
-                        do
-                        {
-                            fileline = reader.ReadLine();
-                        }
-                        while (fileline.StartsWith("[/comments]") == false & reader.Peek() >= 0);
-                    }
-                    else //通常行の場合
-                    {
-                        //Debug.Print(fileline);
-                        string[] c_p = fileline.Split(':');
-                        string chars = c_p[0];
-                        //Debug.Print(String.Join(",", c_p));
-                        string[] props = c_p[1].Split(';');
-                        //Debug.Print(String.Join(" ; ", props));
-
-                        int[][] il;
-                        int ilc = 0;
-                        if (rtd.ContainsKey(c_p[0]))
-                        {
-                            il = new int[props.Length][];
-                        }
-                        else
-                        {
-                            il = new int[props.Length][];
-                        }
-                        foreach (string prop in props)
-                        {
-                            string[] spp = prop.Split(',');
-
-                            int[] i = new int[spp.Length];
-                            int ic = 0;
-                            foreach (string s in spp)
-                            {
-                                i[ic] = int.Parse(s);
-                                ic++;
-                            }
-                            il[ilc] = i;
-                            ilc++;
-                        }
-                        rtd[c_p[0]] = il;
-                    }
+                    reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    mainwindow.setText(1, "Failed reading keyboard file : "+filePath);
+                }
+                if (reader != null)
+                {
+                    while (reader.Peek() >= 0)
+                    {
+                        string fileline = reader.ReadLine();
+
+
+                        if (fileline=="") //空白行の場合
+                        {
+                        }
+                        else if (fileline.StartsWith("[comment]")) //コメント行の場合
+                        {
+                        }
+                        else if (fileline.StartsWith("[comments]")) //複数コメント行の場合
+                        {
+                            do
+                            {
+                                fileline = reader.ReadLine();
+                            }
+                            while (fileline.StartsWith("[/comments]") == false & reader.Peek() >= 0);
+                        }
+                        else //通常行の場合
+                        {
+                            //Debug.Print(fileline);
+                            string[] c_p = fileline.Split(':');
+                            string chars = c_p[0];
+                            //Debug.Print(String.Join(",", c_p));
+                            string[] props = c_p[1].Split(';');
+                            //Debug.Print(String.Join(" ; ", props));
+
+                            int[][] il;
+                            int ilc = 0;
+                            if (rtd.ContainsKey(c_p[0]))
+                            {
+                                il = new int[props.Length][];
+                            }
+                            else
+                            {
+                                il = new int[props.Length][];
+                            }
+                            foreach (string prop in props)
+                            {
+                                string[] spp = prop.Split(',');
+
+                                int[] i = new int[spp.Length];
+                                int ic = 0;
+                                foreach (string s in spp)
+                                {
+                                    i[ic] = int.Parse(s);
+                                    ic++;
+                                }
+                                il[ilc] = i;
+                                ilc++;
+                            }
+                            rtd[c_p[0]] = il;
+                        }
+                    }
+                    reader.Close();
+                    mainwindow.setText(0, "Read keyboard file : "+filePath);
+                }
             }
             return rtd;
         }

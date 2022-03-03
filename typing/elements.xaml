@@ -36,4 +36,10 @@
         <Style.Triggers></Style.Triggers>
     </Style>
     
+    <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
+        <Setter Property="BorderBrush" Value="#22000000"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+    </Style>
+
+
 </ResourceDictionary>
