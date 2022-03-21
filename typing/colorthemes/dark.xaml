@@ -28,4 +28,9 @@
     <Brush x:Key="cpButtonFontcolor">#FFB59F8B</Brush>
     <Brush x:Key="cpButtonBrush">#FF522E22</Brush>
 
+    <!--colors-->
+    <Brush x:Key="c0LogBackground">#FF335970</Brush>
+    <Brush x:Key="c1LogBackground">#FF7B804D</Brush>
+    <Brush x:Key="c2LogBackground">#FF8B4B4B</Brush>
+    
 </ResourceDictionary>

@@ -21,9 +21,27 @@
     <Grid>
 
         <DataGrid Grid.Row="1" AutoGenerateColumns="False" x:Name="Logs" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cBackground}">
+            
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{DynamicResource cFrameBackground}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding status}" Value="0">
+                            <Setter Property="Background" Value="{DynamicResource c1LogBackground}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding status}" Value="1">
+                            <Setter Property="Background" Value="{DynamicResource c1LogBackground}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding status}" Value="2">
+                            <Setter Property="Background" Value="{DynamicResource c2LogBackground}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="status" Binding="{Binding status}"></DataGridTextColumn>
-                <DataGridTextColumn Header="datetime" Binding="{Binding Path=datetime, StringFormat=yyyy/MM/dd}"></DataGridTextColumn>
+                <DataGridTextColumn Header="datetime" Binding="{Binding Path=datetime, StringFormat=HH:mm:ss MM/dd yyyy}"></DataGridTextColumn>
                 <DataGridTextColumn Header="contents" Binding="{Binding contents}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

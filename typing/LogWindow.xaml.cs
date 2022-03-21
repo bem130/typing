@@ -27,15 +27,15 @@ namespace typing
         {
             if (mode=="set")
             {
-                logs = new ObservableCollection<LogData>() { new LogData() { status=status.ToString(), contents=contents } };
+                logs = new ObservableCollection<LogData>() { new LogData() { status=status, contents=contents } };
             }
             if (mode=="add")
             {
-                logs.Add(new LogData() { status=status.ToString() ,contents=contents });
+                logs.Add(new LogData() { status=status ,contents=contents });
             }
             if (mode=="push")
             {
-                logs.Insert(0,new LogData() { status=status.ToString(), contents=contents });
+                logs.Insert(0,new LogData() { status=status, contents=contents });
             }
         }
         public void setcolortheme()
@@ -76,8 +76,9 @@ namespace typing
     }
     public class LogData
     {
-        public string status { get; set; }
+        public int status { get; set; }
         public DateTime datetime { get; set; } = DateTime.Now;
         public string contents { get; set; }
+
     }
 }
