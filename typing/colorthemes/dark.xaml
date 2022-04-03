@@ -9,7 +9,7 @@
     <Brush x:Key="cPbarForeground">#FF315F5B</Brush>
 
     <Brush x:Key="cPauseBackground">#DF8F1818</Brush>
-    <Brush x:Key="cPauseFontcolor">#FF678888</Brush>
+    <Brush x:Key="cPauseFontcolor">#FF97A8B8</Brush>
 
     <Brush x:Key="cBackground">#FF050215</Brush>
 
@@ -28,4 +28,17 @@
     <Brush x:Key="cpButtonFontcolor">#FFB59F8B</Brush>
     <Brush x:Key="cpButtonBrush">#FF522E22</Brush>
 
+    <!--colors-->
+    <Brush x:Key="c0LogBackground">#FF335970</Brush>
+    <Brush x:Key="c1LogBackground">#FF7B804D</Brush>
+    <Brush x:Key="c2LogBackground">#FF8B4B4B</Brush>
+    
+    <!--colors-->
+    <Brush x:Key="cBackimgCover">#B2191526</Brush>
+
+    <!--colors-->
+    <Brush x:Key="cAreaTrue">#FF0000FF</Brush>
+    <Brush x:Key="cAreaFalse">#FFFF0000</Brush>
+    <Brush x:Key="cAreaDef">#FF000000</Brush>
+    
 </ResourceDictionary>

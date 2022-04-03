@@ -1,0 +1,52 @@
+﻿<Window x:Class="typing.LogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:typing"
+        mc:Ignorable="d"
+        Title="typing - log" Height="350" Width="500"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        Closing="LogWindow_Closing"
+        Background="{DynamicResource cBackground}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="elements.xaml"/>
+                <ResourceDictionary Source="colorthemes/default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" x:Name="Logs" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cBackground}">
+            
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{DynamicResource cFrameBackground}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding status}" Value="0">
+                            <Setter Property="Background" Value="{DynamicResource c1LogBackground}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding status}" Value="1">
+                            <Setter Property="Background" Value="{DynamicResource c1LogBackground}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding status}" Value="2">
+                            <Setter Property="Background" Value="{DynamicResource c2LogBackground}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="status" Binding="{Binding status}"></DataGridTextColumn>
+                <DataGridTextColumn Header="datetime" Binding="{Binding Path=datetime, StringFormat=HH:mm:ss MM/dd yyyy}"></DataGridTextColumn>
+                <DataGridTextColumn Header="contents" Binding="{Binding contents}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        
+        
+    </Grid>
+</Window>

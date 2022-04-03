@@ -24,12 +24,18 @@ namespace typing
     /// </summary>
     public partial class ResultPage : Page
     {
+        MainWindow mainwindow;
+
+
         string date;
 
         string aname;
         string aversion;
         public ResultPage()
         {
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText(0,"Open Result");
+
             date = DateTime.Now.ToString();
             InitializeComponent();
             setcolortheme();
@@ -59,8 +65,9 @@ namespace typing
         }
         private void copyr_text()
         {
-            string resdic = aname+" v"+aversion+"\n"+"`～～～～～～～～～～～～` \n"+"["+date+"]\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
+            string resdic = (string)Application.Current.Properties["UserName"]+" - "+aname+" v"+aversion+"\n"+"`～～～～～～～～～～～～` \n"+"["+date+"]\n# "+(string)Application.Current.Properties["Filenames"]+"\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
             Clipboard.SetData(DataFormats.Text, resdic);
+            mainwindow.setText(0, "copy result");
         }
         private void copyr_text(object sender, RoutedEventArgs e) {copyr_text();}
         public Dictionary<string,string> calcr(Dictionary<string, string> dic,int _case=0)
@@ -147,13 +154,13 @@ namespace typing
             return ((double)((int)(num*len))/len);
         }
 
-        async public void post()
+        async public void post_text() // 参考 https://qiita.com/rawr/items/f78a3830d894042f891b
         {
-            string resdic = "`～～～～～～～～～～～～` \n"+"["+date+"]\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
+            string resdic = "`～～～～～～～～～～～～` \n"+"["+date+"]\n# "+(string)Application.Current.Properties["Filenames"]+"\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
 
             var parameters = new Dictionary<string, string>()
             {
-                { "username", (string)Application.Current.Properties["UserName"] + " - " + aname+" v"+aversion},
+                { "username", (string)Application.Current.Properties["UserName"]+" - "+aname+" v"+aversion},
                 { "content", resdic },
             };
             var content = new FormUrlEncodedContent(parameters);
@@ -163,13 +170,14 @@ namespace typing
                 try
                 {
                     var response = await client.PostAsync(Properties.Settings.Default.posturl, content);
+                    mainwindow.setText(0, "Post result");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Send fails");
+                    mainwindow.setText(2, "Failed posting : " + ex.Message);
                 }
             }
         }
-        private void post(object sender, RoutedEventArgs e) { post(); }
+        private void post_text(object sender, RoutedEventArgs e) { post_text(); }
     }
 }

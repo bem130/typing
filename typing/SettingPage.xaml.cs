@@ -21,14 +21,19 @@ namespace typing
     /// </summary>
     public partial class SettingPage : Page
     {
+        MainWindow mainwindow;
         public SettingPage()
         {
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText(0,"Open Setting");
+
             InitializeComponent();
             setcolortheme();
 
             colortheme.ItemsSource = new Dictionary<string, string>()
             {
                 { "colorthemes/default.xaml", "default" },
+                { "colorthemes/lightgreen.xaml", "lightgreen" },
                 { "colorthemes/dark.xaml", "dark" },
                 { "colorthemes/yellow.xaml", "yellow" },
             };
@@ -37,10 +42,16 @@ namespace typing
 
         public void setcolortheme()
         {
-            string dicPath = Properties.Settings.Default.colortheme;
-            ResourceDictionary dic = new ResourceDictionary();
-            dic.Source = new Uri(dicPath, UriKind.Relative);
-            this.Resources.MergedDictionaries.Add(dic);
+            try
+            {
+                string dicPath = Properties.Settings.Default.colortheme;
+                ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         public void show_setting()
@@ -66,6 +77,7 @@ namespace typing
             Properties.Settings.Default.Save();
             setscale();
             setcolortheme();
+            mainwindow.call_setcolortheme_logwindow();
         }
         private void save(object sender, RoutedEventArgs e) {save();}
         private void save_Go_home(object sender, RoutedEventArgs e)

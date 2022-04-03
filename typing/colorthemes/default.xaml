@@ -27,4 +27,17 @@
     <Brush x:Key="cpButtonFontcolor">#FFB59F8B</Brush>
     <Brush x:Key="cpButtonBrush">#FF522E22</Brush>
 
+    <!--colors-->
+    <Brush x:Key="c0LogBackground">#FFEBFFF9</Brush>
+    <Brush x:Key="c1LogBackground">#FFFFDFF9</Brush>
+    <Brush x:Key="c2LogBackground">#FFEBFFF9</Brush>
+
+    <!--colors-->
+    <Brush x:Key="cBackimgCover">#B2FFFFFF</Brush>
+
+    <!--colors-->
+    <Brush x:Key="cAreaTrue">#FF0000FF</Brush>
+    <Brush x:Key="cAreaFalse">#FFFF0000</Brush>
+    <Brush x:Key="cAreaDef">#FF000000</Brush>
+
 </ResourceDictionary>

@@ -23,9 +23,13 @@ namespace typing
     public partial class TitlePage : Page
     {
         bool cpage = false;
+        MainWindow mainwindow;
 
         public TitlePage()
         {
+
+            mainwindow = (MainWindow)Application.Current.MainWindow;
+            mainwindow.setText(0,"Open Title");
 
             InitializeComponent();
             setcolortheme();
@@ -47,6 +51,7 @@ namespace typing
                     NavigationService.Navigate(tpage);
                 }
             };
+
         }
 
         private void Go_home(object sender, RoutedEventArgs e)
@@ -58,10 +63,16 @@ namespace typing
 
         public void setcolortheme()
         {
-            string dicPath = Properties.Settings.Default.colortheme;
-            ResourceDictionary dic = new ResourceDictionary();
-            dic.Source = new Uri(dicPath, UriKind.Relative);
-            this.Resources.MergedDictionaries.Add(dic);
+            try
+            {
+                string dicPath = Properties.Settings.Default.colortheme;
+                ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+            }
+            catch (Exception e)
+            {
+            }
         }
 
     }

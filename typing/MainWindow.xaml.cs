@@ -70,8 +70,12 @@ namespace typing
     /// </summary>
     public partial class MainWindow : Window
     {
+        LogWindow logwindow;
         public MainWindow()
         {
+            logwindow = new LogWindow();
+            setText(0,"Open MainWindow");
+            setText(0,"Open LogWindow");
 
             InitializeComponent();
 
@@ -81,6 +85,7 @@ namespace typing
 
             setscale();
             setcolortheme();
+
 
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
@@ -130,16 +135,55 @@ namespace typing
         }
 
 
+        public void setText(int s,string t, string mode = "push")
+        {
+            logwindow.setText(s,t,mode);
+        }
+
+        void MainWindow_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            var key = e.Key;
+            int keycode = ((int)key);
+
+            Debug.Print(keycode.ToString());
+
+            ModifierKeys modifierKeys = Keyboard.Modifiers;
+            if ((modifierKeys & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                switch (keycode)
+                {
+                    case 44:
+                        logwindow.Show();
+                        break;
+                    case 45:
+                        logwindow.Hide();
+                        break;
+                }
+            }
         }
+
 
         public void setcolortheme()
         {
-            string dicPath = Properties.Settings.Default.colortheme;
-            ResourceDictionary dic = new ResourceDictionary();
-            dic.Source = new Uri(dicPath, UriKind.Relative);
-            this.Resources.MergedDictionaries.Add(dic);
+            try
+            {
+                string dicPath = Properties.Settings.Default.colortheme;
+                ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        public void call_setcolortheme_logwindow()
+        {
+            logwindow.setcolortheme();
         }
 
         public void setscale()

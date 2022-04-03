@@ -32,6 +32,33 @@
 
         <Button Click="Go_title" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="4" Style="{DynamicResource Button}">タイトル</Button>
         <Button Click="Go_setting" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Style="{DynamicResource Button}">設定</Button>
+        
+               <Popup
+            Name="BallonPopup"
+            AllowsTransparency="True"
+            IsOpen="{Binding ElementName=TextBoxA, Path=IsFocused, Mode=OneWay}"
+            PlacementTarget="{Binding ElementName=TextBoxA}">
+            <TextBox
+                Width="200"
+                Height="100"
+                Background="Transparent"
+                IsReadOnly="True"
+                Text="BallonPopup Here!!!">
+                <TextBox.Template>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border
+                            x:Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
+        </Popup>
+        
         <Grid Grid.Row="2" Margin="76,10,76,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -51,7 +78,7 @@
                 <TextBlock Grid.Column="0" Text="問題のあるフォルダを選択"/>
             </Grid>
 
-            <ListView Grid.Row="1" x:Name="Menu" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cFrameBackground}">
+            <ListView Grid.Row="1" x:Name="Menu" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cFrameBackground}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
             </ListView>
 
             <Button Grid.Row="2" Content="スタート" Click="start" FontSize="12" Style="{DynamicResource Button}"/>
