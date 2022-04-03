@@ -51,8 +51,10 @@ namespace typing
         string[] ncparts;
         DataRow nowq;
         int miscnt;
+        List<int> correctans;
         Dictionary<string, int[][]> ckeys;
         string[] ckeyskeys;
+        int smax;
 
         List<string> ranss;
         System.Diagnostics.Stopwatch sw;
@@ -73,6 +75,7 @@ namespace typing
             ckeys = keyb.ckeys;
             ckeyskeys = keyb.ckeyskeys;
             keylist = keyb.keyname();
+            smax = keyb.smax;
             bftkey = 0;
             keyf = 0;
             read_file();
@@ -607,6 +610,13 @@ namespace typing
                 }
 
 
+                correctans = new List<int>();
+                for (int i=0;i<ncparts.Length;i++)
+                {
+                    correctans.Add(0);
+                }
+
+
                 int mik = 0;
                 int imik;
                 foreach (string ch in ncparts)
@@ -691,6 +701,8 @@ namespace typing
                     }
                     else
                     {
+                        correctans[partcnt] = 1;
+                        Debug.Print(String.Join(",", correctans)+" "+(ncparts.Length*smax).ToString());
                         inputpart[ipartcnt] = 0;
                         PlaySound(Properties.Resources.mis);
                         miscnt++;
@@ -699,7 +711,30 @@ namespace typing
                 }
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
-                Aarea.Text = string.Join("", nowa)+ keyb.keycodes_to_string(inputpart);
+
+
+                TextBlock a = Aarea;
+                Run b;
+                Aarea.Text = "";
+                int i;
+                for (i = 0; i<nowa.Length; i++)
+                {
+                    b = new Run(ncparts[i]);
+                    if (correctans[i]==0)
+                    {
+                        b.Foreground = (Brush)this.FindResource("cAreaTrue");
+                    }
+                    else
+                    {
+                        b.Foreground = (Brush)this.FindResource("cAreaFalse");
+                    }
+                    a.Inlines.Add(b);
+                }
+                b = new Run(keyb.keycodes_to_string(inputpart));
+                b.Foreground = (Brush)FindResource("cAreaDef");
+                a.Inlines.Add(b);
+
+
                 if (partcnt == ncparts.Length)
                 {
                     nowcnt++;
@@ -769,6 +804,13 @@ namespace typing
                         catch (Exception e)
                         {
                             Backimgcover.Visibility = Visibility.Hidden;
+                        }
+
+
+                        correctans = new List<int>();
+                        for (i = 0; i<ncparts.Length; i++)
+                        {
+                            correctans.Add(0);
                         }
 
 

@@ -14,7 +14,7 @@ namespace typing
     internal class keyboard
     {
         MainWindow mainwindow;
-
+        public int smax;
 
         public keyboard()
         {
@@ -55,6 +55,7 @@ namespace typing
                     li = tm.Length;
                 }
             }
+            smax = li;
             //Debug.Print(li.ToString());
             uint nic = 0;
             while (li >= 0)
@@ -70,6 +71,7 @@ namespace typing
                 }
                 li--;
             }
+
             return rtl;
         }
 
