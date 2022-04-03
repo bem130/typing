@@ -33,7 +33,7 @@ namespace typing
             colortheme.ItemsSource = new Dictionary<string, string>()
             {
                 { "colorthemes/default.xaml", "default" },
-                { "colorthemes/light.xaml", "light" },
+                { "colorthemes/lightgreen.xaml", "lightgreen" },
                 { "colorthemes/dark.xaml", "dark" },
                 { "colorthemes/yellow.xaml", "yellow" },
             };
@@ -42,10 +42,16 @@ namespace typing
 
         public void setcolortheme()
         {
-            string dicPath = Properties.Settings.Default.colortheme;
-            ResourceDictionary dic = new ResourceDictionary();
-            dic.Source = new Uri(dicPath, UriKind.Relative);
-            this.Resources.MergedDictionaries.Add(dic);
+            try
+            {
+                string dicPath = Properties.Settings.Default.colortheme;
+                ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         public void show_setting()

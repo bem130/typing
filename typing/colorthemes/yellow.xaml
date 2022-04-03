@@ -31,5 +31,8 @@
     <Brush x:Key="c0LogBackground">#FFEBFFF9</Brush>
     <Brush x:Key="c1LogBackground">#FFFFDFF9</Brush>
     <Brush x:Key="c2LogBackground">#FFEBFFF9</Brush>
-    
+
+    <!--colors-->
+    <Brush x:Key="cBackimgCover">#B2FFFCAA</Brush>
+
 </ResourceDictionary>

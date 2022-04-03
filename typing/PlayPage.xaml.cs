@@ -46,6 +46,7 @@ namespace typing
         int partcnt;
         int ipartcnt;
         int typecnt;
+        string filenames;
         double alltime;
         string[] ncparts;
         DataRow nowq;
@@ -122,10 +123,16 @@ namespace typing
         /// </summary>
         public void setcolortheme()
         {
-            string dicPath = Properties.Settings.Default.colortheme;
-            ResourceDictionary dic = new ResourceDictionary();
-            dic.Source = new Uri(dicPath, UriKind.Relative);
-            this.Resources.MergedDictionaries.Add(dic);
+            try
+            {
+                string dicPath = Properties.Settings.Default.colortheme;
+                ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+            }
+            catch (Exception e)
+            {
+            }
         }
         /// <summary>
         /// 問題ファイルの読み込み
@@ -140,7 +147,7 @@ namespace typing
 
             QAd = new DataTable("QAd");
             StreamReader reader;
-
+            filenames = "";
 
             QAd.Columns.Add("id");
             QAd.Columns.Add("question");
@@ -150,21 +157,29 @@ namespace typing
             QAd.Columns.Add("filelocation");
             QAd.Columns.Add("fileline");
             QAd.Columns.Add("type");
+            QAd.Columns.Add("backimage");
+            QAd.Columns.Add("information");
             int questionid = 0;
             foreach (string filePath in filepaths)
             {
                 reader = new StreamReader(filePath, Encoding.GetEncoding("UTF-8"));
                 Dictionary<string, string> fprop = new Dictionary<string, string>()
                 {
+                    {"name",""},
                     {"split",","},
                     {"title","noTitle"},
+                    {"information",""},
                     {"type",""},
+                    {"backimage",""},
                 };
                 Dictionary<string, string> dfprop = new Dictionary<string, string>()
                 {
+                    {"name",""},
                     {"split",","},
                     {"title","noTitle"},
+                    {"information",""},
                     {"type",""},
+                    {"backimage",""},
                 };
                 int line = 0;
                 while (reader.Peek() >= 0)
@@ -188,7 +203,8 @@ namespace typing
                                 }
                                 else
                                 {
-                                    fprop[spprop[0]] = spprop[1];
+                                    fprop[spprop[0]] = prop.Substring(spprop[0].Length+1,prop.Length-spprop[0].Length-1);
+                                    Debug.Print("filesetting "+spprop[0]+": "+fprop[spprop[0]]);
                                 }
                             }
                         }
@@ -217,25 +233,25 @@ namespace typing
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
-                                    QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"],fprop["backimage"],fprop["information"]);
                                 }
                                 if (fprop["type"] == "ja_sentence")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
-                                    QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
                                 if (fprop["type"] == "en_word")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
-                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
                                 if (fprop["type"] == "en_sentence")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
-                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
                             }
                             {
@@ -243,13 +259,13 @@ namespace typing
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
-                                    QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
                                 if (fprop["type"] == "question_sentence")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
-                                    QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                    QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
                             }
                             {
@@ -258,25 +274,25 @@ namespace typing
                                     {
                                         string[] qaline = fileline.Split(fprop["split"][0]);
                                         questionid++;
-                                        QAd.Rows.Add(questionid, qaline[0]+" + "+qaline[1], (double.Parse(qaline[0])+double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                        QAd.Rows.Add(questionid, qaline[0]+" + "+qaline[1], (double.Parse(qaline[0])+double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                     }
                                     if (fprop["type"] == "dec-dec_math-subtraction")
                                     {
                                         string[] qaline = fileline.Split(fprop["split"][0]);
                                         questionid++;
-                                        QAd.Rows.Add(questionid, qaline[0]+" - "+qaline[1], (double.Parse(qaline[0])-double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                        QAd.Rows.Add(questionid, qaline[0]+" - "+qaline[1], (double.Parse(qaline[0])-double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                     }
                                     if (fprop["type"] == "dec-dec_math-multiplication")
                                     {
                                         string[] qaline = fileline.Split(fprop["split"][0]);
                                         questionid++;
-                                        QAd.Rows.Add(questionid, qaline[0]+" × "+qaline[1], (double.Parse(qaline[0])*double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                        QAd.Rows.Add(questionid, qaline[0]+" × "+qaline[1], (double.Parse(qaline[0])*double.Parse(qaline[1])).ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                     }
                                     if (fprop["type"] == "dec-dec_math-division")
                                     {
                                         string[] qaline = fileline.Split(fprop["split"][0]);
                                         questionid++;
-                                        QAd.Rows.Add(questionid, (double.Parse(qaline[0])*double.Parse(qaline[1])).ToString()+" ÷ "+qaline[1], qaline[0].ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                        QAd.Rows.Add(questionid, (double.Parse(qaline[0])*double.Parse(qaline[1])).ToString()+" ÷ "+qaline[1], qaline[0].ToString(), "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                     }
                                 }
                                 {
@@ -319,7 +335,7 @@ namespace typing
                                             int num1 = r.Next(min1, max1);
                                             int num2 = r.Next(min2, max2);
                                             questionid++;
-                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" + "+Convert.ToString(num2, pn1), Convert.ToString((num1 + num2),pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-addition_rm");
+                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" + "+Convert.ToString(num2, pn1), Convert.ToString((num1 + num2),pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-addition_rm", fprop["backimage"], fprop["information"]);
                                         }
                                     }
                                     if (fprop["type"].Substring(7) == "_math-subtraction_rm")
@@ -336,7 +352,7 @@ namespace typing
                                             int num1 = r.Next(min1, max1);
                                             int num2 = r.Next(min2, max2);
                                             questionid++;
-                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" - "+Convert.ToString(num2, pn1), Int_to_String((num1 - num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-addition_rm");
+                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" - "+Convert.ToString(num2, pn1), Int_to_String((num1 - num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-addition_rm", fprop["backimage"], fprop["information"]);
                                         }
                                     }
                                     if (fprop["type"].Substring(7) == "_math-multiplication_rm")
@@ -353,7 +369,7 @@ namespace typing
                                             int num1 = r.Next(min1, max1);
                                             int num2 = r.Next(min2, max2);
                                             questionid++;
-                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" × "+Convert.ToString(num2, pn1), Convert.ToString((num1 * num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-multiplicationvvv_rm");
+                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" × "+Convert.ToString(num2, pn1), Convert.ToString((num1 * num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-multiplicationvvv_rm", fprop["backimage"], fprop["information"]);
                                         }
                                     }
                                     if (fprop["type"].Substring(7) == "_math-division_rm")
@@ -372,7 +388,7 @@ namespace typing
                                             if (num2 != 0)
                                             {
                                                 questionid++;
-                                                QAd.Rows.Add(questionid, Convert.ToString((num1*num2),pn1)+" ÷ "+Convert.ToString(num2, pn1), Convert.ToString(num1, pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-division_rm");
+                                                QAd.Rows.Add(questionid, Convert.ToString((num1*num2),pn1)+" ÷ "+Convert.ToString(num2, pn1), Convert.ToString(num1, pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-division_rm", fprop["backimage"], fprop["information"]);
                                             }
                                         }
                                     }
@@ -382,18 +398,28 @@ namespace typing
                             {
                                 string[] qaline = fileline.Split(fprop["split"][0]);
                                 questionid++;
-                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                             }
                             if (fprop["type"] == "ja-en_sentence")
                             {
                                 string[] qaline = fileline.Split(fprop["split"][0]);
                                 questionid++;
-                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"]);
+                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                             }
                         }
                     }
                 }
                 reader.Close();
+
+                if (fprop["name"]=="")
+                {
+                    filenames+=fprop["title"]+",";
+                }
+                else
+                {
+                    filenames+=fprop["name"]+",";
+                }
+                Application.Current.Properties["Filenames"] = filenames.Substring(0,filenames.Length-1);
             }
             foreach (DataRow tr in QAd.Rows)
             {
@@ -542,6 +568,43 @@ namespace typing
                 QAtype.Text = nowq["type"].ToString();
                 QAnowcnt.Text = nowcnt.ToString();
 
+                Information.Text = nowq["information"].ToString();
+
+
+                string bimgpath = nowq["backimage"].ToString();
+                string dir = System.IO.Path.GetDirectoryName(nowq["filelocation"].ToString());
+                if (bimgpath.StartsWith("this:/")|bimgpath.StartsWith("this:\\"))
+                {
+                    bimgpath = dir+bimgpath.Substring(5, bimgpath.Length-5);
+                }
+                if (bimgpath.StartsWith("this:"))
+                {
+                    bimgpath = dir+"\\"+bimgpath.Substring(5, bimgpath.Length-5);
+                }
+                Debug.Print(bimgpath);
+                try
+                {
+                    if (bimgpath.ToString().Length>0)
+                    {
+                        ImageBrush img = new ImageBrush();
+                        img.ImageSource = new BitmapImage(new Uri(bimgpath.ToString()));
+                        Backimg.Background = img;
+                        Backimgcover.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        Backimgcover.Visibility = Visibility.Hidden;
+                    }
+                }
+                catch (FileNotFoundException e)
+                {
+                    Backimgcover.Visibility = Visibility.Hidden;
+                    Console.WriteLine("NotFound: " + e.FileName);
+                }
+                catch (Exception e)
+                {
+                    Backimgcover.Visibility = Visibility.Hidden;
+                }
 
 
                 int mik = 0;
@@ -671,6 +734,42 @@ namespace typing
                         Qtitle.Text = nowq["title"].ToString();
                         QAtype.Text = nowq["type"].ToString();
                         QAnowcnt.Text = nowcnt.ToString();
+                        Information.Text = nowq["information"].ToString();
+
+                        string bimgpath = nowq["backimage"].ToString();
+                        string dir = System.IO.Path.GetDirectoryName(nowq["filelocation"].ToString());
+                        if (bimgpath.StartsWith("this:/")|bimgpath.StartsWith("this:\\"))
+                        {
+                            bimgpath = dir+bimgpath.Substring(5, bimgpath.Length-5);
+                        }
+                        if (bimgpath.StartsWith("this:"))
+                        {
+                            bimgpath = dir+"\\"+bimgpath.Substring(5, bimgpath.Length-5);
+                        }
+                        Debug.Print(bimgpath);
+                        try
+                        {
+                            if (bimgpath.ToString().Length>0)
+                            {
+                                ImageBrush img = new ImageBrush();
+                                img.ImageSource = new BitmapImage(new Uri(bimgpath.ToString()));
+                                Backimg.Background = img;
+                                Backimgcover.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                Backimgcover.Visibility = Visibility.Hidden;
+                            }
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            Backimgcover.Visibility = Visibility.Hidden;
+                            Console.WriteLine("NotFound: " + e.FileName);
+                        }
+                        catch (Exception e)
+                        {
+                            Backimgcover.Visibility = Visibility.Hidden;
+                        }
 
 
                         int mik = 1;

@@ -40,17 +40,27 @@
                 </Grid>
             </Grid>
         </GroupBox>
+        <GroupBox x:Name="Backimgcover" Panel.ZIndex="0" BorderThickness="0" Margin="50,10,50,150" Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border BorderThickness="0" Grid.Row="0" CornerRadius="5" x:Name="Backimg">
+                </Border>
+                <Rectangle Fill="{DynamicResource cBackimgCover}" Grid.Row="0" Margin="15,15,15,15" RadiusX="10" RadiusY="10"/>
+            </Grid>
+        </GroupBox>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="100*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="230"/>
-                <RowDefinition Height="22"/>
+                <RowDefinition Height="18"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition Height="35"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="37"/>
@@ -76,7 +86,7 @@
                 </TextBlock>
             </Grid>
 
-            <StatusBar Grid.Row="4">
+            <StatusBar Grid.Row="4" FontSize="9">
                 <TextBlock Text="問"/>
                 <TextBlock x:Name="QAnowcnt" Text="-"/>
                 <TextBlock Text="/"/>
@@ -102,6 +112,8 @@
                 <Separator/>
                 <TextBlock Text="キーコード:"/>
                 <TextBlock x:Name="Latestkey" Text="-"/>
+                <Separator/>
+                <TextBlock x:Name="Information"></TextBlock>
             </StatusBar>
 
             <Border x:Name="KeyboardUI" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="220" Padding="10,10,10,10" Grid.Row="3" VerticalAlignment="Center" Width="630" CornerRadius="10" Background="#FFB0ABA4">

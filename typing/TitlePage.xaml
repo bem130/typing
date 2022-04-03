@@ -32,7 +32,7 @@
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Typing" FontSize="80" TextAlignment="Center" Grid.Row="0"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="120" Foreground="{DynamicResource cFontcolor}"/>
+            <TextBlock Text="Type Fast !" FontSize="80" TextAlignment="Center" Grid.Row="0"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="120" Foreground="{DynamicResource cFontcolor}"/>
             <TextBlock x:Name="versiondata" FontSize="20" TextAlignment="Center"  Grid.Row="1"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="40" Foreground="{DynamicResource cFontcolor}"/>
         </Grid>
     </Grid>

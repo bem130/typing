@@ -65,7 +65,7 @@ namespace typing
         }
         private void copyr_text()
         {
-            string resdic = aname+" v"+aversion+"\n"+"`～～～～～～～～～～～～` \n"+"["+date+"]\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
+            string resdic = (string)Application.Current.Properties["UserName"]+" - "+aname+" v"+aversion+"\n"+"`～～～～～～～～～～～～` \n"+"["+date+"]\n# "+(string)Application.Current.Properties["Filenames"]+"\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
             Clipboard.SetData(DataFormats.Text, resdic);
             mainwindow.setText(0, "copy result");
         }
@@ -156,11 +156,11 @@ namespace typing
 
         async public void post_text() // 参考 https://qiita.com/rawr/items/f78a3830d894042f891b
         {
-            string resdic = "`～～～～～～～～～～～～` \n"+"["+date+"]\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
+            string resdic = "`～～～～～～～～～～～～` \n"+"["+date+"]\n# "+(string)Application.Current.Properties["Filenames"]+"\n"+sdic_to_string(calcr(get(), 1), ":", "\n")+"`～～～～～～～～～～～～`";
 
             var parameters = new Dictionary<string, string>()
             {
-                { "username", (string)Application.Current.Properties["UserName"] + " - " + aname+" v"+aversion},
+                { "username", (string)Application.Current.Properties["UserName"]+" - "+aname+" v"+aversion},
                 { "content", resdic },
             };
             var content = new FormUrlEncodedContent(parameters);

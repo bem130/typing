@@ -40,10 +40,16 @@ namespace typing
         }
         public void setcolortheme()
         {
-            string dicPath = Properties.Settings.Default.colortheme;
-            ResourceDictionary dic = new ResourceDictionary();
-            dic.Source = new Uri(dicPath, UriKind.Relative);
-            this.Resources.MergedDictionaries.Add(dic);
+            try
+            {
+                string dicPath = Properties.Settings.Default.colortheme;
+                ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+            }
+            catch (Exception e)
+            {
+            }
         }
 
 
