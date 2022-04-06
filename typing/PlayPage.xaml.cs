@@ -11,12 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
 using System.Xml.Linq;
 using System.Data;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Resources;
 
 namespace typing
@@ -215,6 +213,9 @@ namespace typing
                     else if (fileline=="") //空白行の場合
                     {
                     }
+                    else if (fileline.StartsWith("[block]")) //ブロック行の場合
+                    {
+                    }
                     else if (fileline.StartsWith("[comment]")) //コメント行の場合
                     {
                     }
@@ -397,18 +398,6 @@ namespace typing
                                     }
                                 }
                             }
-                            if (fprop["type"] == "ja-en_word")
-                            {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
-                            }
-                            if (fprop["type"] == "ja-en_sentence")
-                            {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
-                            }
                         }
                     }
                 }
@@ -440,7 +429,6 @@ namespace typing
                 return;
             }
             ((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
-            //((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
             int nkeyf = keyf;
             await Task.Delay(500);
             if (nkeyf==keyf)
@@ -455,7 +443,6 @@ namespace typing
                 return;
             }
             ((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
-            //((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
         }
         async void missback()
         {
@@ -470,7 +457,6 @@ namespace typing
             {
                 if (!nowpause)
                 {
-                    kinput.Focus();
                 }
                 Qstopwatch.Content = sw.Elapsed.ToString();
                 Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
@@ -500,7 +486,6 @@ namespace typing
                     pause();
                 }
                 im(Keycode);
-                kinput.Focus();
             }
             else
             {
@@ -565,7 +550,7 @@ namespace typing
                     ncparts = splita(nowq["answer"].ToString());
                 }
                 Qarea.Text = nowq["question"].ToString();
-                QAfilename.Text = nowq["filelocation"].ToString();
+                QAfilename.Text = Path.GetFileName(nowq["filelocation"].ToString());
                 QAlinecnt.Text = nowq["fileline"].ToString();
                 Qtitle.Text = nowq["title"].ToString();
                 QAtype.Text = nowq["type"].ToString();
@@ -712,7 +697,6 @@ namespace typing
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
 
-
                 TextBlock a = Aarea;
                 Run b;
                 Aarea.Text = "";
@@ -764,7 +748,7 @@ namespace typing
                         }
 
                         ncparts = splita(nowq["answer"].ToString());
-                        QAfilename.Text = nowq["filelocation"].ToString();
+                        QAfilename.Text = Path.GetFileName(nowq["filelocation"].ToString());
                         QAlinecnt.Text = nowq["fileline"].ToString();
                         Qtitle.Text = nowq["title"].ToString();
                         QAtype.Text = nowq["type"].ToString();
@@ -772,7 +756,7 @@ namespace typing
                         Information.Text = nowq["information"].ToString();
 
                         string bimgpath = nowq["backimage"].ToString();
-                        string dir = System.IO.Path.GetDirectoryName(nowq["filelocation"].ToString());
+                        string dir = Path.GetDirectoryName(nowq["filelocation"].ToString());
                         if (bimgpath.StartsWith("this:/")|bimgpath.StartsWith("this:\\"))
                         {
                             bimgpath = dir+bimgpath.Substring(5, bimgpath.Length-5);
@@ -805,15 +789,11 @@ namespace typing
                         {
                             Backimgcover.Visibility = Visibility.Hidden;
                         }
-
-
                         correctans = new List<int>();
                         for (i = 0; i<ncparts.Length; i++)
                         {
                             correctans.Add(0);
                         }
-
-
                         int mik = 1;
                         foreach (string ch in ncparts)
                         {
@@ -885,11 +865,12 @@ namespace typing
         /// <summary>
         /// 一時停止
         /// </summary>
-        async private void Pause_button(object sender, RoutedEventArgs e)
+        private void Pause_button(object sender, RoutedEventArgs e)
         {
-            pause();
-            await Task.Delay(10);
-            kinput.Focus();
+            if (nowplay)
+            {
+                pause();
+            }
         }
         private void Resume_button(object sender, RoutedEventArgs e)
         {
@@ -909,7 +890,6 @@ namespace typing
             kinput.Focus();
             sw.Start();
         }
-
         private void Retire_button(object sender, RoutedEventArgs e)
         {
             finished();

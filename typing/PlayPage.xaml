@@ -40,7 +40,7 @@
                 </Grid>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="Backimgcover" Panel.ZIndex="0" BorderThickness="0" Margin="50,10,50,150" Visibility="Hidden">
+        <GroupBox x:Name="Backimgcover" Panel.ZIndex="0" BorderThickness="0" Margin="50,10,50,100" Visibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -56,11 +56,11 @@
                 <RowDefinition Height="100*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="230"/>
-                <RowDefinition Height="18"/>
+                <RowDefinition Height="16"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="35"/>
                     <RowDefinition Height="35"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="37"/>
@@ -86,7 +86,7 @@
                 </TextBlock>
             </Grid>
 
-            <StatusBar Grid.Row="4" FontSize="9">
+            <StatusBar Grid.Row="4" FontSize="8">
                 <TextBlock Text="問"/>
                 <TextBlock x:Name="QAnowcnt" Text="-"/>
                 <TextBlock Text="/"/>
