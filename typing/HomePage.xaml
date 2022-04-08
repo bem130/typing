@@ -14,6 +14,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="elements.xaml"/>
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
+                <ResourceDictionary Source="languages/japanese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -81,7 +82,7 @@
             <ListView Grid.Row="1" x:Name="Menu" Foreground="{DynamicResource cFontcolor}" Background="{DynamicResource cFrameBackground}" ItemContainerStyle="{DynamicResource ListViewItemStyle}">
             </ListView>
 
-            <Button Grid.Row="2" Content="スタート" Click="start" FontSize="12" Style="{DynamicResource Button}"/>
+            <Button Grid.Row="2" Content="{DynamicResource tStart}" Click="start" FontSize="12" Style="{DynamicResource Button}"/>
         </Grid>
     </Grid>
 </Page>

@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="elements.xaml"/>
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
+                <ResourceDictionary Source="languages/japanese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>

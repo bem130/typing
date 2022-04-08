@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="elements.xaml"/>
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
+                <ResourceDictionary Source="languages/japanese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -78,7 +79,7 @@
                 <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15" Background="{DynamicResource cPbarBackground}" Foreground="{DynamicResource cPbarForeground}"></ProgressBar>
 
                 <TextBlock x:Name="Qarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
-                <Run Text="スペースを押してスタート"/>
+                <Run Text="{DynamicResource tSpaceToStart}"/>
                 </TextBlock>
 
 
@@ -87,30 +88,30 @@
             </Grid>
 
             <StatusBar Grid.Row="4" FontSize="8">
-                <TextBlock Text="問"/>
+                <TextBlock Text="{DynamicResource tQAcnt}"/>
                 <TextBlock x:Name="QAnowcnt" Text="-"/>
                 <TextBlock Text="/"/>
                 <TextBlock x:Name="QAallcnt" Text="-"/>
                 <Separator/>
-                <TextBlock Text="タイプ"/>
+                <TextBlock Text="{DynamicResource tSpeed}"/>
                 <TextBlock x:Name="Qtypespeed" Text="0"/>
                 <TextBlock Text="/s"/>
                 <Separator/>
-                <TextBlock Text="ミスタイプ"/>
-                <TextBlock x:Name="QAmiscnt" Text="-"/>
+                <TextBlock Text="{DynamicResource tAccuracy}"/>
+                <TextBlock x:Name="QAsuccesscnt" Text="-"/>
                 <TextBlock Text="/"/>
                 <TextBlock x:Name="QAtypecnt" Text="-"/>
                 <Separator/>
-                <TextBlock Text="問題"/>
-                <TextBlock Text="file:"/>
+                <TextBlock Text="{DynamicResource tAboutQA}"/>
+                <TextBlock Text="{DynamicResource tQAFile}"/>
                 <TextBlock x:Name="QAfilename" Text="----"/>
                 <TextBlock Text=";"/>
-                <TextBlock Text="line:"/>
+                <TextBlock Text="{DynamicResource tQALine}"/>
                 <TextBlock x:Name="QAlinecnt" Text="--"/>
-                <TextBlock Text="type:"/>
+                <TextBlock Text="{DynamicResource tQAGroup}"/>
                 <TextBlock x:Name="QAtype" Text="--"/>
                 <Separator/>
-                <TextBlock Text="キーコード:"/>
+                <TextBlock Text="{DynamicResource tKeyCode}"/>
                 <TextBlock x:Name="Latestkey" Text="-"/>
                 <Separator/>
                 <TextBlock x:Name="Information"></TextBlock>

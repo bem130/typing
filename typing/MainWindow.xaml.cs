@@ -84,7 +84,7 @@ namespace typing
             NavigationCommands.Refresh.InputGestures.Clear();
 
             setscale();
-            setcolortheme();
+            settheme();
 
 
 
@@ -168,7 +168,7 @@ namespace typing
         }
 
 
-        public void setcolortheme()
+        public void settheme()
         {
             try
             {
@@ -176,14 +176,19 @@ namespace typing
                 ResourceDictionary dic = new ResourceDictionary();
                 dic.Source = new Uri(dicPath, UriKind.Relative);
                 this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
             }
             catch (Exception e)
             {
             }
         }
-        public void call_setcolortheme_logwindow()
+        public void call_settheme_logwindow()
         {
-            logwindow.setcolortheme();
+            logwindow.settheme();
         }
 
         public void setscale()

@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="elements.xaml"/>
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
+                <ResourceDictionary Source="languages/japanese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -70,9 +71,11 @@
                 <TextBlock Grid.Row="4" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">カラーテーマ</TextBlock>
                 <ComboBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" x:Name="colortheme" VerticalAlignment="Center" Width="250" SelectedValuePath="Key" DisplayMemberPath="Value" />
 
+                <TextBlock Grid.Row="5" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">言語</TextBlock>
+                <ComboBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" Grid.ColumnSpan="2" x:Name="langtheme" VerticalAlignment="Center" Width="250" SelectedValuePath="Key" DisplayMemberPath="Value" />
 
-                <TextBlock Grid.Row="5" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">POSTするURL</TextBlock>
-                <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="posturl"/>
+                <TextBlock Grid.Row="6" Grid.Column="0" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">POSTするURL</TextBlock>
+                <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" Height="30" x:Name="posturl"/>
 
             </Grid>
         </ScrollViewer>

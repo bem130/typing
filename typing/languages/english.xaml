@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:typing"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- text-->
+    <system:String x:Key="tSpaceToStart">Type space to start</system:String>
+    <system:String x:Key="tQAcnt">Question</system:String>
+    <system:String x:Key="tSpeed">Typed</system:String>
+    <system:String x:Key="tAccuracy">Accuracy</system:String>
+    <system:String x:Key="tAboutQA">This Question</system:String>
+    <system:String x:Key="tQAFile">File:</system:String>
+    <system:String x:Key="tQALine">Line:</system:String>
+    <system:String x:Key="tQAGroup">Group:</system:String>
+    <system:String x:Key="tKeyCode">KeyCode:</system:String>
+
+
+</ResourceDictionary>

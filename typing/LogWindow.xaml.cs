@@ -19,7 +19,7 @@ namespace typing
         public LogWindow()
         {
             InitializeComponent();
-            setcolortheme();
+            settheme();
             Logs.ItemsSource = logs;
         }
 
@@ -38,12 +38,18 @@ namespace typing
                 logs.Insert(0,new LogData() { status=status, contents=contents });
             }
         }
-        public void setcolortheme()
+
+        public void settheme()
         {
             try
             {
                 string dicPath = Properties.Settings.Default.colortheme;
                 ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
                 dic.Source = new Uri(dicPath, UriKind.Relative);
                 this.Resources.MergedDictionaries.Add(dic);
             }

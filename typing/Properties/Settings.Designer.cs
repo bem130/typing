@@ -94,5 +94,17 @@ namespace typing.Properties {
                 this["posturl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string langtheme {
+            get {
+                return ((string)(this["langtheme"]));
+            }
+            set {
+                this["langtheme"] = value;
+            }
+        }
     }
 }

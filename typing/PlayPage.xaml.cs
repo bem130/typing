@@ -68,7 +68,7 @@ namespace typing
 
             keyb = new keyboard();
 
-            setcolortheme();
+            settheme();
             keyb.setcparts();
             ckeys = keyb.ckeys;
             ckeyskeys = keyb.ckeyskeys;
@@ -122,7 +122,7 @@ namespace typing
         /// <summary>
         /// カラーテーマの設定
         /// </summary>
-        public void setcolortheme()
+        public void settheme()
         {
             try
             {
@@ -130,9 +130,15 @@ namespace typing
                 ResourceDictionary dic = new ResourceDictionary();
                 dic.Source = new Uri(dicPath, UriKind.Relative);
                 this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
             }
             catch (Exception e)
             {
+                Debug.Print(e.ToString());
             }
         }
         /// <summary>
@@ -509,7 +515,7 @@ namespace typing
             miscnt = 0;
             typecnt = 0;
             QAallcnt.Text = allcnt.ToString();
-            QAmiscnt.Text = miscnt.ToString();
+            QAsuccesscnt.Text = (typecnt-miscnt).ToString();
             keyc(18);
             kinput.Focus();
         }
@@ -691,9 +697,10 @@ namespace typing
                         inputpart[ipartcnt] = 0;
                         PlaySound(Properties.Resources.mis);
                         miscnt++;
-                        QAmiscnt.Text = miscnt.ToString();
                     }
                 }
+                QAsuccesscnt.Text = (typecnt-miscnt).ToString();
+
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
 

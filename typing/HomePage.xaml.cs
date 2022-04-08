@@ -37,7 +37,7 @@ namespace typing
             //b.Foreground = new SolidColorBrush(Color.FromArgb(250,0,252,25));
             //a.Inlines.Add(b);
 
-            setcolortheme();
+            settheme();
 
             serchdir.Text = Properties.Settings.Default.questions_dir;
 
@@ -57,12 +57,17 @@ namespace typing
             messagea.Text = username+"さん "+"こんにちは!";
         }
 
-        public void setcolortheme()
+        public void settheme()
         {
             try
             {
                 string dicPath = Properties.Settings.Default.colortheme;
                 ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
                 dic.Source = new Uri(dicPath, UriKind.Relative);
                 this.Resources.MergedDictionaries.Add(dic);
             }

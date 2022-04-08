@@ -32,7 +32,7 @@ namespace typing
             mainwindow.setText(0,"Open Title");
 
             InitializeComponent();
-            setcolortheme();
+            settheme();
             ProgressBar.IsIndeterminate = true;
             versiondata.Text = "version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -61,12 +61,17 @@ namespace typing
             NavigationService.Navigate(tpage);
         }
 
-        public void setcolortheme()
+        public void settheme()
         {
             try
             {
                 string dicPath = Properties.Settings.Default.colortheme;
                 ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
                 dic.Source = new Uri(dicPath, UriKind.Relative);
                 this.Resources.MergedDictionaries.Add(dic);
             }
