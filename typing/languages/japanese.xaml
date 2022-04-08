@@ -26,10 +26,23 @@
     <system:String x:Key="tReference">参照⇗</system:String>
     <system:String x:Key="tPathMessage">ファイルのあるフォルダのパスを入力⇗</system:String>
     <system:String x:Key="tReferenceMessage">フォルダを選択してください</system:String>
+    
+    <!--TitlePage-->
+    <system:String x:Key="tgHome">ホーム</system:String>
+
+    <!--SettingPage-->
+    <system:String x:Key="tsUserName">ユーザー名</system:String>
+    <system:String x:Key="tsSerchDir">標準の問題フォルダ</system:String>
+    <system:String x:Key="tsKeyboardFiles">キーボードのファイル</system:String>
+    <system:String x:Key="tsScale">表示サイズ</system:String>
+    <system:String x:Key="tsColorTheme">カラーテーマ</system:String>
+    <system:String x:Key="tsLangTheme">言語</system:String>
+    <system:String x:Key="tsPostUrl">POSTするURL</system:String>
 
     <!--UserName-->
     <system:String x:Key="tUGuest">ゲスト</system:String>
     <system:String x:Key="tUMessageA">こんにちは! ;no;</system:String>
     <system:String x:Key="tUMessageB">;no;</system:String>
+
 
 </ResourceDictionary>

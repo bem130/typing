@@ -27,6 +27,18 @@
     <system:String x:Key="tPathMessage">Input a folder path of the files⇗</system:String>
     <system:String x:Key="tReferenceMessage">Please select the Folder path</system:String>
 
+    <!--TitlePage-->
+    <system:String x:Key="tgHome">Home</system:String>
+
+    <!--SettingPage-->
+    <system:String x:Key="tsUserName">User Name</system:String>
+    <system:String x:Key="tsSerchDir">Files Folder</system:String>
+    <system:String x:Key="tsKeyboardFiles">KeyboardFiles</system:String>
+    <system:String x:Key="tsScale">Scale</system:String>
+    <system:String x:Key="tsColorTheme">Color Theme</system:String>
+    <system:String x:Key="tsLangTheme">Language Theme</system:String>
+    <system:String x:Key="tsPostUrl">POST URL</system:String>
+    
     <!--UserName-->
     <system:String x:Key="tUGuest">guest</system:String>
     <system:String x:Key="tUMessageA">Hi! ;no;</system:String>
