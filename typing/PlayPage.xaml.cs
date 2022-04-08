@@ -239,29 +239,50 @@ namespace typing
                         if (fileline.Length > 0)
                         {
                             {
-                                if (fprop["type"] == "ja_word")
+                                if (fprop["type"] == "en_text")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
-                                    QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"],fprop["backimage"],fprop["information"]);
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
-                                if (fprop["type"] == "ja_sentence")
+                                if (fprop["type"] == "ja_text")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
                                     QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
-                                if (fprop["type"] == "en_word")
+                                if (fprop["type"] == "ar_text")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
                                     QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
-                                if (fprop["type"] == "en_sentence")
+
                                 {
-                                    string[] qaline = fileline.Split(fprop["split"][0]);
-                                    questionid++;
-                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    if (fprop["type"] == "ja_word")
+                                    {
+                                        string[] qaline = fileline.Split(fprop["split"][0]);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    }
+                                    if (fprop["type"] == "ja_sentence")
+                                    {
+                                        string[] qaline = fileline.Split(fprop["split"][0]);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    }
+                                    if (fprop["type"] == "en_word")
+                                    {
+                                        string[] qaline = fileline.Split(fprop["split"][0]);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    }
+                                    if (fprop["type"] == "en_sentence")
+                                    {
+                                        string[] qaline = fileline.Split(fprop["split"][0]);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    }
                                 }
                             }
                             {
