@@ -566,7 +566,7 @@ namespace typing
 
 
                 string bimgpath = nowq["backimage"].ToString();
-                string dir = System.IO.Path.GetDirectoryName(nowq["filelocation"].ToString());
+                string dir = Path.GetDirectoryName(nowq["filelocation"].ToString());
                 if (bimgpath.StartsWith("this:/")|bimgpath.StartsWith("this:\\"))
                 {
                     bimgpath = dir+bimgpath.Substring(5, bimgpath.Length-5);
@@ -600,13 +600,11 @@ namespace typing
                     Backimgcover.Visibility = Visibility.Hidden;
                 }
 
-
                 correctans = new List<int>();
                 for (int i=0;i<ncparts.Length;i++)
                 {
                     correctans.Add(0);
                 }
-
 
                 int mik = 0;
                 int imik;

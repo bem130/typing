@@ -19,5 +19,17 @@
 
     <!--HomePage-->
     <system:String x:Key="tStart">開始</system:String>
+    <system:String x:Key="tSetting">設定</system:String>
+    <system:String x:Key="tTitle">タイトル</system:String>
+
+    <system:String x:Key="tUpdate">更新</system:String>
+    <system:String x:Key="tReference">参照⇗</system:String>
+    <system:String x:Key="tPathMessage">ファイルのあるフォルダのパスを入力⇗</system:String>
+    <system:String x:Key="tReferenceMessage">フォルダを選択してください</system:String>
+
+    <!--UserName-->
+    <system:String x:Key="tUGuest">ゲスト</system:String>
+    <system:String x:Key="tUMessageA">こんにちは! ;no;</system:String>
+    <system:String x:Key="tUMessageB">;no;</system:String>
 
 </ResourceDictionary>

@@ -157,10 +157,10 @@ namespace typing
             {
                 switch (keycode)
                 {
-                    case 44:
+                    case 55:
                         logwindow.Show();
                         break;
-                    case 45:
+                    case 54:
                         logwindow.Hide();
                         break;
                 }

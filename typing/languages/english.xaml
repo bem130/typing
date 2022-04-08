@@ -4,6 +4,9 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!-- text-->
+
+
+    <!--PlayPage-->
     <system:String x:Key="tSpaceToStart">Type space to start</system:String>
     <system:String x:Key="tQAcnt">Question</system:String>
     <system:String x:Key="tSpeed">Typed</system:String>
@@ -14,5 +17,19 @@
     <system:String x:Key="tQAGroup">Group:</system:String>
     <system:String x:Key="tKeyCode">KeyCode:</system:String>
 
+    <!--HomePage-->
+    <system:String x:Key="tStart">Start</system:String>
+    <system:String x:Key="tSetting">Setting</system:String>
+    <system:String x:Key="tTitle">Title</system:String>
+
+    <system:String x:Key="tUpdate">Update</system:String>
+    <system:String x:Key="tReference">Reference⇗</system:String>
+    <system:String x:Key="tPathMessage">Input a folder path of the files⇗</system:String>
+    <system:String x:Key="tReferenceMessage">Please select the Folder path</system:String>
+
+    <!--UserName-->
+    <system:String x:Key="tUGuest">guest</system:String>
+    <system:String x:Key="tUMessageA">Hi! ;no;</system:String>
+    <system:String x:Key="tUMessageB">;no;</system:String>
 
 </ResourceDictionary>
