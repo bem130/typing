@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="800"
       Title="Play"
+      FontFamily="{DynamicResource fDefault}"
       Background="{DynamicResource cBackground}">
     <Page.Resources>
         <ResourceDictionary>
@@ -78,12 +79,12 @@
                 <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37" Style="{DynamicResource Button}" Click="Pause_button"/>
                 <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15" Background="{DynamicResource cPbarBackground}" Foreground="{DynamicResource cPbarForeground}"></ProgressBar>
 
-                <TextBlock x:Name="Qarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
+                <TextBlock x:Name="Qarea" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
                 <Run Text="{DynamicResource tSpaceToStart}"/>
                 </TextBlock>
 
 
-                <TextBlock x:Name="Aarea" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="8" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
+                <TextBlock x:Name="Aarea" Grid.Row="8" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
                 </TextBlock>
             </Grid>
 
@@ -149,77 +150,77 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Border x:Name="kb160" Grid.Row="0" Grid.Column="1" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="半/全" x:Name="khf" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb35" Grid.Row="0" Grid.Column="2" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="!&#10;1" x:Name="k1" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb36" Grid.Row="0" Grid.Column="3" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="&quot;&#10;2" x:Name="k2" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb37" Grid.Row="0" Grid.Column="4" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="#&#10;3" x:Name="k3" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb38" Grid.Row="0" Grid.Column="5" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="$&#10;4" x:Name="k4" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb39" Grid.Row="0" Grid.Column="6" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="%&#10;5" x:Name="k5" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb40" Grid.Row="0" Grid.Column="7" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="&amp;&#10;6" x:Name="k6" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb41" Grid.Row="0" Grid.Column="8" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="'&#10;7" x:Name="k7" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb42" Grid.Row="0" Grid.Column="9" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="(&#10;8" x:Name="k8" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb43" Grid.Row="0" Grid.Column="10" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content=")&#10;9" x:Name="k9" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb34" Grid.Row="0" Grid.Column="11" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="&#10;0" x:Name="k0" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb143" Grid.Row="0" Grid.Column="12" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="=&#10;-" x:Name="kme" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb152" Grid.Row="0" Grid.Column="13" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="~&#10;^" x:Name="kct" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb150" Grid.Row="0" Grid.Column="14" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="|&#10;\" x:Name="kev" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb2" Grid.Row="0" Grid.Column="15" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="←" x:Name="kbs" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
@@ -244,32 +245,32 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Border x:Name="kb3" Grid.Row="0" Grid.Column="1" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="56" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="tab" x:Name="ktab" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb60" Grid.Row="0" Grid.Column="2" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="Q" x:Name="kq" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb66" Grid.Row="0" Grid.Column="3" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="W" x:Name="kw" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb48" Grid.Row="0" Grid.Column="4" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="E" x:Name="ke" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb61" Grid.Row="0" Grid.Column="5" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="R" x:Name="kr" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>
                         <Border x:Name="kb63" Grid.Row="0" Grid.Column="6" CornerRadius="5" BorderThickness="1" BorderBrush="#7F000000" Height="36" Width="36" Background="#FFDCD1D1">
-                            <TextBlock FontFamily="Noto Sans Light,Noto Sans JP" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">
                                 <Button Click="Keyboardkey_Click" Background="#00000000" KeyDown="OnKeyDownHandler" Content="T" x:Name="kt" BorderBrush="#00707070"/>
                             </TextBlock>
                         </Border>

@@ -1,9 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:typing">
+    
+    <!--font-->
 
+    <FontFamily x:Key="fDefault">Noto Sans</FontFamily>
+    <FontWeight x:Key="fwTitle">Light</FontWeight>
 
-    <!--default button-->
+    <!--Default Button-->
     <!--参考 https://qiita.com/tera1707/items/4a2acd893f6098737987 -->
     <Style x:Key="Button" TargetType="Button">
         <Setter Property="OverridesDefaultStyle" Value="True" />

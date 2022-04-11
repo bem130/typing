@@ -8,6 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
       Title="Title"
+      FontFamily="{DynamicResource fDefault}"
       Background="{DynamicResource cBackground}">
     <Page.Resources>
         <ResourceDictionary>
@@ -26,15 +27,15 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
-        <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="{DynamicResource tgHome}" Style="{DynamicResource Button}" BorderThickness="1"/>
+        <Button Click="Go_home" FontSize="20" Grid.Row="1" Content="{DynamicResource tgHome}" Style="{DynamicResource Button}" BorderThickness="1"/>
         <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="10" Value="{Binding Progress}" Grid.Row="2" Foreground="#FFBFBFBF" Background="White" BorderBrush="White"/>
         <Grid Height="160" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Type Fast !" FontSize="80" TextAlignment="Center" Grid.Row="0"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="120" Foreground="{DynamicResource cFontcolor}"/>
-            <TextBlock x:Name="versiondata" FontSize="20" TextAlignment="Center"  Grid.Row="1"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="40" Foreground="{DynamicResource cFontcolor}"/>
+            <TextBlock FontWeight="{DynamicResource fwTitle}" Text="Type Fast !" FontSize="80" TextAlignment="Center" Grid.Row="0"  VerticalAlignment="Center" Height="120" Foreground="{DynamicResource cFontcolor}"/>
+            <TextBlock x:Name="versiondata" FontSize="20" TextAlignment="Center"  Grid.Row="1"  VerticalAlignment="Center" Height="40" Foreground="{DynamicResource cFontcolor}"/>
         </Grid>
     </Grid>
 </Page>

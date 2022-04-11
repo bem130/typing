@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
       Title="Setting"
+      FontFamily="{DynamicResource fDefault}"
       Background="{DynamicResource cBackground}">
     <Page.Resources>
         <ResourceDictionary>
@@ -29,11 +30,11 @@
             <RowDefinition Height="45"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="{DynamicResource cTopbarBackground}" Foreground="{DynamicResource cFontcolor}" FontFamily="Noto Sans Light,Noto Sans JP">Typing - Setting</TextBlock>
-        <Button Click="upgrade" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Style="{DynamicResource Button}">設定を引継ぎ</Button>
-        <Button Click="cancel" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="3" Style="{DynamicResource Button}">変更を破棄</Button>
-        <Button Click="save" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="4" Style="{DynamicResource Button}">保存</Button>
-        <Button Click="save_Go_home" FontSize="15" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="5" Style="{DynamicResource Button}">保存してホーム</Button>
+        <TextBlock Grid.Row="0" FontSize="30" TextAlignment="left" Height="60" Padding="10,10,10,10" VerticalAlignment="Top" Background="{DynamicResource cTopbarBackground}" Foreground="{DynamicResource cFontcolor}">Typing - Setting</TextBlock>
+        <Button Click="upgrade" FontSize="15" Grid.Row="2" Style="{DynamicResource Button}" Content="{DynamicResource tsReceive}"></Button>
+        <Button Click="cancel" FontSize="15" Grid.Row="3" Style="{DynamicResource Button}" Content="{DynamicResource tsPutBack}"></Button>
+        <Button Click="save" FontSize="15" Grid.Row="4" Style="{DynamicResource Button}" Content="{DynamicResource tsSave}"></Button>
+        <Button Click="save_Go_home" FontSize="15" Grid.Row="5" Style="{DynamicResource Button}" Content="{DynamicResource tsSave_GoHome}"></Button>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Margin="76,20,76,0">
             <Grid ShowGridLines="False">

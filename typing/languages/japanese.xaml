@@ -39,6 +39,11 @@
     <system:String x:Key="tsLangTheme">言語</system:String>
     <system:String x:Key="tsPostUrl">POSTするURL</system:String>
 
+    <system:String x:Key="tsReceive">旧バージョンから引継ぎ</system:String>
+    <system:String x:Key="tsPutBack">変更を破棄</system:String>
+    <system:String x:Key="tsSave">保存</system:String>
+    <system:String x:Key="tsSave_GoHome">保存してホームへ</system:String>
+
     <!--UserName-->
     <system:String x:Key="tUGuest">ゲスト</system:String>
     <system:String x:Key="tUMessageA">こんにちは! ;no;</system:String>

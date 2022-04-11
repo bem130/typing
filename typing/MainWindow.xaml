@@ -8,8 +8,10 @@
         mc:Ignorable="d"
         Title="Typing"
         Height="600" Width="1000" MinWidth="820" MinHeight="550"
-        PreviewKeyDown="Window_PreviewKeyDown"
-        Closed="MainWindow_Closed">
+        PreviewKeyDown="Window_PreviewKeyDown" 
+        Closed="MainWindow_Closed"
+        FontFamily="{DynamicResource fDefault}"
+        >
     <Window.Resources>
     <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
