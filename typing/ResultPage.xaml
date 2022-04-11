@@ -33,8 +33,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock x:Name="message" Text="お疲れ様でした" FontSize="60" TextAlignment="Center" Grid.Row="1"  VerticalAlignment="Center" Height="80" Foreground="{DynamicResource cFontcolor}"/>
