@@ -238,7 +238,7 @@ namespace typing
                                 else
                                 {
                                     fprop[spprop[0]] = prop.Substring(spprop[0].Length+1,prop.Length-spprop[0].Length-1);
-                                    Debug.Print("filesetting "+spprop[0]+": "+fprop[spprop[0]]);
+                                    // Debug.Print("filesetting "+spprop[0]+": "+fprop[spprop[0]]);
                                 }
                             }
                         }
@@ -508,10 +508,11 @@ namespace typing
             {
                 if (!nowpause)
                 {
+                    kinput.Focus();
                 }
                 Qstopwatch.Content = sw.Elapsed.ToString();
                 Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
-                await Task.Delay(100);
+                await Task.Delay(150);
             }
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
@@ -620,7 +621,7 @@ namespace typing
                 {
                     bimgpath = dir+"\\"+bimgpath.Substring(5, bimgpath.Length-5);
                 }
-                Debug.Print(bimgpath);
+                // Debug.Print(bimgpath);
                 try
                 {
                     if (bimgpath.ToString().Length>0)
@@ -736,7 +737,7 @@ namespace typing
                     else
                     {
                         correctans[partcnt] = 1;
-                        Debug.Print(String.Join(",", correctans)+" "+(ncparts.Length*smax).ToString());
+                        // Debug.Print(String.Join(",", correctans)+" "+(ncparts.Length*smax).ToString());
                         inputpart[ipartcnt] = 0;
                         PlaySound(Properties.Resources.mis);
                         miscnt++;
@@ -815,7 +816,7 @@ namespace typing
                         {
                             bimgpath = dir+"\\"+bimgpath.Substring(5, bimgpath.Length-5);
                         }
-                        Debug.Print(bimgpath);
+                        // Debug.Print(bimgpath);
                         try
                         {
                             if (bimgpath.ToString().Length>0)
@@ -893,6 +894,12 @@ namespace typing
         private double cutnumber(double num,int len)
         {
             return ((double)((int)(num*len))/len);
+        }
+
+        private void PageGotFocus(object sender, EventArgs e)
+        {
+            kinput.Focus();
+            Debug.Print("GotFocus");
         }
 
         /// <summary>
