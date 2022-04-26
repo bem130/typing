@@ -57,10 +57,10 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="100*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="230"/>
+                <RowDefinition Height="225"/>
                 <RowDefinition Height="16"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="10,0,10,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"/>
                     <RowDefinition Height="35"/>
@@ -68,9 +68,9 @@
                     <RowDefinition Height="37"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="3*"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="20*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="20*"/>
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
 
@@ -79,13 +79,15 @@
                 <Button x:Name="Qstopwatch" Content="00:00:00" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Height="37" Style="{DynamicResource Button}" Click="Pause_button"/>
                 <ProgressBar x:Name="Aprogress" Grid.Row="4" Width="600" Height="15" Background="{DynamicResource cPbarBackground}" Foreground="{DynamicResource cPbarForeground}"></ProgressBar>
 
-                <TextBlock x:Name="Qarea" Grid.Row="6" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
-                <Run Text="{DynamicResource tSpaceToStart}"/>
-                </TextBlock>
+                <ScrollViewer Grid.Row="6" VerticalScrollBarVisibility="auto">
+                    <TextBlock x:Name="Qarea" FontSize="30"  TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
+                        <Run Text="{DynamicResource tSpaceToStart}"/>
+                    </TextBlock>
+                </ScrollViewer>
 
-
-                <TextBlock x:Name="Aarea" Grid.Row="8" FontSize="30"  TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}">
-                </TextBlock>
+                <ScrollViewer Grid.Row="8" VerticalScrollBarVisibility="auto">
+                    <TextBlock x:Name="Aarea" FontSize="30"  TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource cFontcolor}"></TextBlock>
+                </ScrollViewer>
             </Grid>
 
             <StatusBar Grid.Row="4" FontSize="8">
