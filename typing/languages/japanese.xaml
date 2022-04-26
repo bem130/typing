@@ -44,6 +44,21 @@
     <system:String x:Key="tsSave">保存</system:String>
     <system:String x:Key="tsSave_GoHome">保存してホームへ</system:String>
 
+    <!--ResultPage-->
+    <system:String x:Key="trMessage">お疲れ様でした</system:String>
+    <system:String x:Key="trRetry">再挑戦</system:String>
+    <system:String x:Key="trgHome">ホーム</system:String>
+
+    <system:String x:Key="trTime">時間(秒)</system:String>
+    <system:String x:Key="trSpeed">速さ(秒あたり)</system:String>
+    <system:String x:Key="trAccuracy">正確さ</system:String>
+    <system:String x:Key="trNumberQA">問題数</system:String>
+    <system:String x:Key="trTyped">打鍵</system:String>
+    <system:String x:Key="trMisTyped">誤打</system:String>
+
+    <system:String x:Key="trCopyResult">コピー</system:String>
+    <system:String x:Key="trPOSTResult">送信</system:String>
+
     <!--UserName-->
     <system:String x:Key="tUGuest">ゲスト</system:String>
     <system:String x:Key="tUMessageA">こんにちは! ;no;</system:String>

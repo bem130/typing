@@ -12,9 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 using System.Xml.Linq;
 using System.Data;
-using System.Diagnostics;
 using System.Resources;
 
 namespace typing
@@ -193,7 +194,33 @@ namespace typing
                 {
                     string fileline = reader.ReadLine();
                     line++;
-                    if (fileline.StartsWith("[set]")) //設定行の場合
+
+
+                    Regex args = new Regex(@"\[block(?<num>.*?)\](?<prop>.*?);");
+                    if (args.IsMatch(fileline))
+                    {
+                        int num;
+                        string prop;
+                        for (Match m = args.Match(fileline); m.Success; m = m.NextMatch())
+                        {
+                            if (String.IsNullOrEmpty(m.Groups["prop"].Value))
+                            {
+                                mainwindow.setText(0, "Error ReadingFile - there is no property in BlockLine");
+                                break;
+                            }
+                            else
+                            {
+                                prop = m.Groups["prop"].Value+";";
+                            }
+                            if (true!=Int32.TryParse(m.Groups["num"].Value, out num))
+                            {
+                                mainwindow.setText(0, "Error ReadingFile - behind the Block is must number");
+                                break;
+                            }
+                            mainwindow.setText(0, num.ToString()+" "+prop);
+                        }
+                    }
+                    else if (fileline.StartsWith("[set]")) //設定行の場合
                     {
                         string[] fprops = fileline.Substring(5,fileline.Length-5).Split(';');
                         foreach (string prop in fprops)
@@ -217,9 +244,6 @@ namespace typing
                         }
                     }
                     else if (fileline=="") //空白行の場合
-                    {
-                    }
-                    else if (fileline.StartsWith("[block]")) //ブロック行の場合
                     {
                     }
                     else if (fileline.StartsWith("[comment]")) //コメント行の場合

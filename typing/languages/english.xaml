@@ -43,7 +43,22 @@
     <system:String x:Key="tsPutBack">Put Back</system:String>
     <system:String x:Key="tsSave">Save</system:String>
     <system:String x:Key="tsSave_GoHome">Save and Go Home</system:String>
-    
+
+    <!--ResultPage-->
+    <system:String x:Key="trMessage">Finished!</system:String>
+    <system:String x:Key="trRetry">Retry</system:String>
+    <system:String x:Key="trgHome">Home</system:String>
+
+    <system:String x:Key="trTime">Time(second)</system:String>
+    <system:String x:Key="trSpeed">Speed(per second)</system:String>
+    <system:String x:Key="trAccuracy">Accuracy</system:String>
+    <system:String x:Key="trNumberQA">Number of questions</system:String>
+    <system:String x:Key="trTyped">Typed</system:String>
+    <system:String x:Key="trMisTyped">MisTyped</system:String>
+
+    <system:String x:Key="trCopyResult">Copy</system:String>
+    <system:String x:Key="trPOSTResult">POST</system:String>
+
     <!--UserName-->
     <system:String x:Key="tUGuest">guest</system:String>
     <system:String x:Key="tUMessageA">Hi! ;no;</system:String>
