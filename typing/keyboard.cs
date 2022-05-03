@@ -187,23 +187,12 @@ namespace typing
                         }
                         else //通常行の場合
                         {
-                            //Debug.Print(fileline);
                             string[] c_p = fileline.Split(':');
-                            string chars = c_p[0];
-                            //Debug.Print(String.Join(",", c_p));
                             string[] props = c_p[1].Split(';');
-                            //Debug.Print(String.Join(" ; ", props));
 
                             int[][] il;
                             int ilc = 0;
-                            if (rtd.ContainsKey(c_p[0]))
-                            {
-                                il = new int[props.Length][];
-                            }
-                            else
-                            {
-                                il = new int[props.Length][];
-                            }
+                            il = new int[props.Length][];
                             foreach (string prop in props)
                             {
                                 string[] spp = prop.Split(',');
