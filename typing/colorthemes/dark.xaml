@@ -37,8 +37,8 @@
     <Brush x:Key="cBackimgCover">#B2191526</Brush>
 
     <!--colors-->
-    <Brush x:Key="cAreaTrue">#FF0000FF</Brush>
-    <Brush x:Key="cAreaFalse">#FFFF0000</Brush>
-    <Brush x:Key="cAreaDef">#FF000000</Brush>
+    <Brush x:Key="cAreaTrue">#FFAAAAFF</Brush>
+    <Brush x:Key="cAreaFalse">#FFFFAAAA</Brush>
+    <Brush x:Key="cAreaDef">#FFCCCCCC</Brush>
     
 </ResourceDictionary>

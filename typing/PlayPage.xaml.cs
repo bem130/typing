@@ -11,12 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 using System.Xml.Linq;
 using System.Data;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Resources;
 
 namespace typing
@@ -70,7 +69,7 @@ namespace typing
 
             keyb = new keyboard();
 
-            setcolortheme();
+            settheme();
             keyb.setcparts();
             ckeys = keyb.ckeys;
             ckeyskeys = keyb.ckeyskeys;
@@ -124,7 +123,7 @@ namespace typing
         /// <summary>
         /// カラーテーマの設定
         /// </summary>
-        public void setcolortheme()
+        public void settheme()
         {
             try
             {
@@ -132,9 +131,15 @@ namespace typing
                 ResourceDictionary dic = new ResourceDictionary();
                 dic.Source = new Uri(dicPath, UriKind.Relative);
                 this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
             }
             catch (Exception e)
             {
+                Debug.Print(e.ToString());
             }
         }
         /// <summary>
@@ -174,6 +179,9 @@ namespace typing
                     {"information",""},
                     {"type",""},
                     {"backimage",""},
+                    {"tableq",""},
+                    {"tablea",""},
+                    {"tabledef",","},
                 };
                 Dictionary<string, string> dfprop = new Dictionary<string, string>()
                 {
@@ -183,13 +191,42 @@ namespace typing
                     {"information",""},
                     {"type",""},
                     {"backimage",""},
+                    {"tableq",""},
+                    {"tablea",""},
+                    {"tabledef",","},
                 };
                 int line = 0;
                 while (reader.Peek() >= 0)
                 {
                     string fileline = reader.ReadLine();
                     line++;
-                    if (fileline.StartsWith("[set]")) //設定行の場合
+
+
+                    Regex args = new Regex(@"\[block(?<num>.*?)\](?<prop>.*?);");
+                    if (args.IsMatch(fileline))
+                    {
+                        int num;
+                        string prop;
+                        for (Match m = args.Match(fileline); m.Success; m = m.NextMatch())
+                        {
+                            if (String.IsNullOrEmpty(m.Groups["prop"].Value))
+                            {
+                                mainwindow.setText(0, "Error ReadingFile - there is no property in BlockLine");
+                                break;
+                            }
+                            else
+                            {
+                                prop = m.Groups["prop"].Value+";";
+                            }
+                            if (true!=Int32.TryParse(m.Groups["num"].Value, out num))
+                            {
+                                mainwindow.setText(0, "Error ReadingFile - behind the Block is must number");
+                                break;
+                            }
+                            mainwindow.setText(0, num.ToString()+" "+prop);
+                        }
+                    }
+                    else if (fileline.StartsWith("[set]")) //設定行の場合
                     {
                         string[] fprops = fileline.Substring(5,fileline.Length-5).Split(';');
                         foreach (string prop in fprops)
@@ -207,7 +244,7 @@ namespace typing
                                 else
                                 {
                                     fprop[spprop[0]] = prop.Substring(spprop[0].Length+1,prop.Length-spprop[0].Length-1);
-                                    Debug.Print("filesetting "+spprop[0]+": "+fprop[spprop[0]]);
+                                    // Debug.Print("filesetting "+spprop[0]+": "+fprop[spprop[0]]);
                                 }
                             }
                         }
@@ -232,29 +269,50 @@ namespace typing
                         if (fileline.Length > 0)
                         {
                             {
-                                if (fprop["type"] == "ja_word")
+                                if (fprop["type"] == "en_text")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
-                                    QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"],fprop["backimage"],fprop["information"]);
+                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
-                                if (fprop["type"] == "ja_sentence")
+                                if (fprop["type"] == "ja_text")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
                                     QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
-                                if (fprop["type"] == "en_word")
+                                if (fprop["type"] == "ar_text")
                                 {
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
                                     QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                                 }
-                                if (fprop["type"] == "en_sentence")
+
                                 {
-                                    string[] qaline = fileline.Split(fprop["split"][0]);
-                                    questionid++;
-                                    QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    if (fprop["type"] == "ja_word")
+                                    {
+                                        string[] qaline = fileline.Split(fprop["split"][0]);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    }
+                                    if (fprop["type"] == "ja_sentence")
+                                    {
+                                        string[] qaline = fileline.Split(fprop["split"][0]);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, qaline[0], qaline[1], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    }
+                                    if (fprop["type"] == "en_word")
+                                    {
+                                        string[] qaline = fileline.Split(fprop["split"][0]);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    }
+                                    if (fprop["type"] == "en_sentence")
+                                    {
+                                        string[] qaline = fileline.Split(fprop["split"][0]);
+                                        questionid++;
+                                        QAd.Rows.Add(questionid, qaline[0], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                    }
                                 }
                             }
                             {
@@ -269,6 +327,18 @@ namespace typing
                                     string[] qaline = fileline.Split(fprop["split"][0]);
                                     questionid++;
                                     QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+                                }
+                            }
+                            {
+                                if (fprop["type"] == "table")
+                                {
+                                    string[] qaline = fileline.Split(fprop["split"][0]);
+                                    questionid++;
+                                    string[] tabledef = fprop["tabledef"].Split(',');
+                                    int indexq = Array.IndexOf(tabledef, fprop["tableq"]);
+                                    int indexa = Array.IndexOf(tabledef, fprop["tablea"]);
+                                    QAd.Rows.Add(questionid, qaline[indexq], qaline[indexa], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
+
                                 }
                             }
                             {
@@ -299,115 +369,106 @@ namespace typing
                                     }
                                 }
                                 {
-                                    string npt1 = "dec";
-                                    string npt2 = "dec";
-                                    int pn1 = 10;
-                                    int pn2 = 10;
-                                    if (fprop["type"].Substring(0,3) == "hex")
+                                    if (fprop["type"].Length>7)
                                     {
-                                        npt1 = "hex";
-                                        pn1 = 16;
-                                    }
-                                    if (fprop["type"].Substring(4,3) == "hex")
-                                    {
-                                        npt2 = "hex";
-                                        pn2 = 16;
-                                    }
-                                    if (fprop["type"].Substring(0, 3) == "bin")
-                                    {
-                                        npt1 = "bin";
-                                        pn1 = 2;
-                                    }
-                                    if (fprop["type"].Substring(4, 3) == "bin")
-                                    {
-                                        npt2 = "bin";
-                                        pn2 = 2;
-                                    }
-                                    string npt = npt1 + "-" + npt2;
-                                    if (fprop["type"].Substring(7) == "_math-addition_rm")
-                                    {
-                                        string[] qaline = fileline.Split(fprop["split"][0]);
-                                        int num = int.Parse(qaline[4]);
-                                        int min1 = int.Parse(qaline[0]);
-                                        int min2 = int.Parse(qaline[2]);
-                                        int max1 = int.Parse(qaline[1]);
-                                        int max2 = int.Parse(qaline[3]);
-                                        for (int c = 0; c<num; c++)
+                                        string npt1 = "dec";
+                                        string npt2 = "dec";
+                                        int pn1 = 10;
+                                        int pn2 = 10;
+                                        if (fprop["type"].Substring(0, 3) == "hex")
                                         {
-                                            Random r = new Random(Environment.TickCount+questionid*5+line*5);
-                                            int num1 = r.Next(min1, max1);
-                                            int num2 = r.Next(min2, max2);
-                                            questionid++;
-                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" + "+Convert.ToString(num2, pn1), Convert.ToString((num1 + num2),pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-addition_rm", fprop["backimage"], fprop["information"]);
+                                            npt1 = "hex";
+                                            pn1 = 16;
                                         }
-                                    }
-                                    if (fprop["type"].Substring(7) == "_math-subtraction_rm")
-                                    {
-                                        string[] qaline = fileline.Split(fprop["split"][0]);
-                                        int num = int.Parse(qaline[4]);
-                                        int min1 = int.Parse(qaline[0]);
-                                        int min2 = int.Parse(qaline[2]);
-                                        int max1 = int.Parse(qaline[1]);
-                                        int max2 = int.Parse(qaline[3]);
-                                        for (int c = 0; c<num; c++)
+                                        if (fprop["type"].Substring(4, 3) == "hex")
                                         {
-                                            Random r = new Random(Environment.TickCount+questionid*5+line*5);
-                                            int num1 = r.Next(min1, max1);
-                                            int num2 = r.Next(min2, max2);
-                                            questionid++;
-                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" - "+Convert.ToString(num2, pn1), Int_to_String((num1 - num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-addition_rm", fprop["backimage"], fprop["information"]);
+                                            npt2 = "hex";
+                                            pn2 = 16;
                                         }
-                                    }
-                                    if (fprop["type"].Substring(7) == "_math-multiplication_rm")
-                                    {
-                                        string[] qaline = fileline.Split(fprop["split"][0]);
-                                        int num = int.Parse(qaline[4]);
-                                        int min1 = int.Parse(qaline[0]);
-                                        int min2 = int.Parse(qaline[2]);
-                                        int max1 = int.Parse(qaline[1]);
-                                        int max2 = int.Parse(qaline[3]);
-                                        for (int c = 0; c<num; c++)
+                                        if (fprop["type"].Substring(0, 3) == "bin")
                                         {
-                                            Random r = new Random(Environment.TickCount+questionid*5+line*5);
-                                            int num1 = r.Next(min1, max1);
-                                            int num2 = r.Next(min2, max2);
-                                            questionid++;
-                                            QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" × "+Convert.ToString(num2, pn1), Convert.ToString((num1 * num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-multiplicationvvv_rm", fprop["backimage"], fprop["information"]);
+                                            npt1 = "bin";
+                                            pn1 = 2;
                                         }
-                                    }
-                                    if (fprop["type"].Substring(7) == "_math-division_rm")
-                                    {
-                                        string[] qaline = fileline.Split(fprop["split"][0]);
-                                        int num = int.Parse(qaline[4]);
-                                        int min1 = int.Parse(qaline[0]);
-                                        int min2 = int.Parse(qaline[2]);
-                                        int max1 = int.Parse(qaline[1]);
-                                        int max2 = int.Parse(qaline[3]);
-                                        for (int c = 0; c<num; c++)
+                                        if (fprop["type"].Substring(4, 3) == "bin")
                                         {
-                                            Random r = new Random(Environment.TickCount+questionid*5+line*5);
-                                            int num1 = r.Next(min1, max1);
-                                            int num2 = r.Next(min2, max2);
-                                            if (num2 != 0)
+                                            npt2 = "bin";
+                                            pn2 = 2;
+                                        }
+                                        string npt = npt1 + "-" + npt2;
+                                        if (fprop["type"].Substring(7) == "_math-addition_rm")
+                                        {
+                                            string[] qaline = fileline.Split(fprop["split"][0]);
+                                            int num = int.Parse(qaline[4]);
+                                            int min1 = int.Parse(qaline[0]);
+                                            int min2 = int.Parse(qaline[2]);
+                                            int max1 = int.Parse(qaline[1]);
+                                            int max2 = int.Parse(qaline[3]);
+                                            for (int c = 0; c<num; c++)
                                             {
+                                                Random r = new Random(Environment.TickCount+questionid*5+line*5);
+                                                int num1 = r.Next(min1, max1);
+                                                int num2 = r.Next(min2, max2);
                                                 questionid++;
-                                                QAd.Rows.Add(questionid, Convert.ToString((num1*num2),pn1)+" ÷ "+Convert.ToString(num2, pn1), Convert.ToString(num1, pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-division_rm", fprop["backimage"], fprop["information"]);
+                                                QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" + "+Convert.ToString(num2, pn1), Convert.ToString((num1 + num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-addition_rm", fprop["backimage"], fprop["information"]);
+                                            }
+                                        }
+                                        if (fprop["type"].Substring(7) == "_math-subtraction_rm")
+                                        {
+                                            string[] qaline = fileline.Split(fprop["split"][0]);
+                                            int num = int.Parse(qaline[4]);
+                                            int min1 = int.Parse(qaline[0]);
+                                            int min2 = int.Parse(qaline[2]);
+                                            int max1 = int.Parse(qaline[1]);
+                                            int max2 = int.Parse(qaline[3]);
+                                            for (int c = 0; c<num; c++)
+                                            {
+                                                Random r = new Random(Environment.TickCount+questionid*5+line*5);
+                                                int num1 = r.Next(min1, max1);
+                                                int num2 = r.Next(min2, max2);
+                                                questionid++;
+                                                QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" - "+Convert.ToString(num2, pn1), Int_to_String((num1 - num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-addition_rm", fprop["backimage"], fprop["information"]);
+                                            }
+                                        }
+                                        if (fprop["type"].Substring(7) == "_math-multiplication_rm")
+                                        {
+                                            string[] qaline = fileline.Split(fprop["split"][0]);
+                                            int num = int.Parse(qaline[4]);
+                                            int min1 = int.Parse(qaline[0]);
+                                            int min2 = int.Parse(qaline[2]);
+                                            int max1 = int.Parse(qaline[1]);
+                                            int max2 = int.Parse(qaline[3]);
+                                            for (int c = 0; c<num; c++)
+                                            {
+                                                Random r = new Random(Environment.TickCount+questionid*5+line*5);
+                                                int num1 = r.Next(min1, max1);
+                                                int num2 = r.Next(min2, max2);
+                                                questionid++;
+                                                QAd.Rows.Add(questionid, Convert.ToString(num1, pn1)+" × "+Convert.ToString(num2, pn1), Convert.ToString((num1 * num2), pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-multiplicationvvv_rm", fprop["backimage"], fprop["information"]);
+                                            }
+                                        }
+                                        if (fprop["type"].Substring(7) == "_math-division_rm")
+                                        {
+                                            string[] qaline = fileline.Split(fprop["split"][0]);
+                                            int num = int.Parse(qaline[4]);
+                                            int min1 = int.Parse(qaline[0]);
+                                            int min2 = int.Parse(qaline[2]);
+                                            int max1 = int.Parse(qaline[1]);
+                                            int max2 = int.Parse(qaline[3]);
+                                            for (int c = 0; c<num; c++)
+                                            {
+                                                Random r = new Random(Environment.TickCount+questionid*5+line*5);
+                                                int num1 = r.Next(min1, max1);
+                                                int num2 = r.Next(min2, max2);
+                                                if (num2 != 0)
+                                                {
+                                                    questionid++;
+                                                    QAd.Rows.Add(questionid, Convert.ToString((num1*num2), pn1)+" ÷ "+Convert.ToString(num2, pn1), Convert.ToString(num1, pn2), "", fprop["title"], filePath, line.ToString(), npt+"_math-division_rm", fprop["backimage"], fprop["information"]);
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
-                            if (fprop["type"] == "ja-en_word")
-                            {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
-                            }
-                            if (fprop["type"] == "ja-en_sentence")
-                            {
-                                string[] qaline = fileline.Split(fprop["split"][0]);
-                                questionid++;
-                                QAd.Rows.Add(questionid, qaline[1], qaline[0], "", fprop["title"], filePath, line.ToString(), fprop["type"], fprop["backimage"], fprop["information"]);
                             }
                         }
                     }
@@ -440,7 +501,6 @@ namespace typing
                 return;
             }
             ((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
-            //((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#AA5588D1");
             int nkeyf = keyf;
             await Task.Delay(500);
             if (nkeyf==keyf)
@@ -455,7 +515,6 @@ namespace typing
                 return;
             }
             ((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
-            //((Border)FindName("kb"+Math.Abs(keyname_).ToString())).Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFDCD1D1");
         }
         async void missback()
         {
@@ -474,7 +533,7 @@ namespace typing
                 }
                 Qstopwatch.Content = sw.Elapsed.ToString();
                 Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
-                await Task.Delay(100);
+                await Task.Delay(150);
             }
         }
         private void OnKeyDownHandler(object sender, KeyEventArgs e) // キーボード入力受付
@@ -500,7 +559,6 @@ namespace typing
                     pause();
                 }
                 im(Keycode);
-                kinput.Focus();
             }
             else
             {
@@ -524,7 +582,7 @@ namespace typing
             miscnt = 0;
             typecnt = 0;
             QAallcnt.Text = allcnt.ToString();
-            QAmiscnt.Text = miscnt.ToString();
+            QAsuccesscnt.Text = (typecnt-miscnt).ToString();
             keyc(18);
             kinput.Focus();
         }
@@ -565,7 +623,7 @@ namespace typing
                     ncparts = splita(nowq["answer"].ToString());
                 }
                 Qarea.Text = nowq["question"].ToString();
-                QAfilename.Text = nowq["filelocation"].ToString();
+                QAfilename.Text = Path.GetFileName(nowq["filelocation"].ToString());
                 QAlinecnt.Text = nowq["fileline"].ToString();
                 Qtitle.Text = nowq["title"].ToString();
                 QAtype.Text = nowq["type"].ToString();
@@ -575,7 +633,7 @@ namespace typing
 
 
                 string bimgpath = nowq["backimage"].ToString();
-                string dir = System.IO.Path.GetDirectoryName(nowq["filelocation"].ToString());
+                string dir = Path.GetDirectoryName(nowq["filelocation"].ToString());
                 if (bimgpath.StartsWith("this:/")|bimgpath.StartsWith("this:\\"))
                 {
                     bimgpath = dir+bimgpath.Substring(5, bimgpath.Length-5);
@@ -584,7 +642,7 @@ namespace typing
                 {
                     bimgpath = dir+"\\"+bimgpath.Substring(5, bimgpath.Length-5);
                 }
-                Debug.Print(bimgpath);
+                // Debug.Print(bimgpath);
                 try
                 {
                     if (bimgpath.ToString().Length>0)
@@ -609,13 +667,11 @@ namespace typing
                     Backimgcover.Visibility = Visibility.Hidden;
                 }
 
-
                 correctans = new List<int>();
                 for (int i=0;i<ncparts.Length;i++)
                 {
                     correctans.Add(0);
                 }
-
 
                 int mik = 0;
                 int imik;
@@ -702,16 +758,16 @@ namespace typing
                     else
                     {
                         correctans[partcnt] = 1;
-                        Debug.Print(String.Join(",", correctans)+" "+(ncparts.Length*smax).ToString());
+                        // Debug.Print(String.Join(",", correctans)+" "+(ncparts.Length*smax).ToString());
                         inputpart[ipartcnt] = 0;
                         PlaySound(Properties.Resources.mis);
                         miscnt++;
-                        QAmiscnt.Text = miscnt.ToString();
                     }
                 }
+                QAsuccesscnt.Text = (typecnt-miscnt).ToString();
+
                 nowa = new string[partcnt];
                 Array.Copy(ncparts, 0, nowa, 0, partcnt);
-
 
                 TextBlock a = Aarea;
                 Run b;
@@ -764,7 +820,7 @@ namespace typing
                         }
 
                         ncparts = splita(nowq["answer"].ToString());
-                        QAfilename.Text = nowq["filelocation"].ToString();
+                        QAfilename.Text = Path.GetFileName(nowq["filelocation"].ToString());
                         QAlinecnt.Text = nowq["fileline"].ToString();
                         Qtitle.Text = nowq["title"].ToString();
                         QAtype.Text = nowq["type"].ToString();
@@ -772,7 +828,7 @@ namespace typing
                         Information.Text = nowq["information"].ToString();
 
                         string bimgpath = nowq["backimage"].ToString();
-                        string dir = System.IO.Path.GetDirectoryName(nowq["filelocation"].ToString());
+                        string dir = Path.GetDirectoryName(nowq["filelocation"].ToString());
                         if (bimgpath.StartsWith("this:/")|bimgpath.StartsWith("this:\\"))
                         {
                             bimgpath = dir+bimgpath.Substring(5, bimgpath.Length-5);
@@ -781,7 +837,7 @@ namespace typing
                         {
                             bimgpath = dir+"\\"+bimgpath.Substring(5, bimgpath.Length-5);
                         }
-                        Debug.Print(bimgpath);
+                        // Debug.Print(bimgpath);
                         try
                         {
                             if (bimgpath.ToString().Length>0)
@@ -805,15 +861,11 @@ namespace typing
                         {
                             Backimgcover.Visibility = Visibility.Hidden;
                         }
-
-
                         correctans = new List<int>();
                         for (i = 0; i<ncparts.Length; i++)
                         {
                             correctans.Add(0);
                         }
-
-
                         int mik = 1;
                         foreach (string ch in ncparts)
                         {
@@ -865,6 +917,12 @@ namespace typing
             return ((double)((int)(num*len))/len);
         }
 
+        private void PageGotFocus(object sender, EventArgs e)
+        {
+            kinput.Focus();
+            Debug.Print("GotFocus");
+        }
+
         /// <summary>
         /// 効果音の再生
         /// </summary>
@@ -885,11 +943,12 @@ namespace typing
         /// <summary>
         /// 一時停止
         /// </summary>
-        async private void Pause_button(object sender, RoutedEventArgs e)
+        private void Pause_button(object sender, RoutedEventArgs e)
         {
-            pause();
-            await Task.Delay(10);
-            kinput.Focus();
+            if (nowplay)
+            {
+                pause();
+            }
         }
         private void Resume_button(object sender, RoutedEventArgs e)
         {
@@ -909,7 +968,6 @@ namespace typing
             kinput.Focus();
             sw.Start();
         }
-
         private void Retire_button(object sender, RoutedEventArgs e)
         {
             finished();

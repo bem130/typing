@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 using Microsoft.Win32;
 // using System.Windows.Forms;
 using System.Diagnostics;
@@ -32,37 +33,39 @@ namespace typing
 
             InitializeComponent();
 
-            //TextBlock a = title;
-            //var b = new Run(" Home Page");
-            //b.Foreground = new SolidColorBrush(Color.FromArgb(250,0,252,25));
-            //a.Inlines.Add(b);
-
-            setcolortheme();
+            settheme();
 
             serchdir.Text = Properties.Settings.Default.questions_dir;
 
-            Menu.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
+            Menu.SelectionMode = SelectionMode.Multiple;
             makemenu();
 
             string username;
             if (Properties.Settings.Default.username == "")
             {
-                username = "ゲスト";
+                username = (String)this.FindResource("tUGuest");
             }
             else
             {
                 username = Properties.Settings.Default.username;
             }
             Application.Current.Properties["UserName"] = username;
-            messagea.Text = username+"さん "+"こんにちは!";
+            String mesA = Regex.Replace((String)this.FindResource("tUMessageA"),";no;",String.Empty);
+            String mesB = Regex.Replace((String)this.FindResource("tUMessageB"),";no;", String.Empty);
+            messagea.Text = mesA+username+mesB;
         }
 
-        public void setcolortheme()
+        public void settheme()
         {
             try
             {
                 string dicPath = Properties.Settings.Default.colortheme;
                 ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
                 dic.Source = new Uri(dicPath, UriKind.Relative);
                 this.Resources.MergedDictionaries.Add(dic);
             }
@@ -109,7 +112,6 @@ namespace typing
         {
             if (Menu.SelectedItems.Count == 0)
             {
-                // 選択項目がないので処理をせず抜ける
                 return;
             }
             List<string> menupath = new List<string>();
@@ -123,21 +125,18 @@ namespace typing
             NavigationService.Navigate(tpage);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void reference(object sender, RoutedEventArgs e)
         {
-            // フォルダー参照ダイアログのインスタンスを生成
             var dlg = new System.Windows.Forms.FolderBrowserDialog();
 
-            // 説明文を設定
             dlg.SelectedPath = serchdir.Text;
-            dlg.Description = "フォルダーを選択してください。";
+            dlg.Description = (String)this.FindResource("tReferenceMessage");
 
-            // ダイアログを表示
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                // 選択されたフォルダーパスをメッセージボックスに表示
                 serchdir.Text = dlg.SelectedPath;
             }
+            menu_update(sender, e);
         }
 
         // https://resanaplaza.com/%E3%80%90c%E3%80%91%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E9%85%8D%E4%B8%8B%E3%81%AE%E5%85%A8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8B%E3%82%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E6%83%85%E5%A0%B1/

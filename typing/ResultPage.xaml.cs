@@ -38,7 +38,7 @@ namespace typing
 
             date = DateTime.Now.ToString();
             InitializeComponent();
-            setcolortheme();
+            settheme();
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
             aname = asm.GetName().Name;
@@ -46,12 +46,23 @@ namespace typing
 
             show();
         }
-        public void setcolortheme()
+        public void settheme()
         {
-            string dicPath = Properties.Settings.Default.colortheme;
-            ResourceDictionary dic = new ResourceDictionary();
-            dic.Source = new Uri(dicPath, UriKind.Relative);
-            this.Resources.MergedDictionaries.Add(dic);
+            try
+            {
+                string dicPath = Properties.Settings.Default.colortheme;
+                ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+            }
+            catch (Exception e)
+            {
+            }
         }
         private void retry(object sender, RoutedEventArgs e)
         {

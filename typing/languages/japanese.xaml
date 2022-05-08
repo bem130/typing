@@ -1,0 +1,68 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:typing"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- text-->
+    
+    
+    <!--PlayPage-->
+    <system:String x:Key="tSpaceToStart">スペースを押してスタート</system:String>
+    <system:String x:Key="tQAcnt">問題</system:String>
+    <system:String x:Key="tSpeed">打鍵</system:String>
+    <system:String x:Key="tAccuracy">正確さ</system:String>
+    <system:String x:Key="tAboutQA">問題</system:String>
+    <system:String x:Key="tQAFile">ファイル:</system:String>
+    <system:String x:Key="tQALine">行:</system:String>
+    <system:String x:Key="tQAGroup">種類:</system:String>
+    <system:String x:Key="tKeyCode">キーコード:</system:String>
+
+    <!--HomePage-->
+    <system:String x:Key="tStart">開始</system:String>
+    <system:String x:Key="tSetting">設定</system:String>
+    <system:String x:Key="tTitle">タイトル</system:String>
+
+    <system:String x:Key="tUpdate">更新</system:String>
+    <system:String x:Key="tReference">参照⇗</system:String>
+    <system:String x:Key="tPathMessage">ファイルのあるフォルダのパスを入力⇗</system:String>
+    <system:String x:Key="tReferenceMessage">フォルダを選択してください</system:String>
+    
+    <!--TitlePage-->
+    <system:String x:Key="tgHome">ホーム</system:String>
+
+    <!--SettingPage-->
+    <system:String x:Key="tsUserName">ユーザー名</system:String>
+    <system:String x:Key="tsSerchDir">標準の問題フォルダ</system:String>
+    <system:String x:Key="tsKeyboardFiles">キーボードのファイル</system:String>
+    <system:String x:Key="tsScale">表示サイズ</system:String>
+    <system:String x:Key="tsColorTheme">カラーテーマ</system:String>
+    <system:String x:Key="tsLangTheme">言語</system:String>
+    <system:String x:Key="tsPostUrl">POSTするURL</system:String>
+
+    <system:String x:Key="tsReceive">旧バージョンから引継ぎ</system:String>
+    <system:String x:Key="tsPutBack">変更を破棄</system:String>
+    <system:String x:Key="tsSave">保存</system:String>
+    <system:String x:Key="tsSave_GoHome">保存してホームへ</system:String>
+
+    <!--ResultPage-->
+    <system:String x:Key="trMessage">お疲れ様でした</system:String>
+    <system:String x:Key="trRetry">再挑戦</system:String>
+    <system:String x:Key="trgHome">ホーム</system:String>
+
+    <system:String x:Key="trTime">時間(秒)</system:String>
+    <system:String x:Key="trSpeed">速さ(秒あたり)</system:String>
+    <system:String x:Key="trAccuracy">正確さ</system:String>
+    <system:String x:Key="trNumberQA">問題数</system:String>
+    <system:String x:Key="trTyped">打鍵</system:String>
+    <system:String x:Key="trMisTyped">誤打</system:String>
+
+    <system:String x:Key="trCopyResult">コピー</system:String>
+    <system:String x:Key="trPOSTResult">送信</system:String>
+
+    <!--UserName-->
+    <system:String x:Key="tUGuest">ゲスト</system:String>
+    <system:String x:Key="tUMessageA">こんにちは! ;no;</system:String>
+    <system:String x:Key="tUMessageB">;no;</system:String>
+
+
+</ResourceDictionary>

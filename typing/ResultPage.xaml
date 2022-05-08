@@ -7,12 +7,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ResultPage"
+      FontFamily="{DynamicResource fDefault}"
       Background="{DynamicResource cBackground}">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="elements.xaml"/>
                 <ResourceDictionary Source="colorthemes/default.xaml"/>
+                <ResourceDictionary Source="languages/japanese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -25,17 +27,17 @@
         </Grid.RowDefinitions>
 
 
-        <Button Click="retry" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Content="リトライ" Style="{DynamicResource Button}"/>
-        <Button Click="Go_home" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Content="ホーム" Style="{DynamicResource Button}"/>
+        <Button Click="retry" FontSize="20" Grid.Row="1" Content="{DynamicResource trRetry}" Style="{DynamicResource Button}"/>
+        <Button Click="Go_home" FontSize="20" Grid.Row="2" Content="{DynamicResource trgHome}" Style="{DynamicResource Button}"/>
         <Grid Grid.Row="0" Margin="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="message" Text="お疲れ様でした" FontSize="60" TextAlignment="Center" Grid.Row="1"  VerticalAlignment="Center" FontFamily="Noto Sans Light,Noto Sans JP" Height="80" Foreground="{DynamicResource cFontcolor}"/>
+            <TextBlock x:Name="message" Text="{DynamicResource trMessage}" FontSize="60" TextAlignment="Center" Grid.Row="1"  VerticalAlignment="Center" Height="80" Foreground="{DynamicResource cFontcolor}"/>
 
             <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Margin="50,0,50,0">
                 <Grid Margin="0,0,0,0">
@@ -58,12 +60,12 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">合計時間(秒)</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">速さ(1秒あたり)</TextBlock>
-                        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">正解率(%)</TextBlock>
-                        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">問題数</TextBlock>
-                        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">タイプ数</TextBlock>
-                        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">ミスタイプ数</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}" Text="{DynamicResource trTime}"></TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}" Text="{DynamicResource trSpeed}"></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}" Text="{DynamicResource trAccuracy}"></TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}" Text="{DynamicResource trNumberQA}"></TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}" Text="{DynamicResource trTyped}"></TextBlock>
+                        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}" Text="{DynamicResource trMisTyped}"></TextBlock>
 
                         <TextBlock x:Name="timev" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                         <TextBlock x:Name="speedv" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
@@ -72,8 +74,8 @@
                         <TextBlock x:Name="typecntv" Grid.Row="4" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                         <TextBlock x:Name="miscntv" Grid.Row="5" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" Foreground="{DynamicResource cFontcolor}">0</TextBlock>
                     </Grid>
-                    <Button Click="post_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="1" Grid.ColumnSpan="2" Content="結果をポスト (テキスト)" Style="{DynamicResource Button}"/>
-                    <Button Click="copyr_text" FontSize="20" FontFamily="Noto Sans Light,Noto Sans JP" Grid.Row="2" Grid.ColumnSpan="2" Content="結果をコピー (テキスト)" Style="{DynamicResource Button}"/>
+                    <Button Click="post_text" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" Style="{DynamicResource Button}" Content="{DynamicResource trPOSTResult}"/>
+                    <Button Click="copyr_text" FontSize="20" Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource Button}" Content="{DynamicResource trCopyResult}"/>
                 </Grid>
 
             </ScrollViewer>

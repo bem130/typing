@@ -28,7 +28,7 @@ namespace typing
             mainwindow.setText(0,"Open Setting");
 
             InitializeComponent();
-            setcolortheme();
+            settheme();
 
             colortheme.ItemsSource = new Dictionary<string, string>()
             {
@@ -37,15 +37,25 @@ namespace typing
                 { "colorthemes/dark.xaml", "dark" },
                 { "colorthemes/yellow.xaml", "yellow" },
             };
+            langtheme.ItemsSource = new Dictionary<string, string>()
+            {
+                { "languages/japanese.xaml", "japanese" },
+                { "languages/english.xaml", "english" },
+            };
             show_setting();
         }
 
-        public void setcolortheme()
+        public void settheme()
         {
             try
             {
                 string dicPath = Properties.Settings.Default.colortheme;
                 ResourceDictionary dic = new ResourceDictionary();
+                dic.Source = new Uri(dicPath, UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(dic);
+
+                dicPath = Properties.Settings.Default.langtheme;
+                dic = new ResourceDictionary();
                 dic.Source = new Uri(dicPath, UriKind.Relative);
                 this.Resources.MergedDictionaries.Add(dic);
             }
@@ -58,8 +68,9 @@ namespace typing
         {
             username.Text = Properties.Settings.Default.username;
             colortheme.SelectedValue = Properties.Settings.Default.colortheme;
+            langtheme.SelectedValue = Properties.Settings.Default.langtheme;
             serchdir.Text = Properties.Settings.Default.questions_dir;
-            keyboarddir.Text = Properties.Settings.Default.keyboard_dir;
+            keyboardfiles.Text = Properties.Settings.Default.keyboard_dir;
             scale.Value = Properties.Settings.Default.scale;
             posturl.Text = Properties.Settings.Default.posturl;
         }
@@ -69,22 +80,23 @@ namespace typing
         {
             Properties.Settings.Default.username = username.Text;
             Properties.Settings.Default.colortheme = colortheme.SelectedValue.ToString();
+            Properties.Settings.Default.langtheme = langtheme.SelectedValue.ToString();
             Properties.Settings.Default.questions_dir = serchdir.Text;
-            Properties.Settings.Default.keyboard_dir = keyboarddir.Text;
+            Properties.Settings.Default.keyboard_dir = keyboardfiles.Text;
             Properties.Settings.Default.scale = scale.Value;
             Properties.Settings.Default.posturl = posturl.Text;
 
             Properties.Settings.Default.Save();
             setscale();
-            setcolortheme();
-            mainwindow.call_setcolortheme_logwindow();
+            settheme();
+            mainwindow.call_settheme_logwindow();
         }
         private void save(object sender, RoutedEventArgs e) {save();}
         private void save_Go_home(object sender, RoutedEventArgs e)
         {
             save();
             setscale();
-            setcolortheme();
+            settheme();
             var tpage = new HomePage();
             NavigationService.Navigate(tpage);
         }
@@ -98,7 +110,7 @@ namespace typing
 
         private void cancel(object sender, RoutedEventArgs e)
         {
-            setcolortheme();
+            settheme();
 
             show_setting();
         }
