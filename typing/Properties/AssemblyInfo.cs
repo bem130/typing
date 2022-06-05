@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("Type Fast !")]
 [assembly: AssemblyDescription("typing game")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("haruki1234")]
+[assembly: AssemblyCompany("haruk1234")]
 [assembly: AssemblyProduct("neknaj.typing")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
@@ -51,5 +51,5 @@ using System.Windows;
 // すべての値を指定するか、次を使用してビルド番号とリビジョン番号を既定に設定できます
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.0.2")]
-[assembly: AssemblyFileVersion("1.3.0.2")]
+[assembly: AssemblyVersion("1.3.0.4")]
+[assembly: AssemblyFileVersion("1.3.0.4")]

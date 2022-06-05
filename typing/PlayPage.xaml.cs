@@ -527,12 +527,20 @@ namespace typing
             await Task.Delay(10);
             while (nowplay)
             {
+                Qstopwatch.Content = sw.Elapsed.ToString();
+                Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
+                await Task.Delay(150);
+            }
+        }
+        async void focus()
+        {
+            await Task.Delay(10);
+            while (true)
+            {
                 if (!nowpause)
                 {
                     kinput.Focus();
                 }
-                Qstopwatch.Content = sw.Elapsed.ToString();
-                Qtypespeed.Text = cutnumber(typecnt/sw.Elapsed.TotalSeconds,100).ToString();
                 await Task.Delay(150);
             }
         }
@@ -585,6 +593,7 @@ namespace typing
             QAsuccesscnt.Text = (typecnt-miscnt).ToString();
             keyc(18);
             kinput.Focus();
+            focus();
         }
 
         /// <summary>
@@ -855,7 +864,6 @@ namespace typing
                         catch (FileNotFoundException e)
                         {
                             Backimgcover.Visibility = Visibility.Hidden;
-                            Console.WriteLine("NotFound: " + e.FileName);
                         }
                         catch (Exception e)
                         {
