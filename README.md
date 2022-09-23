@@ -1,4 +1,4 @@
-# typing
+# Fast Type!
 
 タイピングゲーム  
 typing game  
